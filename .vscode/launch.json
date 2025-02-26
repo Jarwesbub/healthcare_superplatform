@@ -5,23 +5,39 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "main", // Launches the current selected device.
+            "name": "main", // Launches the current device.
             "request": "launch",
             "type": "dart"
         },
-        /* Not necessary for the demo project yet.
         {
-            "name": "healthcare_superplatform (profile mode)",
+            "name": "main (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "healthcare_superplatform (release mode)",
+            "name": "main (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
         },
-        */
+        {
+            "name": "android_emulator", // Launches android emulator by id.
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "emulator-5554"
+        },
+        {
+            "name": "chrome", // Launches Chrome web browser.
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "chrome"
+        },
     ],
+    "compounds": [
+        {
+            "name": "All Devices", // Launches all the selected devices.
+            "configurations": ["android_emulator", "chrome"]
+        }
+    ]
 }
