@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healthcare_superplatform/widgets/custom_appbar.dart';
 
 class TestPage extends StatelessWidget {
   const TestPage({super.key});
@@ -6,12 +7,7 @@ class TestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        foregroundColor: Theme.of(context).colorScheme.onTertiary,
-        title: Text('Test page'),
-        centerTitle: true,
-      ),
+      appBar: CustomAppBar(title: 'Test page'),
       body: Center(
         child: ElevatedButton(
           onPressed: () {
