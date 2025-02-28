@@ -49,12 +49,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: Text(
-                '<username>',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
+            Text(
+              '<username>',
+              style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             userPopupMenu(),
           ],
@@ -81,6 +78,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     }
 
     return PopupMenuButton<int>(
+      offset: Offset(0, 52),
+      menuPadding: EdgeInsets.symmetric(horizontal: 20),
       padding: const EdgeInsets.symmetric(horizontal: 40),
       onSelected: (value) => onButtonPress(value),
       itemBuilder:
