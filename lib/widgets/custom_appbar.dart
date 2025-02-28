@@ -6,35 +6,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool showBackButton = Navigator.canPop(context);
     if (MediaQuery.of(context).size.width < 701) {
-      // User mobile view.
-      return mobileView(context, showBackButton);
+      // Set the mobile view if the screen width is less than the given value.
+      return mobileView(context);
     }
+    // Use desktop view by default.
     return desktopView(context);
   }
 
-  Widget mobileView(BuildContext context, showBackButton) {
+  Widget mobileView(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
       title: Text(title),
       centerTitle: true,
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       foregroundColor: Theme.of(context).colorScheme.onTertiary,
-      actions: [
-        IconButton(
-          // User profile button.
-          onPressed: () {
-            debugPrint('Pressed profile button (mobile)');
-          },
-          icon: const Icon(Icons.toc_outlined, size: 40),
-        ),
-      ],
+      actions: [userPopupMenu()],
 
       leading:
-          showBackButton
+          Navigator.canPop(context) // Check if back button can be used.
               ? IconButton(
-                // Back button.
                 onPressed: () {
                   if (Navigator.canPop(context)) {
                     // Checks if the current view can be closed.
@@ -55,21 +46,49 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       foregroundColor: Theme.of(context).colorScheme.onTertiary,
       actions: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
-          child: TextButton(
-            // User profile button.
-            onPressed: () {
-              debugPrint('Pressed profile button (desktop)');
-            },
-            child: Text(
-              'Profile',
-              style: TextStyle(color: Colors.white, fontSize: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 0),
+              child: Text(
+                '<username>',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
             ),
-          ),
+            userPopupMenu(),
+          ],
         ),
       ],
       leading: null,
+    );
+  }
+
+  // Popup menu widget for the user specific actions.
+  Widget userPopupMenu() {
+    void onButtonPress(int buttonIndex) {
+      switch (buttonIndex) {
+        case 0:
+          debugPrint('Clicked Profile');
+          break;
+        case 1:
+          debugPrint('Clicked Settings');
+          break;
+        case 2:
+          debugPrint('Clicked Logout');
+          break;
+      }
+    }
+
+    return PopupMenuButton<int>(
+      padding: const EdgeInsets.symmetric(horizontal: 40),
+      onSelected: (value) => onButtonPress(value),
+      itemBuilder:
+          (context) => [
+            PopupMenuItem<int>(value: 0, child: Text('Profile')),
+            PopupMenuItem<int>(value: 1, child: Text('Settings')),
+            PopupMenuItem<int>(value: 2, child: Text('Logout')),
+          ],
     );
   }
 
