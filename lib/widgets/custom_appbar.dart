@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healthcare_superplatform/themes/custom_appbar_theme.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key, required this.title});
@@ -19,8 +20,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title: Text(title),
       centerTitle: true,
-      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      foregroundColor: Theme.of(context).colorScheme.onTertiary,
+      backgroundColor: CustomAppBarTheme.lightAppBarTheme.backgroundColor,
+      foregroundColor: CustomAppBarTheme.lightAppBarTheme.foregroundColor,
       actions: [userPopupMenu()],
 
       leading:
@@ -43,8 +44,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title: Text(title, style: TextStyle(color: Colors.white, fontSize: 24)),
       centerTitle: true,
-      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      foregroundColor: Theme.of(context).colorScheme.onTertiary,
+      backgroundColor: CustomAppBarTheme.lightAppBarTheme.backgroundColor,
+      foregroundColor: CustomAppBarTheme.lightAppBarTheme.foregroundColor,
       actions: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
