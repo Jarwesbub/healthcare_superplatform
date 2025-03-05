@@ -1,30 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/pages/test_page.dart';
-import 'package:healthcare_superplatform/widgets/custom_appbar.dart';
-import 'package:healthcare_superplatform/widgets/custom_bottom_navbar.dart';
-import 'package:healthcare_superplatform/widgets/sidebar_widget.dart';
+import 'package:healthcare_superplatform/widgets/websites_widget.dart';
 import 'package:healthcare_superplatform/pages/calculator_page.dart';
 
-const mobileViewLimit = 701;
-
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
   Widget build(BuildContext context) {
     final bool isMobileView =
-        MediaQuery.of(context).size.width < mobileViewLimit;
-    return Scaffold(
-      appBar: CustomAppBar(title: 'Home'),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          // Set padding on both sides based on the screen width.
-          horizontal: MediaQuery.of(context).size.width / 10,
-        ),
-        child: isMobileView ? _mobileView() : _desktopView(),
-      ),
-      bottomNavigationBar: isMobileView ? CustomNavigationBar() : null,
-    );
+        MediaQuery.of(context).size.width < PageConstants.mobileViewLimit;
+
+    if (isMobileView) {
+      return _mobileView();
+    }
+    return _desktopView();
   }
 
   Widget _mobileView() {
@@ -32,15 +28,21 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _desktopView() {
-    const websites = {
-      'Omakanta': 'https://kanta.fi/',
-      'YTHS': 'https://www.yths.fi/',
-      'Mehiläinen': 'https://www.mehilainen.fi/',
-    };
-
     return Row(
       children: [
-        Expanded(flex: 1, child: SidebarWidget(itemList: websites)),
+        Expanded(
+          flex: 1,
+          child: Container(
+            height: double.infinity,
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            decoration: BoxDecoration(
+              border: Border.all(width: 1, color: Color(0xFF3E7455)),
+              color: Color(0xFFEEFFF4),
+            ),
+            child: WebsitesWidget(),
+          ),
+        ),
         Expanded(
           flex: 3,
           child: Padding(
@@ -56,7 +58,7 @@ class HomePage extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final bool isMobileView =
-            MediaQuery.of(context).size.width < mobileViewLimit;
+            MediaQuery.of(context).size.width < PageConstants.mobileViewLimit;
         return GridView(
           physics: ScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -68,9 +70,6 @@ class HomePage extends StatelessWidget {
 
           children: <Widget>[
             _homePageItem(context, 'Test page', const TestPage()),
-            _homePageItem(context, 'Test page2', const TestPage()),
-            _homePageItem(context, 'Test page3', const TestPage()),
-            _homePageItem(context, 'Test page4', const TestPage()),
             _homePageItem(context, 'Energy Calculator', const CalculatorPage()),
           ],
         );
