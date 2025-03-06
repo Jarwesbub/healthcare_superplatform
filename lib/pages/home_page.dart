@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healthcare_superplatform/pages/devices_page.dart';
 import 'package:healthcare_superplatform/pages/test_page.dart';
 import 'package:healthcare_superplatform/widgets/test_screen_size_widget.dart';
 import 'package:healthcare_superplatform/pages/calculator_page.dart';
@@ -27,7 +28,6 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               child: ElevatedButton(
                 onPressed: () {
-                  // Open the given page.
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const TestPage()),
@@ -40,7 +40,6 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               child: ElevatedButton(
                 onPressed: () {
-                  // Open the given page.
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -49,6 +48,20 @@ class HomePage extends StatelessWidget {
                   );
                 },
                 child: const Text('Energy Calculator'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DevicePage(),
+                    ),
+                  );
+                },
+                child: const Text('Smart devices'),
               ),
             ),
           ],
