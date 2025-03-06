@@ -15,15 +15,12 @@ class _NavigationBarState extends State<CustomNavigationBar> {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-          backgroundColor: Colors.green,
-        ),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(
           icon: Icon(Icons.medical_services_sharp),
           label: 'Services',
         ),
+        BottomNavigationBarItem(icon: Icon(Icons.device_hub), label: 'Devices'),
         BottomNavigationBarItem(
           icon: Icon(Icons.account_circle),
           label: 'Profile',
