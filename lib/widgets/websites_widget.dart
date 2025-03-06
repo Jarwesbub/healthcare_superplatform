@@ -20,7 +20,7 @@ class WebsitesWidget extends StatelessWidget {
           child: TextButton(
             onPressed: () {
               final Uri url = Uri.parse(websites.entries.toList()[index].value);
-              _launchURL(url);
+              _launchUrl(url);
             },
             child: Text(
               websites.keys.toList()[index],
@@ -33,11 +33,10 @@ class WebsitesWidget extends StatelessWidget {
   }
 }
 
-Future<void> _launchURL(Uri url) async {
-  // Check if url exists.
+Future<void> _launchUrl(Uri url) async {
+  // Open url in browser if possible.
+  // Bug: PC may crash when opening url in android emulator (Pixel 6 API 34).
   if (!await launchUrl(url)) {
-    await launchUrl(url); // Open the url in a browser.
-  } else {
-    throw ('Could not launch $url');
+    throw Exception('Could not launch $url');
   }
 }
