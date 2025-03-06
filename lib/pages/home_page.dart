@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/pages/test_page.dart';
 import 'package:healthcare_superplatform/widgets/websites_widget.dart';
@@ -12,9 +13,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late bool isMobileView;
+
   @override
   Widget build(BuildContext context) {
-    final bool isMobileView =
+    isMobileView =
         MediaQuery.of(context).size.width < PageConstants.mobileViewLimit;
 
     if (isMobileView) {
@@ -29,65 +32,62 @@ class _HomePageState extends State<HomePage> {
 
   Widget _desktopView() {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Left side bar.
         Expanded(
-          flex: 1,
-          child: Container(
-            height: double.infinity,
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            decoration: BoxDecoration(
-              border: Border.all(width: 1, color: Color(0xFF3E7455)),
-              color: Color(0xFFEEFFF4),
-            ),
-            child: WebsitesWidget(),
-          ),
+          flex: 2,
+          child: Container(color: Color(0xFFEEFFF4), child: WebsitesWidget()),
         ),
-        Expanded(
-          flex: 3,
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: _homepageContent(),
-          ),
-        ),
+        // Center content.
+        Expanded(flex: 6, child: _homepageContent()),
+        // Right side bar.
+        Expanded(flex: 1, child: const SizedBox()),
       ],
     );
   }
 
   Widget _homepageContent() {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        final bool isMobileView =
-            MediaQuery.of(context).size.width < PageConstants.mobileViewLimit;
-        return GridView(
-          physics: ScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 1,
-            crossAxisSpacing: isMobileView ? 10 : 100,
-            mainAxisSpacing: isMobileView ? 10 : 100,
-          ),
-
-          children: <Widget>[
-            _homePageItem(context, 'Test page', const TestPage()),
-            _homePageItem(context, 'Energy Calculator', const CalculatorPage()),
-          ],
-        );
-      },
+    return Padding(
+      padding: const EdgeInsets.all(40),
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return MasonryGridView(
+            mainAxisSpacing: 20,
+            crossAxisSpacing: 20,
+            gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: isMobileView ? 2 : 3,
+            ),
+            children: [
+              _homePageItem(context, 'Test page', const TestPage()),
+              _homePageItem(
+                context,
+                'Energy Calculator',
+                const CalculatorPage(),
+              ),
+              // Add new pages here ->
+            ],
+          );
+        },
+      ),
     );
   }
 
-  Widget _homePageItem(BuildContext context, String title, Widget page) {
-    return Card(
-      child: InkWell(
-        onTap: () {
-          // Open the given page.
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => page),
-          );
-        },
-        child: Center(child: Text(title)),
+  // Simple button widget to navigate to the given page.
+  Widget _homePageItem(BuildContext context, String text, Widget page) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxHeight: 200, maxWidth: 50),
+      child: Card(
+        child: InkWell(
+          onTap: () {
+            // Open the given page.
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => page),
+            );
+          },
+          child: Center(child: Text(text)),
+        ),
       ),
     );
   }
