@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:healthcare_superplatform/pages/home_page.dart';
+import 'package:healthcare_superplatform/pages/page_manager.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,10 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Demola',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
-      ),
-      home: const HomePage(),
+      debugShowCheckedModeBanner: false,
+      home: const PageManager(),
     );
   }
 }
