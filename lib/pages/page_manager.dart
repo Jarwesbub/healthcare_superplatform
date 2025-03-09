@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/pages/home_page.dart';
 import 'package:healthcare_superplatform/pages/services_page.dart';
+import 'package:healthcare_superplatform/pages/devices_page.dart';
 import 'package:healthcare_superplatform/widgets/custom_appbar.dart';
 import 'package:healthcare_superplatform/widgets/custom_bottom_navbar.dart';
 
@@ -16,7 +17,7 @@ class _PageManagerState extends State<PageManager> {
   final Map<String, Widget> pageList = {
     'Home': const HomePage(),
     'Services': Center(child: const ServicesPage()),
-    'Devices': Center(child: const Text('<devices here>')), // Test.
+    'Devices': Center(child: const DevicePage()), // Test.
     'Profile': Center(child: const Text('<profile here>')), // Test.
   };
   late bool isMobileView;
