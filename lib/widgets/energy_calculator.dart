@@ -1,30 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// Reusable Energy Calculator Widget
 class EnergyCalculatorWidget extends StatefulWidget {
-  // Optional callback to notify parent about score changes
   final Function(double)? onEnergyScoreChanged;
 
-  const EnergyCalculatorWidget({super.key, this.onEnergyScoreChanged});
+  const EnergyCalculatorWidget({
+    Key? key,
+    this.onEnergyScoreChanged,
+    required double initialSleep,
+    required double initialStressLevel,
+    required double initialWorkout,
+    required double initialWater,
+    required int initialCaffeine,
+    required Null Function(
+      dynamic sleep,
+      dynamic stress,
+      dynamic exercise,
+      dynamic water,
+      dynamic caffeine,
+    )
+    onChanged,
+  }) : super(key: key);
 
   @override
   _EnergyCalculatorWidgetState createState() => _EnergyCalculatorWidgetState();
 }
 
 class _EnergyCalculatorWidgetState extends State<EnergyCalculatorWidget> {
-  // Variables to track user inputs
   double _sleepHours = 7.0;
   double _stressLevel = 5.0;
   double _exerciseMinutes = 30.0;
   double _waterIntake = 2.0; // Liters
   int _caffeineIntake = 2; // Number of drinks
 
-  // Calculate the energy score based on inputs
+  @override
+  void initState() {
+    super.initState();
+
+    // Load saved values from SharedPreferences
+    _loadValues();
+  }
+
+  Future<void> _loadValues() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      _sleepHours = prefs.getDouble('sleepHours') ?? 7.0;
+      _stressLevel = prefs.getDouble('stressLevel') ?? 5.0;
+      _exerciseMinutes = prefs.getDouble('exerciseMinutes') ?? 30.0;
+      _waterIntake = prefs.getDouble('waterIntake') ?? 2.0;
+      _caffeineIntake = prefs.getInt('caffeineIntake') ?? 2;
+    });
+  }
+
+  Future<void> _saveValues() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setDouble('sleepHours', _sleepHours);
+    await prefs.setDouble('stressLevel', _stressLevel);
+    await prefs.setDouble('exerciseMinutes', _exerciseMinutes);
+    await prefs.setDouble('waterIntake', _waterIntake);
+    await prefs.setInt('caffeineIntake', _caffeineIntake);
+  }
+
   double _calculateEnergyScore() {
     // Base score is 50 (neutral)
     double score = 50.0;
 
-    // Sleep factor (optimal is 7-9 hours)
     if (_sleepHours >= 7 && _sleepHours <= 9) {
       score += 20;
     } else if (_sleepHours >= 5 && _sleepHours < 7) {
@@ -33,7 +75,6 @@ class _EnergyCalculatorWidgetState extends State<EnergyCalculatorWidget> {
       score += 5; // Too much sleep can decrease energy
     }
 
-    // Stress factor (lower is better)
     score -= _stressLevel * 2;
 
     // Exercise factor (30-60 minutes is optimal)
@@ -188,6 +229,7 @@ class _EnergyCalculatorWidgetState extends State<EnergyCalculatorWidget> {
                           setState(() {
                             _sleepHours = value;
                           });
+                          _saveValues();
                         },
                       ),
                     ),
@@ -241,6 +283,7 @@ class _EnergyCalculatorWidgetState extends State<EnergyCalculatorWidget> {
                           setState(() {
                             _stressLevel = value;
                           });
+                          _saveValues();
                         },
                       ),
                     ),
@@ -297,6 +340,7 @@ class _EnergyCalculatorWidgetState extends State<EnergyCalculatorWidget> {
                           setState(() {
                             _exerciseMinutes = value;
                           });
+                          _saveValues();
                         },
                       ),
                     ),
@@ -353,6 +397,7 @@ class _EnergyCalculatorWidgetState extends State<EnergyCalculatorWidget> {
                           setState(() {
                             _waterIntake = value;
                           });
+                          _saveValues();
                         },
                       ),
                     ),
@@ -408,6 +453,7 @@ class _EnergyCalculatorWidgetState extends State<EnergyCalculatorWidget> {
                           setState(() {
                             _caffeineIntake = value.toInt();
                           });
+                          _saveValues();
                         },
                       ),
                     ),
