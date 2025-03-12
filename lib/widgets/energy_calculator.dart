@@ -5,8 +5,7 @@ class EnergyCalculatorWidget extends StatefulWidget {
   // Optional callback to notify parent about score changes
   final Function(double)? onEnergyScoreChanged;
 
-  const EnergyCalculatorWidget({Key? key, this.onEnergyScoreChanged})
-    : super(key: key);
+  const EnergyCalculatorWidget({super.key, this.onEnergyScoreChanged});
 
   @override
   _EnergyCalculatorWidgetState createState() => _EnergyCalculatorWidgetState();
@@ -138,7 +137,7 @@ class _EnergyCalculatorWidgetState extends State<EnergyCalculatorWidget> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  '${score.toStringAsFixed(1)}',
+                  score.toStringAsFixed(1),
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
                     color: feedback['color'],
                     fontWeight: FontWeight.bold,
