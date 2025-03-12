@@ -4,14 +4,11 @@ import 'package:flutter/material.dart';
 
 class HumanBodyButtonModel {
   HumanBodyButtonModel({
-    required this.buttonId,
     required this.name,
     required this.info,
     required this.offset,
   });
-  final int buttonId;
   final String name;
   final String info;
-  final Offset offset;
-  bool isActive = false;
+  final Offset offset; // Button position based on the widget's size.
 }

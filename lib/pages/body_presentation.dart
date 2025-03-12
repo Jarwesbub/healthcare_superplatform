@@ -12,19 +12,21 @@ class BodyPresentation extends StatefulWidget {
 class _BodyPresentationState extends State<BodyPresentation> {
   final List<HumanBodyButtonModel> buttons = [
     HumanBodyButtonModel(
-      buttonId: 0,
       name: 'Eyes',
       info: 'Check information about your eyes',
       offset: Offset(0.5, 0.1),
     ),
     HumanBodyButtonModel(
-      buttonId: 1,
+      name: 'Mouth',
+      info: 'Check information about your mouth',
+      offset: Offset(0.54, 0.14),
+    ),
+    HumanBodyButtonModel(
       name: 'Heart',
       info: 'Check information about your eyes',
       offset: Offset(0.53, 0.28),
     ),
     HumanBodyButtonModel(
-      buttonId: 2,
       name: 'Blood',
       info: 'Check information about your blood',
       offset: Offset(0.82, 0.44),
@@ -80,24 +82,41 @@ class _BodyPresentationState extends State<BodyPresentation> {
     );
   }
 
+  // Button that is drawn to the position based on the given size.
   Widget bodyPartButton(HumanBodyButtonModel button, Size size) {
-    const buttonSize = 20;
+    final bool isActive = currentButton == button;
+    final value = isActive ? 10 : 14;
+    final buttonSize = size.width / value;
+    //const double buttonSize = 30;
 
     return Positioned(
+      // Calculates padding to the left and top.
       left: size.width * button.offset.dx - (buttonSize / 2),
       top: size.height * button.offset.dy - (buttonSize / 2),
       child: InkWell(
+        customBorder: CircleBorder(),
+        splashColor: Colors.green,
         onTap: () {
           setState(() {
             currentButton = button;
           });
         },
         child: Container(
-          height: 20,
-          width: 20,
-          decoration: const BoxDecoration(
+          height: buttonSize,
+          width: buttonSize,
+          decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.red,
+            border: Border.all(
+              width: 1,
+              color: isActive ? Colors.green : Colors.transparent,
+            ),
+          ),
+          child: Container(
+            margin: EdgeInsets.all(buttonSize / 10),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: isActive ? Colors.green : Colors.redAccent,
+            ),
           ),
         ),
       ),
