@@ -4,6 +4,7 @@ import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/pages/test_page.dart';
 import 'package:healthcare_superplatform/widgets/websites_widget.dart';
 import 'package:healthcare_superplatform/pages/calculator_page.dart';
+import 'package:healthcare_superplatform/pages/self_diagnose/self_diagnose.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -65,7 +66,11 @@ class _HomePageState extends State<HomePage> {
                 'Energy Calculator',
                 const CalculatorPage(),
               ),
-              // Add new pages here ->
+              _homePageItem(
+                context,
+                'Itsediagnosointi',
+                const SelfDiagnosePage(),
+              ), // Add new pages here ->
             ],
           );
         },
