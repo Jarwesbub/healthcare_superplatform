@@ -1,4 +1,4 @@
-package com.example.healthcare_superplatform
+package com.example.chattiboddi
 
 import io.flutter.embedding.android.FlutterActivity
 
