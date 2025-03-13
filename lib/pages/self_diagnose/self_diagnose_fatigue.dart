@@ -187,17 +187,13 @@ class _SelfDiagnoseFatiguePageState extends State<SelfDiagnoseFatiguePage> {
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
+                  Navigator.pop(context);
+
                   setState(() {
                     selectedAnswers = List.filled(9, -1);
                   });
                 },
-                child: Text('Tee uudestaan'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('Sulje'),
+                child: Text('Lopeta kysely'),
               ),
             ],
           ),
@@ -239,7 +235,7 @@ class _SelfDiagnoseFatiguePageState extends State<SelfDiagnoseFatiguePage> {
               },
             ),
           ),
-          ElevatedButton(onPressed: showResults, child: Text('Lopeta kysely')),
+          ElevatedButton(onPressed: showResults, child: Text('Näytä tulokset')),
         ],
       ),
     );

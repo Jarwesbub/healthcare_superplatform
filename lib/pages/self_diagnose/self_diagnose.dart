@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/pages/self_diagnose/self_diagnose_fatigue.dart';
+import 'package:healthcare_superplatform/pages/self_diagnose/self_diagnose_health.dart';
 
 class SelfDiagnosePage extends StatefulWidget {
   const SelfDiagnosePage({super.key});
@@ -9,55 +10,65 @@ class SelfDiagnosePage extends StatefulWidget {
 }
 
 class _SelfDiagnosePageState extends State<SelfDiagnosePage> {
-  Widget? selectedQuestionnaire;
+  int selectedIndex = 0;
 
-  void selectQuestionnaire(Widget questionnaire) {
+  final List<Widget> _pages = [
+    SelfDiagnoseMenu(), // Main menu
+    SelfDiagnoseFatiguePage(), // Fatigue
+    SelfDiagnoseHealthPage(), // General health
+  ];
+
+  void selectQuestionnaire(int index) {
     setState(() {
-      selectedQuestionnaire = questionnaire;
+      selectedIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          selectedQuestionnaire == null ? 'Itsediagnosointi' : 'Takaisin',
-        ),
-        leading:
-            selectedQuestionnaire != null
-                ? IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    setState(() {
-                      selectedQuestionnaire = null;
-                    });
-                  },
-                )
-                : null,
+    return Scaffold(body: IndexedStack(index: selectedIndex, children: _pages));
+  }
+}
+
+class SelfDiagnoseMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final _parentState =
+        context.findAncestorStateOfType<_SelfDiagnosePageState>();
+
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: GridView.count(
+        crossAxisCount: 2,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+        children: [
+          _diagnoseCard(context, "Uupumuskysely", 1),
+          _diagnoseCard(context, "Terveyskysely", 2),
+        ],
       ),
-      body: selectedQuestionnaire ?? _buildSelectionMenu(),
     );
   }
 
-  Widget _buildSelectionMenu() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ElevatedButton(
-            onPressed:
-                () => selectQuestionnaire(const SelfDiagnoseFatiguePage()),
-            child: Text('Uupumuskysely'),
+  Widget _diagnoseCard(BuildContext context, String title, int index) {
+    final _parentState =
+        context.findAncestorStateOfType<_SelfDiagnosePageState>();
+
+    return GestureDetector(
+      onTap: () => _parentState?.selectQuestionnaire(index),
+      child: Card(
+        elevation: 3,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
           ),
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              // Lisää kyselyt tähän
-            },
-            child: Text('Mielenterveyskysely (TBD)'),
-          ),
-        ],
+        ),
       ),
     );
   }
