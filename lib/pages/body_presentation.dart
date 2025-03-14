@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/models/human_body_button_model.dart';
+import 'package:healthcare_superplatform/widgets/custom_appbar.dart';
 
 class BodyPresentation extends StatefulWidget {
   const BodyPresentation({super.key});
@@ -14,39 +17,61 @@ class _BodyPresentationState extends State<BodyPresentation> {
     HumanBodyButtonModel(
       name: 'Eyes',
       info: 'Check information about your eyes',
-      offset: Offset(0.5, 0.1),
+      offset: Offset(0.48, 0.1),
+      icon: Icons.remove_red_eye_rounded,
     ),
     HumanBodyButtonModel(
-      name: 'Mouth',
-      info: 'Check information about your mouth',
+      name: 'Teeth',
+      info: 'Check information about your teeth',
       offset: Offset(0.54, 0.14),
+      icon: FontAwesomeIcons.tooth,
     ),
     HumanBodyButtonModel(
       name: 'Heart',
       info: 'Check information about your eyes',
       offset: Offset(0.53, 0.28),
+      icon: FontAwesomeIcons.solidHeart,
     ),
     HumanBodyButtonModel(
       name: 'Blood',
       info: 'Check information about your blood',
       offset: Offset(0.82, 0.44),
+      icon: FontAwesomeIcons.droplet,
     ),
   ];
   HumanBodyButtonModel? currentButton;
+  late bool isMobileView;
 
   @override
   Widget build(BuildContext context) {
+    isMobileView =
+        MediaQuery.of(context).size.width < PageConstants.mobileViewLimit;
+
+    if (isMobileView) {
+      return Scaffold(
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+          child: Center(
+            child: Column(
+              children: [
+                Expanded(flex: 1, child: _upperBar()),
+                Expanded(flex: 8, child: bodyPresentation()),
+                Expanded(flex: 2, child: _lowerBar(context)),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+    // Desktop view.
     return Scaffold(
+      appBar: CustomAppBar(title: 'Your body information'),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 40),
-        child: Center(
-          child: Column(
-            children: [
-              _upperBar(),
-              Expanded(flex: 4, child: bodyPresentation()),
-              Expanded(flex: 1, child: _lowerBar()),
-            ],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [bodyPresentation(), Center(child: _lowerBar(context))],
         ),
       ),
     );
@@ -58,23 +83,18 @@ class _BodyPresentationState extends State<BodyPresentation> {
       child: LayoutBuilder(
         builder: (context, constraints) {
           debugPrint('Constraints: $constraints');
-          return Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.red, width: 1),
-            ),
-            child: Center(
-              child: Stack(
-                children: [
-                  SvgPicture.asset('assets/images/body_man.svg'),
-                  ...List.generate(
-                    buttons.length,
-                    (index) => bodyPartButton(
-                      buttons[index],
-                      Size(constraints.maxWidth, constraints.maxHeight),
-                    ),
+          return Center(
+            child: Stack(
+              children: [
+                SvgPicture.asset('assets/images/body_man.svg'),
+                ...List.generate(
+                  buttons.length,
+                  (index) => bodyPartButton(
+                    buttons[index],
+                    Size(constraints.maxWidth, constraints.maxHeight),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },
@@ -85,7 +105,7 @@ class _BodyPresentationState extends State<BodyPresentation> {
   // Button that is drawn to the position based on the given size.
   Widget bodyPartButton(HumanBodyButtonModel button, Size size) {
     final bool isActive = currentButton == button;
-    final value = isActive ? 10 : 14;
+    final value = isActive ? 9 : 12;
     final buttonSize = size.width / value;
     //const double buttonSize = 30;
 
@@ -95,7 +115,7 @@ class _BodyPresentationState extends State<BodyPresentation> {
       top: size.height * button.offset.dy - (buttonSize / 2),
       child: InkWell(
         customBorder: CircleBorder(),
-        splashColor: Colors.green,
+        splashColor: Colors.blue,
         onTap: () {
           setState(() {
             currentButton = button;
@@ -104,36 +124,42 @@ class _BodyPresentationState extends State<BodyPresentation> {
         child: Container(
           height: buttonSize,
           width: buttonSize,
+          alignment: Alignment.center,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(
-              width: 1,
-              color: isActive ? Colors.green : Colors.transparent,
-            ),
+            color: isActive ? Colors.green : Colors.redAccent,
           ),
-          child: Container(
-            margin: EdgeInsets.all(buttonSize / 10),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isActive ? Colors.green : Colors.redAccent,
-            ),
-          ),
+          child:
+              isActive
+                  ? Icon(
+                    button.icon,
+                    color: Colors.white,
+                    size: buttonSize - (buttonSize / 4),
+                  )
+                  : const SizedBox(),
         ),
       ),
     );
   }
 
-  Widget _lowerBar() {
+  Widget _lowerBar(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(maxWidth: 500),
+      width: double.infinity,
+      height: double.infinity,
+      constraints: BoxConstraints(
+        maxWidth: 500,
+        maxHeight: 200,
+        minHeight: 100,
+      ),
       decoration: BoxDecoration(
         border: Border.all(width: 1, color: Colors.grey),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
+          Flexible(
+            flex: 1,
             child: Text(
               currentButton == null ? '' : currentButton!.name,
               style: TextStyle(
@@ -144,9 +170,8 @@ class _BodyPresentationState extends State<BodyPresentation> {
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            alignment: Alignment.center,
+          Flexible(
+            flex: 1,
             child: Text(
               currentButton == null ? '' : currentButton!.info,
               style: TextStyle(
@@ -159,19 +184,22 @@ class _BodyPresentationState extends State<BodyPresentation> {
           ),
           currentButton == null
               ? const SizedBox()
-              : ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Colors.green),
-                ),
-                onPressed: () {
-                  debugPrint('Clicked Check button');
-                },
-                child: const Text(
-                  'Check',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+              : Flexible(
+                flex: 1,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(Colors.green),
+                  ),
+                  onPressed: () {
+                    debugPrint('Clicked Check button');
+                  },
+                  child: const Text(
+                    'Check',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
