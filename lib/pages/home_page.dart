@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
+import 'package:healthcare_superplatform/pages/body_presentation.dart';
 import 'package:healthcare_superplatform/pages/test_page.dart';
 import 'package:healthcare_superplatform/widgets/websites_widget.dart';
 import 'package:healthcare_superplatform/pages/calculator_page.dart';
@@ -71,6 +72,11 @@ class _HomePageState extends State<HomePage> {
                 'Itsediagnosointi',
                 const SelfDiagnosePage(),
               ), // Add new pages here ->
+              _homePageItem(
+                context,
+                'Visual body presentation',
+                const BodyPresentation(),
+              ),
             ],
           );
         },
@@ -80,8 +86,9 @@ class _HomePageState extends State<HomePage> {
 
   // Simple button widget to navigate to the given page.
   Widget _homePageItem(BuildContext context, String text, Widget page) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 200, maxWidth: 50),
+    return SizedBox(
+      width: 50,
+      height: 180,
       child: Card(
         child: InkWell(
           onTap: () {
@@ -91,7 +98,7 @@ class _HomePageState extends State<HomePage> {
               MaterialPageRoute(builder: (context) => page),
             );
           },
-          child: Center(child: Text(text)),
+          child: Center(child: Text(text, textAlign: TextAlign.center)),
         ),
       ),
     );
