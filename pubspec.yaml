@@ -28,5 +28,5 @@ flutter:
     - assets/robot.jpg
     - assets/camera.png
     - assets/default.jpg
-    - assets/service.json
+    - assets/healtcare_service.json
   uses-material-design: true

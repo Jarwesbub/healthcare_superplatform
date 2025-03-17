@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(title: 'Chaddiboddi'),
+      home: MyHomePage(title: 'Healthcare Chatbot'),
     );
   }
 }
@@ -65,7 +65,7 @@ class MyHomePageState extends State<MyHomePage> {
   // Function to handle response and show quick replies after the first message
   void response(String query) async {
     try {
-      AuthGoogle authGoogle = await AuthGoogle(fileJson: "assets/service.json").build();
+      AuthGoogle authGoogle = await AuthGoogle(fileJson: "assets/healtcare_service.json").build();
       DialogFlow dialogflow = DialogFlow(authGoogle: authGoogle, language: Language.english);
       AIResponse aiResponse = await dialogflow.detectIntent(query);
 
@@ -176,11 +176,11 @@ if (firstMessageSent)
                   SizedBox(width: 10),
                   _buildQuickReplyButton("Where can i find the energy calculator?", "Where can i find the energy calculator?"),
                   SizedBox(width: 10),
-                  _buildQuickReplyButton("What does this app contain?", "What does this app contain?"),
+                  _buildQuickReplyButton("What features does this app contain?", "What features does this app contain?"),
                   SizedBox(width: 10),
-                  _buildQuickReplyButton("My tummy hurts!", "My tummy hurts!"),
+                  _buildQuickReplyButton("Where can i find my recipes?", "Where can i find my recipes?"),
                   SizedBox(width: 10),
-                  _buildQuickReplyButton("You're annoying!", "You're annoying!"),
+                  _buildQuickReplyButton("Where can i find my oralhealth information?", "Where can i find my oralhealth information?"),
                 ],
               ),
             ),
