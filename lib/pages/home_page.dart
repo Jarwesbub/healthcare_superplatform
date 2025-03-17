@@ -5,6 +5,7 @@ import 'package:healthcare_superplatform/pages/body_presentation.dart';
 import 'package:healthcare_superplatform/pages/test_page.dart';
 import 'package:healthcare_superplatform/widgets/websites_widget.dart';
 import 'package:healthcare_superplatform/pages/calculator_page.dart';
+import 'package:healthcare_superplatform/pages/self_diagnose/self_diagnose.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -68,10 +69,14 @@ class _HomePageState extends State<HomePage> {
               ),
               _homePageItem(
                 context,
+                'Itsediagnosointi',
+                const SelfDiagnosePage(),
+              ),
+              _homePageItem(
+                context,
                 'Visual body presentation',
                 const BodyPresentation(),
               ),
-              // Add new pages here ->
             ],
           );
         },
