@@ -54,7 +54,6 @@ class _BodyPresentationState extends State<BodyPresentation> {
           child: Center(
             child: Column(
               children: [
-                Expanded(flex: 1, child: _upperBar()),
                 Expanded(flex: 8, child: bodyPresentation()),
                 Expanded(flex: 2, child: _lowerBar(context)),
               ],
@@ -207,50 +206,4 @@ class _BodyPresentationState extends State<BodyPresentation> {
       ),
     );
   }
-}
-
-Widget _upperBar() {
-  final style = TextStyle(
-    color: Colors.black,
-    fontSize: 14,
-    fontWeight: FontWeight.bold,
-  );
-
-  return Container(
-    padding: const EdgeInsets.all(10),
-    constraints: BoxConstraints(maxWidth: 350),
-    alignment: Alignment.bottomCenter,
-    decoration: BoxDecoration(
-      border: Border(bottom: BorderSide(width: 1, color: Colors.grey)),
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          'Showing:',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 14,
-            fontWeight: FontWeight.normal,
-            decoration: TextDecoration.none,
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            debugPrint('Clicked Health button');
-          },
-          style: ButtonStyle(
-            backgroundColor: WidgetStateProperty.all(Color(0xFF95F3BC)),
-          ),
-          child: Text('Health', style: style),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            debugPrint('Clicked Injuries button');
-          },
-          child: Text('Injuries', style: style),
-        ),
-      ],
-    ),
-  );
 }
