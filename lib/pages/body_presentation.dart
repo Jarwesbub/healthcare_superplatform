@@ -13,6 +13,7 @@ class BodyPresentation extends StatefulWidget {
 }
 
 class _BodyPresentationState extends State<BodyPresentation> {
+  // List of data for button widgets.
   final List<HumanBodyButtonModel> buttons = [
     HumanBodyButtonModel(
       name: 'Eyes',
@@ -28,7 +29,7 @@ class _BodyPresentationState extends State<BodyPresentation> {
     ),
     HumanBodyButtonModel(
       name: 'Heart',
-      info: 'Check information about your eyes',
+      info: 'Check information about your heart',
       offset: Offset(0.53, 0.28),
       icon: FontAwesomeIcons.solidHeart,
     ),
@@ -49,12 +50,13 @@ class _BodyPresentationState extends State<BodyPresentation> {
 
     if (isMobileView) {
       return Scaffold(
+        appBar: CustomAppBar(title: 'Your body information'),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+          padding: EdgeInsets.symmetric(horizontal: 30),
           child: Center(
             child: Column(
               children: [
-                Expanded(flex: 8, child: bodyPresentation()),
+                Expanded(flex: 8, child: bodyPresentationView()),
                 Expanded(flex: 2, child: _lowerBar(context)),
               ],
             ),
@@ -66,17 +68,18 @@ class _BodyPresentationState extends State<BodyPresentation> {
     return Scaffold(
       appBar: CustomAppBar(title: 'Your body information'),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+        padding: EdgeInsets.symmetric(horizontal: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [bodyPresentation(), Center(child: _lowerBar(context))],
+          children: [bodyPresentationView(), Center(child: _lowerBar(context))],
         ),
       ),
     );
   }
 
-  Widget bodyPresentation() {
+  // Shows human body image and generates buttons based on the offset value.
+  Widget bodyPresentationView() {
     return AspectRatio(
       aspectRatio: 0.5,
       child: LayoutBuilder(
@@ -88,7 +91,7 @@ class _BodyPresentationState extends State<BodyPresentation> {
                 SvgPicture.asset('assets/images/body_man.svg'),
                 ...List.generate(
                   buttons.length,
-                  (index) => bodyPartButton(
+                  (index) => _bodyPartButton(
                     buttons[index],
                     Size(constraints.maxWidth, constraints.maxHeight),
                   ),
@@ -101,15 +104,16 @@ class _BodyPresentationState extends State<BodyPresentation> {
     );
   }
 
-  // Button that is drawn to the position based on the given size.
-  Widget bodyPartButton(HumanBodyButtonModel button, Size size) {
+  // Button that is drawn to the position based on the given widget size.
+  // Offset is a value between 0.0 to 1.0 that is based on the widget size.
+  Widget _bodyPartButton(HumanBodyButtonModel button, Size size) {
     final bool isActive = currentButton == button;
     final value = isActive ? 9 : 12;
     final buttonSize = size.width / value;
-    //const double buttonSize = 30;
 
     return Positioned(
       // Calculates padding to the left and top.
+      // Position x = width * (decimal value between 0 to 1) - (button radius).
       left: size.width * button.offset.dx - (buttonSize / 2),
       top: size.height * button.offset.dy - (buttonSize / 2),
       child: InkWell(
@@ -141,10 +145,13 @@ class _BodyPresentationState extends State<BodyPresentation> {
     );
   }
 
+  // Informs what button is currently active.
+  // "Check button" can be used as an interface for the body stats.
   Widget _lowerBar(BuildContext context) {
     return Container(
       width: double.infinity,
       height: double.infinity,
+      margin: const EdgeInsets.only(bottom: 20),
       constraints: BoxConstraints(
         maxWidth: 500,
         maxHeight: 200,
