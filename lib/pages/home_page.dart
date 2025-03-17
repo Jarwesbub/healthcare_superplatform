@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                 context,
                 'Itsediagnosointi',
                 const SelfDiagnosePage(),
-              ),
+              ), // Add new pages here ->
               _homePageItem(
                 context,
                 'Visual body presentation',
@@ -86,8 +86,9 @@ class _HomePageState extends State<HomePage> {
 
   // Simple button widget to navigate to the given page.
   Widget _homePageItem(BuildContext context, String text, Widget page) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 200, maxWidth: 50),
+    return SizedBox(
+      width: 50,
+      height: 180,
       child: Card(
         child: InkWell(
           onTap: () {
@@ -97,7 +98,7 @@ class _HomePageState extends State<HomePage> {
               MaterialPageRoute(builder: (context) => page),
             );
           },
-          child: Center(child: Text(text)),
+          child: Center(child: Text(text, textAlign: TextAlign.center)),
         ),
       ),
     );
