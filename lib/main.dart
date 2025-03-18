@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/pages/page_manager.dart';
+import 'package:healthcare_superplatform/widgets/notifications.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final Notifications notifications = Notifications();
+  await notifications.init();
+  await notifications.requestNotificationPermission();
+  runApp(MyApp(notifications: notifications));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final Notifications notifications;
+  const MyApp({super.key, required this.notifications});
 
   // This widget is the root of your application.
   @override
@@ -14,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Demola',
       debugShowCheckedModeBanner: false,
-      home: const PageManager(),
+      home: PageManager(notifications: notifications),
     );
   }
 }
