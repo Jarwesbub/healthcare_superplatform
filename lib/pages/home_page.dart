@@ -6,6 +6,7 @@ import 'package:healthcare_superplatform/pages/test_page.dart';
 import 'package:healthcare_superplatform/widgets/websites_widget.dart';
 import 'package:healthcare_superplatform/pages/calculator_page.dart';
 import 'package:healthcare_superplatform/pages/self_diagnose/self_diagnose.dart';
+import 'package:healthcare_superplatform/pages/prescriptions_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -76,6 +77,11 @@ class _HomePageState extends State<HomePage> {
                 context,
                 'Visual body presentation',
                 const BodyPresentation(),
+              ),
+              _homePageItem(
+                context,
+                'Prescribed medicine',
+                const PrescriptionsPage(),
               ),
             ],
           );
