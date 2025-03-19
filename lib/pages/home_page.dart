@@ -6,9 +6,11 @@ import 'package:healthcare_superplatform/pages/test_page.dart';
 import 'package:healthcare_superplatform/widgets/websites_widget.dart';
 import 'package:healthcare_superplatform/pages/calculator_page.dart';
 import 'package:healthcare_superplatform/pages/self_diagnose/self_diagnose.dart';
+import 'package:healthcare_superplatform/widgets/notifications.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final Notifications notifications;
+  const HomePage({super.key, required this.notifications});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -65,7 +67,7 @@ class _HomePageState extends State<HomePage> {
               _homePageItem(
                 context,
                 'Energy Calculator',
-                const CalculatorPage(),
+                CalculatorPage(notifications: widget.notifications),
               ),
               _homePageItem(
                 context,
