@@ -38,7 +38,7 @@ class _ChatbotPageState extends State<ChatbotPage> {
     try {
       AuthGoogle authGoogle =
           await AuthGoogle(
-            fileJson: "assets/jsons/healtcare_service.json",
+            fileJson: "assets/local/healthcare_service.json",
           ).build();
       DialogFlow dialogflow = DialogFlow(
         authGoogle: authGoogle,
