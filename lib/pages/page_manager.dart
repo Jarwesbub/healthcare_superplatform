@@ -16,12 +16,7 @@ class PageManager extends StatefulWidget {
 }
 
 class _PageManagerState extends State<PageManager> {
-  final Map<String, Widget> pageList = {
-    'Home': HomePage(notifications: widget.notifications),
-    'Services': Center(child: const ServicesPage()),
-    'Devices': Center(child: const DeviceDataPage()), // Test.
-    'Profile': Center(child: const Text('<profile here>')), // Test.
-  };
+  late Map<String, Widget> pageList;
   late bool isMobileView;
   int currentPage = 0;
 
@@ -31,7 +26,7 @@ class _PageManagerState extends State<PageManager> {
     pageList = {
       'Home': HomePage(notifications: widget.notifications),
       'Services': Center(child: const ServicesPage()),
-      'Devices': Center(child: const Text('<devices here>')), // Test.
+      'Devices': Center(child: const DeviceDataPage()), // Test.
       'Profile': Center(child: const Text('<profile here>')), // Test.
     };
   }
