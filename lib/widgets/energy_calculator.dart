@@ -178,7 +178,7 @@ class _EnergyCalculatorWidgetState extends State<EnergyCalculatorWidget> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  '${score.toStringAsFixed(1)}',
+                  score.toStringAsFixed(1),
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
                     color: feedback['color'],
                     fontWeight: FontWeight.bold,
