@@ -1,6 +1,6 @@
 name: chattiboddi
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
@@ -13,10 +13,6 @@ dependencies:
   cupertino_icons: 1.0.8
   intl: ^0.20.2
   dialogflow_flutter_plus: ^0.0.1
-  
-  
-  
-  
 
 dev_dependencies:
   flutter_test:
@@ -25,8 +21,7 @@ dev_dependencies:
 
 flutter:
   assets:
-    - assets/robot.jpg
-    - assets/camera.png
-    - assets/default.jpg
-    - assets/healtcare_service.json
+    - assets/images/
+    - assets/jsons/
+
   uses-material-design: true
