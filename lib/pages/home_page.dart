@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/pages/body_presentation.dart';
+import 'package:healthcare_superplatform/pages/chatbot_page.dart';
 import 'package:healthcare_superplatform/pages/test_page.dart';
 import 'package:healthcare_superplatform/widgets/websites_widget.dart';
 import 'package:healthcare_superplatform/pages/calculator_page.dart';
@@ -79,6 +80,7 @@ class _HomePageState extends State<HomePage> {
                 'Visual body presentation',
                 const BodyPresentation(),
               ),
+              _homePageItem(context, 'Chatbot', const ChatbotPage()),
             ],
           );
         },
