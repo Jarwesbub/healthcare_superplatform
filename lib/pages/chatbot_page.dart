@@ -6,14 +6,14 @@ import 'package:dialogflow_flutter_plus/googleAuth.dart';
 import 'package:dialogflow_flutter_plus/language.dart';
 import 'package:intl/intl.dart';
 
-class Chatbot extends StatefulWidget {
-  const Chatbot({super.key});
+class ChatbotPage extends StatefulWidget {
+  const ChatbotPage({super.key});
 
   @override
-  ChatbotState createState() => ChatbotState();
+  State<ChatbotPage> createState() => _ChatbotPageState();
 }
 
-class ChatbotState extends State<Chatbot> {
+class _ChatbotPageState extends State<ChatbotPage> {
   final messageInsert = TextEditingController();
   List<Map<String, dynamic>> messsages = [];
   bool firstMessageSent = false;
