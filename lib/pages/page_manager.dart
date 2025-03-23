@@ -5,23 +5,31 @@ import 'package:healthcare_superplatform/pages/home_page.dart';
 import 'package:healthcare_superplatform/pages/services_page.dart';
 import 'package:healthcare_superplatform/widgets/custom_appbar.dart';
 import 'package:healthcare_superplatform/widgets/custom_bottom_navbar.dart';
+import 'package:healthcare_superplatform/widgets/notifications.dart';
 
 class PageManager extends StatefulWidget {
-  const PageManager({super.key});
+  final Notifications notifications;
+  const PageManager({super.key, required this.notifications});
 
   @override
   State<PageManager> createState() => _PageManagerState();
 }
 
 class _PageManagerState extends State<PageManager> {
-  final Map<String, Widget> pageList = {
-    'Home': const HomePage(),
-    'Services': Center(child: const ServicesPage()),
-    'Devices': Center(child: const DeviceDataPage()), // Test.
-    'Profile': Center(child: const Text('<profile here>')), // Test.
-  };
+  late Map<String, Widget> pageList;
   late bool isMobileView;
   int currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    pageList = {
+      'Home': HomePage(notifications: widget.notifications),
+      'Services': Center(child: const ServicesPage()),
+      'Devices': Center(child: const DeviceDataPage()), // Test.
+      'Profile': Center(child: const Text('<profile here>')), // Test.
+    };
+  }
 
   @override
   Widget build(BuildContext context) {

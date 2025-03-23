@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/widgets/energy_calculator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:healthcare_superplatform/widgets/notifications.dart';
 
 class CalculatorPage extends StatefulWidget {
-  const CalculatorPage({super.key});
+  final Notifications notifications;
+  //const CalculatorPage({super.key, required this.notifications});
+  const CalculatorPage({Key? key, required this.notifications})
+    : super(key: key);
 
   @override
   _CalculatorPageState createState() => _CalculatorPageState();
@@ -80,6 +84,12 @@ class _CalculatorPageState extends State<CalculatorPage> {
                 Navigator.pop(context); // Close the current page.
               },
               child: Text('Back'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                widget.notifications.showNotification(); // Show notification
+              },
+              child: Text('Notification tester'),
             ),
           ],
         ),
