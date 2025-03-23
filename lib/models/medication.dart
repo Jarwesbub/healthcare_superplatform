@@ -4,9 +4,10 @@ class Medication {
   final String instructions;
   final String prescribedBy;
   final DateTime prescriptionDate;
-  final DateTime expirationDate;
   final DateTime refillDate;
+  final DateTime expirationDate;
   final int remainingRefills;
+  final bool isActive;
 
   Medication({
     required this.name,
@@ -14,8 +15,9 @@ class Medication {
     required this.instructions,
     required this.prescribedBy,
     required this.prescriptionDate,
-    required this.expirationDate,
     required this.refillDate,
+    required this.expirationDate,
     required this.remainingRefills,
+    this.isActive = true,
   });
 }
