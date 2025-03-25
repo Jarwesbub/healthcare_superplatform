@@ -50,7 +50,7 @@ class _EyeSightState extends State<EyesightPage> {
             SvgPicture.asset('assets/images/eye.svg'),
             _headline('Basic information'),
             CustomTableWidget(
-              items: [
+              tableContent: [
                 ['Type', 'Left', 'Right'],
                 [
                   'Visual acuity',
@@ -68,10 +68,11 @@ class _EyeSightState extends State<EyesightPage> {
                   '${data?['intraocular_pressure']['right_eye']}',
                 ],
               ],
+              columnFlexValues: [2, 1, 1],
             ),
             _headline('Keratometry'),
             CustomTableWidget(
-              items: [
+              tableContent: [
                 ['Type', 'Left', 'Right'],
                 [
                   'Flat curvature',
@@ -89,8 +90,19 @@ class _EyeSightState extends State<EyesightPage> {
                   '${data?['keratometry']['right_eye']['axis']}',
                 ],
               ],
+              // Set the first column twice as wide.
+              columnFlexValues: [2, 1, 1],
             ),
             _headline('Other'),
+            CustomTableWidget(
+              tableContent: [
+                ['Type', 'Information'],
+                ['Color vision', '${data?['color_vision']}'],
+                ['Diagnosis', '${data?['diagnosis']}'],
+                ['Recommendations', '${data?['recommendations']}'],
+              ],
+              columnFlexValues: [1, 1],
+            ),
           ],
         ),
       ),

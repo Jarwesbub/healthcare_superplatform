@@ -19,12 +19,23 @@ import 'package:flutter/material.dart';
 */
 
 class CustomTableWidget extends StatelessWidget {
-  const CustomTableWidget({super.key, required this.items});
-  final List<List<String>> items;
+  const CustomTableWidget({
+    super.key,
+    required this.tableContent,
+    required this.columnFlexValues,
+  });
+  final List<List<String>> tableContent; // Table columns and rows.
+  final List<double> columnFlexValues; // Table column flex values.
 
   @override
   Widget build(BuildContext context) {
-    final int rows = items.first.length; // Number of rows in table.
+    final int rows = tableContent.first.length; // Number of rows in table.
+    Map<int, FlexColumnWidth> flexColumnWidths = {};
+    // Set custom column widths by list indexes.
+    for (int i = 0; i < columnFlexValues.length; i++) {
+      flexColumnWidths.addAll({i: FlexColumnWidth(columnFlexValues[i])});
+    }
+
     return Table(
       border: TableBorder.all(
         width: 1,
@@ -32,11 +43,8 @@ class CustomTableWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         color: Colors.black45,
       ),
-      columnWidths:
-          rows > 2
-              ? const {0: FlexColumnWidth(2)}
-              : const {0: FlexColumnWidth()},
-      children: List.generate(items.length, (columnIndex) {
+      columnWidths: flexColumnWidths,
+      children: List.generate(tableContent.length, (columnIndex) {
         // Columns.
         if (columnIndex == 0) {
           return TableRow(
@@ -47,7 +55,7 @@ class CustomTableWidget extends StatelessWidget {
             ),
             children: List.generate(rows, (rowIndex) {
               // Rows.
-              String title = items.first[rowIndex];
+              String title = tableContent.first[rowIndex];
               return Padding(
                 padding: const EdgeInsets.all(5),
                 child: Text(
@@ -66,7 +74,7 @@ class CustomTableWidget extends StatelessWidget {
           ),
           children: List.generate(rows, (rowIndex) {
             // Rows.
-            String text = items.elementAt(columnIndex)[rowIndex];
+            String text = tableContent.elementAt(columnIndex)[rowIndex];
             return Padding(
               padding: const EdgeInsets.all(5),
               child: Text(
