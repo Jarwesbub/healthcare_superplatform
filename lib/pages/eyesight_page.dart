@@ -49,48 +49,46 @@ class _EyeSightState extends State<EyesightPage> {
             const SizedBox(height: 10),
             SvgPicture.asset('assets/images/eye.svg'),
             _headline('Basic information'),
-            TableWidget(
-              rows: 3,
-              items: {
-                'titles': ['Type', 'Left', 'Right'],
-                'row1': [
+            CustomTableWidget(
+              items: [
+                ['Type', 'Left', 'Right'],
+                [
                   'Visual acuity',
                   '${data?['visual_acuity']['left_eye']}',
                   '${data?['visual_acuity']['right_eye']}',
                 ],
-                'row2': [
+                [
                   'Refraction',
                   '${data?['refraction']['left_eye']}',
                   '${data?['refraction']['right_eye']}',
                 ],
-                'row3': [
+                [
                   'Intraocular pressure',
                   '${data?['intraocular_pressure']['left_eye']}',
                   '${data?['intraocular_pressure']['right_eye']}',
                 ],
-              },
+              ],
             ),
             _headline('Keratometry'),
-            TableWidget(
-              rows: 3,
-              items: {
-                'titles': ['Type', 'Left', 'Right'],
-                'row1': [
+            CustomTableWidget(
+              items: [
+                ['Type', 'Left', 'Right'],
+                [
                   'Flat curvature',
                   '${data?['keratometry']['left_eye']['flat_k']}',
                   '${data?['keratometry']['right_eye']['flat_k']}',
                 ],
-                'row2': [
+                [
                   'Steep curvature',
                   '${data?['keratometry']['left_eye']['steep_k']}',
                   '${data?['keratometry']['right_eye']['steep_k']}',
                 ],
-                'row3': [
+                [
                   'Axis',
                   '${data?['keratometry']['left_eye']['axis']}',
                   '${data?['keratometry']['right_eye']['axis']}',
                 ],
-              },
+              ],
             ),
             _headline('Other'),
           ],

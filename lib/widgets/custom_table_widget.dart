@@ -1,12 +1,30 @@
 import 'package:flutter/material.dart';
 
-class TableWidget extends StatelessWidget {
-  const TableWidget({super.key, required this.rows, required this.items});
-  final Map<String, List<String>> items;
-  final int rows;
+// Widget that shows table data similar to Excel.
+
+/* Example code:
+  tableData[0][0]  | tableData[0][1]  | tableData[0][2] // Column headers
+  _____________________________________________________
+  tableData[1][0]  | tableData[1][1]  | tableData[1][2] // Row 1
+  tableData[2][0]  | tableData[1][1]  | tableData[1][2] // Row 2
+  tableData[3][0]  | tableData[1][1]  | tableData[1][2] // Row 3
+  
+
+  Example output:
+  "First column"  | "Second column" | "Third column" // Column headers
+  ____________________________________________________
+      "Row1"      |     "data1"     |    "data2"
+      "Row2"      |     "data1"     |    "data2"
+      "Row3"      |     "data1"     |    "data2"
+*/
+
+class CustomTableWidget extends StatelessWidget {
+  const CustomTableWidget({super.key, required this.items});
+  final List<List<String>> items;
 
   @override
   Widget build(BuildContext context) {
+    final int rows = items.first.length; // Number of rows in table.
     return Table(
       border: TableBorder.all(
         width: 1,
@@ -18,7 +36,7 @@ class TableWidget extends StatelessWidget {
           rows > 2
               ? const {0: FlexColumnWidth(2)}
               : const {0: FlexColumnWidth()},
-      children: List.generate(items.keys.length, (columnIndex) {
+      children: List.generate(items.length, (columnIndex) {
         // Columns.
         if (columnIndex == 0) {
           return TableRow(
@@ -29,7 +47,7 @@ class TableWidget extends StatelessWidget {
             ),
             children: List.generate(rows, (rowIndex) {
               // Rows.
-              String title = items.entries.first.value[rowIndex];
+              String title = items.first[rowIndex];
               return Padding(
                 padding: const EdgeInsets.all(5),
                 child: Text(
@@ -48,7 +66,7 @@ class TableWidget extends StatelessWidget {
           ),
           children: List.generate(rows, (rowIndex) {
             // Rows.
-            String text = items.entries.elementAt(columnIndex).value[rowIndex];
+            String text = items.elementAt(columnIndex)[rowIndex];
             return Padding(
               padding: const EdgeInsets.all(5),
               child: Text(
