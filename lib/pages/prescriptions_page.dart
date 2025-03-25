@@ -81,7 +81,7 @@ class _PrescriptionsPageState extends State<PrescriptionsPage> with SingleTicker
         backgroundColor: Colors.teal,
         child: const Icon(Icons.add),
         onPressed: () {
-          // Add new prescription functionality
+          // Add prescription functionality here if time
         },
       ),
     );

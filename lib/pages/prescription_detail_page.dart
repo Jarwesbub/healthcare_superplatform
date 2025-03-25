@@ -163,7 +163,7 @@ class PrescriptionDetailPage extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          // Handle ask doctor functionality
+                          // Add functionality here if time
                         },
                       ),
                     ],

@@ -7,7 +7,7 @@ class MedicationDataService {
             name: "Burana",
             dosage: "400mg",
             instructions: "Take as needed for pain, max 3 times per day",
-            prescribedBy: "Dr. Gerhard",
+            prescribedBy: "Dr. Jokinen",
             prescriptionDate: DateTime.now().subtract(const Duration(days: 10)),
             refillDate: DateTime.now().add(const Duration(days: 20)),
             expirationDate: DateTime.now().add(const Duration(days: 180)),
