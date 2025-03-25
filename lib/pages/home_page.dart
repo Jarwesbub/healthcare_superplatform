@@ -8,6 +8,7 @@ import 'package:healthcare_superplatform/widgets/websites_widget.dart';
 import 'package:healthcare_superplatform/pages/calculator_page.dart';
 import 'package:healthcare_superplatform/pages/self_diagnose/self_diagnose.dart';
 import 'package:healthcare_superplatform/widgets/notifications.dart';
+import 'package:healthcare_superplatform/pages/prescriptions_page.dart';
 
 class HomePage extends StatefulWidget {
   final Notifications notifications;
@@ -81,6 +82,11 @@ class _HomePageState extends State<HomePage> {
                 const BodyPresentation(),
               ),
               _homePageItem(context, 'Chatbot', const ChatbotPage()),
+              _homePageItem(
+                context,
+                'Prescribed medicine',
+                const PrescriptionsPage(),
+              ),
             ],
           );
         },
