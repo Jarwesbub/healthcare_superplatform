@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthcare_superplatform/widgets/custom_appbar.dart';
-import 'package:healthcare_superplatform/widgets/table_widget.dart';
+import 'package:healthcare_superplatform/widgets/custom_table_widget.dart';
 
 class EyesightPage extends StatefulWidget {
   const EyesightPage({super.key});
