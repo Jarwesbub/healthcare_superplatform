@@ -1,0 +1,32 @@
+{
+  "eyesight": {
+    "exam_date": "2025-03-17",
+    "visual_acuity": {
+      "right_eye": "0.8",
+      "left_eye": "1.0"
+    },
+    "refraction": {
+      "right_eye": "-1.50",
+      "left_eye": "-1.25"
+    },
+    "intraocular_pressure": {
+      "right_eye": "14 mmHg",
+      "left_eye": "15 mmHg"
+    },
+    "keratometry": {
+      "right_eye": {
+        "flat_k": "43.25 D",
+        "steep_k": "44.00 D",
+        "axis": "180"
+      },
+      "left_eye": {
+        "flat_k": "43.50 D",
+        "steep_k": "44.25 D",
+        "axis": "175"
+      }
+    },
+    "color_vision": "Normal",
+    "diagnosis": "Mild myopia",
+    "recommendations": "Prescription glasses recommended for distance viewing."
+  }
+}

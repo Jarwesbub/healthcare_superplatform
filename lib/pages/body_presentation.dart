@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/models/human_body_button_model.dart';
+import 'package:healthcare_superplatform/pages/eyesight_page.dart';
 import 'package:healthcare_superplatform/widgets/custom_appbar.dart';
 
 class BodyPresentation extends StatefulWidget {
@@ -20,24 +21,28 @@ class _BodyPresentationState extends State<BodyPresentation> {
       info: 'Check information about your eyes',
       offset: Offset(0.48, 0.1),
       icon: Icons.remove_red_eye_rounded,
+      page: EyesightPage(),
     ),
     HumanBodyButtonModel(
       name: 'Teeth',
       info: 'Check information about your teeth',
       offset: Offset(0.54, 0.14),
       icon: FontAwesomeIcons.tooth,
+      page: null,
     ),
     HumanBodyButtonModel(
       name: 'Heart',
       info: 'Check information about your heart',
       offset: Offset(0.53, 0.28),
       icon: FontAwesomeIcons.solidHeart,
+      page: null,
     ),
     HumanBodyButtonModel(
       name: 'Blood',
       info: 'Check information about your blood',
       offset: Offset(0.82, 0.44),
       icon: FontAwesomeIcons.droplet,
+      page: null,
     ),
   ];
   HumanBodyButtonModel? currentButton;
@@ -57,7 +62,7 @@ class _BodyPresentationState extends State<BodyPresentation> {
             child: Column(
               children: [
                 Expanded(flex: 8, child: bodyPresentationView()),
-                Expanded(flex: 2, child: _lowerBar(context)),
+                Expanded(flex: 2, child: _lowerBar()),
               ],
             ),
           ),
@@ -72,7 +77,7 @@ class _BodyPresentationState extends State<BodyPresentation> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [bodyPresentationView(), Center(child: _lowerBar(context))],
+          children: [bodyPresentationView(), Center(child: _lowerBar())],
         ),
       ),
     );
@@ -147,7 +152,7 @@ class _BodyPresentationState extends State<BodyPresentation> {
 
   // Informs what button is currently active.
   // "Check button" can be used as an interface for the body stats.
-  Widget _lowerBar(BuildContext context) {
+  Widget _lowerBar() {
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -197,7 +202,14 @@ class _BodyPresentationState extends State<BodyPresentation> {
                     backgroundColor: WidgetStateProperty.all(Colors.green),
                   ),
                   onPressed: () {
-                    debugPrint('Clicked Check button');
+                    if (currentButton?.page != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => currentButton!.page!,
+                        ),
+                      );
+                    }
                   },
                   child: const Text(
                     'Check',
