@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:healthcare_superplatform/pages/page_manager.dart';
-import 'package:healthcare_superplatform/widgets/notifications.dart';
+import 'package:healthcare_superplatform/page_manager.dart';
+import 'package:healthcare_superplatform/unused/widgets/notifications.dart';
 import 'package:flutter/foundation.dart';
 
 void main() async {

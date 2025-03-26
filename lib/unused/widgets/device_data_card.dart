@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/device.dart';
+import '../../models/device.dart';
 
 class DeviceDataCard extends StatelessWidget {
   final Device device;
@@ -39,7 +39,9 @@ class DeviceDataCard extends StatelessWidget {
                     Text(
                       device.manufacturer,
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(0.8),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onPrimaryContainer.withOpacity(0.8),
                       ),
                     ),
                   ],
@@ -76,7 +78,7 @@ class DeviceDataCard extends StatelessWidget {
               ],
             ),
           ),
-          
+
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: _buildDeviceSpecificData(),
@@ -107,13 +109,10 @@ class DeviceDataCard extends StatelessWidget {
       children: [
         const Text(
           'Recent Activity',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
-        
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -122,9 +121,9 @@ class DeviceDataCard extends StatelessWidget {
             _buildMetricColumn(Icons.timer, '54', 'Active Minutes'),
           ],
         ),
-        
+
         const SizedBox(height: 16),
-        
+
         const Text('Daily Goal Progress'),
         const SizedBox(height: 4),
         LinearProgressIndicator(
@@ -149,17 +148,17 @@ class DeviceDataCard extends StatelessWidget {
       children: [
         const Text(
           'Weight Tracking',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
-        
+
         Center(
           child: Column(
             children: [
-              const Text('Current Weight', style: TextStyle(color: Colors.grey)),
+              const Text(
+                'Current Weight',
+                style: TextStyle(color: Colors.grey),
+              ),
               const SizedBox(height: 8),
               Row(
                 mainAxisSize: MainAxisSize.min,
@@ -168,23 +167,15 @@ class DeviceDataCard extends StatelessWidget {
                 children: const [
                   Text(
                     '70.2',
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(width: 4),
-                  Text(
-                    'kg',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  Text('kg', style: TextStyle(fontSize: 16)),
                 ],
               ),
-              
+
               const SizedBox(height: 4),
-              
+
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -206,9 +197,9 @@ class DeviceDataCard extends StatelessWidget {
             ],
           ),
         ),
-        
+
         const SizedBox(height: 16),
-        
+
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -227,13 +218,10 @@ class DeviceDataCard extends StatelessWidget {
       children: [
         const Text(
           'Heart Rate',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 16),
-        
+
         Center(
           child: Column(
             children: [
@@ -253,20 +241,15 @@ class DeviceDataCard extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 4),
-                  Text(
-                    'bpm',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
+                  Text('bpm', style: TextStyle(fontSize: 16)),
                 ],
               ),
             ],
           ),
         ),
-        
+
         const SizedBox(height: 16),
-        
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -275,11 +258,11 @@ class DeviceDataCard extends StatelessWidget {
             _buildMetricColumn(Icons.arrow_upward, '136', 'Max'),
           ],
         ),
-        
+
         const SizedBox(height: 16),
         const Text('Heart Rate Zones'),
         const SizedBox(height: 4),
-        
+
         Container(
           height: 24,
           decoration: BoxDecoration(
@@ -316,18 +299,9 @@ class DeviceDataCard extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           value,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 12,
-            color: Colors.grey,
-          ),
-        ),
+        Text(label, style: const TextStyle(fontSize: 12, color: Colors.grey)),
       ],
     );
   }

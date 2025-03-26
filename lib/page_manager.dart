@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
-import 'package:healthcare_superplatform/pages/device_data_page.dart';
-import 'package:healthcare_superplatform/pages/home_page.dart';
-import 'package:healthcare_superplatform/pages/services_page.dart';
-import 'package:healthcare_superplatform/widgets/custom_appbar.dart';
-import 'package:healthcare_superplatform/widgets/custom_bottom_navbar.dart';
-import 'package:healthcare_superplatform/widgets/notifications.dart';
+import 'package:healthcare_superplatform/demos/demo_home_page.dart';
+import 'package:healthcare_superplatform/unused/pages/device_data_page.dart';
+import 'package:healthcare_superplatform/unused/pages/home_page_old.dart';
+import 'package:healthcare_superplatform/unused/pages/services_page.dart';
+import 'package:healthcare_superplatform/unused/widgets/custom_appbar.dart';
+import 'package:healthcare_superplatform/unused/widgets/custom_bottom_navbar.dart';
+import 'package:healthcare_superplatform/unused/widgets/notifications.dart';
 
 class PageManager extends StatefulWidget {
   final Notifications notifications;
@@ -24,7 +25,7 @@ class _PageManagerState extends State<PageManager> {
   void initState() {
     super.initState();
     pageList = {
-      'Home': HomePage(notifications: widget.notifications),
+      'Home': DemoHomePage(notifications: widget.notifications),
       'Services': Center(child: const ServicesPage()),
       'Devices': Center(child: const DeviceDataPage()), // Test.
       'Profile': Center(child: const Text('<profile here>')), // Test.

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:healthcare_superplatform/widgets/energy_calculator.dart';
+import 'package:healthcare_superplatform/unused/widgets/energy_calculator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:healthcare_superplatform/widgets/notifications.dart';
+import 'package:healthcare_superplatform/unused/widgets/notifications.dart';
 
 class CalculatorPage extends StatefulWidget {
   final Notifications notifications;

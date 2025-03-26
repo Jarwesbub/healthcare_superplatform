@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
-import 'package:healthcare_superplatform/pages/body_presentation.dart';
-import 'package:healthcare_superplatform/pages/chatbot_page.dart';
-import 'package:healthcare_superplatform/pages/test_page.dart';
-import 'package:healthcare_superplatform/widgets/websites_widget.dart';
-import 'package:healthcare_superplatform/pages/calculator_page.dart';
-import 'package:healthcare_superplatform/pages/self_diagnose/self_diagnose.dart';
-import 'package:healthcare_superplatform/widgets/notifications.dart';
-import 'package:healthcare_superplatform/pages/prescriptions_page.dart';
-import 'package:healthcare_superplatform/pages/userdata_page.dart';
+import 'package:healthcare_superplatform/unused/pages/body_presentation.dart';
+import 'package:healthcare_superplatform/unused/pages/chatbot_page.dart';
+import 'package:healthcare_superplatform/unused/pages/test_page.dart';
+import 'package:healthcare_superplatform/unused/widgets/websites_widget.dart';
+import 'package:healthcare_superplatform/unused/pages/calculator_page.dart';
+import 'package:healthcare_superplatform/unused/pages/self_diagnose/self_diagnose.dart';
+import 'package:healthcare_superplatform/unused/widgets/notifications.dart';
+import 'package:healthcare_superplatform/unused/pages/prescriptions_page.dart';
+import 'package:healthcare_superplatform/unused/pages/userdata_page.dart';
 
-class HomePage extends StatefulWidget {
+class HomePageOld extends StatefulWidget {
   final Notifications notifications;
-  const HomePage({super.key, required this.notifications});
+  const HomePageOld({super.key, required this.notifications});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePageOld> createState() => _HomePageOldState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageOldState extends State<HomePageOld> {
   late bool isMobileView;
 
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:healthcare_superplatform/widgets/custom_appbar.dart';
-import 'package:healthcare_superplatform/widgets/test_screen_size_widget.dart';
+import 'package:healthcare_superplatform/unused/widgets/custom_appbar.dart';
+import 'package:healthcare_superplatform/unused/widgets/test_screen_size_widget.dart';
 
 class TestPage extends StatelessWidget {
   const TestPage({super.key});
