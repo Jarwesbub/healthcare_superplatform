@@ -9,6 +9,7 @@ import 'package:healthcare_superplatform/pages/calculator_page.dart';
 import 'package:healthcare_superplatform/pages/self_diagnose/self_diagnose.dart';
 import 'package:healthcare_superplatform/widgets/notifications.dart';
 import 'package:healthcare_superplatform/pages/prescriptions_page.dart';
+import 'package:healthcare_superplatform/pages/userdata_page.dart';
 
 class HomePage extends StatefulWidget {
   final Notifications notifications;
@@ -87,6 +88,7 @@ class _HomePageState extends State<HomePage> {
                 'Prescribed medicine',
                 const PrescriptionsPage(),
               ),
+              _homePageItem(context, 'User Data', const UserDataPage()),
             ],
           );
         },
