@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:healthcare_superplatform/page_manager.dart';
+import 'package:healthcare_superplatform/demos/demo_home_page.dart';
 import 'package:healthcare_superplatform/unused/widgets/notifications.dart';
 import 'package:flutter/foundation.dart';
 
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Demola',
       debugShowCheckedModeBanner: false,
-      home: PageManager(notifications: notifications ?? Notifications()),
+      home: DemoHomePage(notifications: notifications ?? Notifications()),
     );
   }
 }

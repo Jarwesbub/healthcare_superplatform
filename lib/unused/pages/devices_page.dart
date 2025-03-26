@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/connected_devices_list.dart';
 import '../widgets/available_devices_list.dart';
-import '../../models/device.dart';
+import '../models/device.dart';
 import '../services/device_storage.dart';
 
 class DevicePage extends StatefulWidget {

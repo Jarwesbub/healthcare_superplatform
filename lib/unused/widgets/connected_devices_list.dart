@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../models/device.dart';
+import '../models/device.dart';
 
 class ConnectedDevicesList extends StatelessWidget {
   final List<Device> connectedDevices;

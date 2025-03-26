@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import '../../models/device.dart';
+import '../models/device.dart';
 import 'package:flutter/material.dart';
 
 class DeviceStorage {

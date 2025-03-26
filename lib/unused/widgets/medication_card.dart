@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../models/medication.dart';
+import '../models/medication.dart';
 import 'package:intl/intl.dart';
 import '../pages/prescription_detail_page.dart';
 

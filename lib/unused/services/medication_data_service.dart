@@ -1,4 +1,4 @@
-import '../../models/medication.dart';
+import '../models/medication.dart';
 
 class MedicationDataService {
   static List<Medication> getMedications() {

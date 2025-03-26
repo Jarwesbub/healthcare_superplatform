@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../models/medication.dart';
+import '../models/medication.dart';
 import '../services/medication_data_service.dart';
 import '../widgets/medication_card.dart';
 

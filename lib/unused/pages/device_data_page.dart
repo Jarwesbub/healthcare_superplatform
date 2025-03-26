@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/unused/pages/devices_page.dart';
 import '../services/device_storage.dart';
-import '../../models/device.dart';
+import '../models/device.dart';
 import '../widgets/device_data_card.dart';
 
 class DeviceDataPage extends StatefulWidget {
