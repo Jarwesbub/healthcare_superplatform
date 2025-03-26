@@ -6,15 +6,15 @@ import '../models/medication.dart';
 class PrescriptionDetailPage extends StatelessWidget {
   final Medication medication;
 
-  const PrescriptionDetailPage({
-    Key? key,
-    required this.medication,
-  }) : super(key: key);
+  const PrescriptionDetailPage({Key? key, required this.medication})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final bool needsRefill = medication.isActive && medication.refillDate.difference(DateTime.now()).inDays <= 3;
-    
+    final bool needsRefill =
+        medication.isActive &&
+        medication.refillDate.difference(DateTime.now()).inDays <= 3;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(medication.name),
@@ -72,16 +72,13 @@ class PrescriptionDetailPage extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     medication.dosage,
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey.shade700,
-                    ),
+                    style: TextStyle(fontSize: 18, color: Colors.grey.shade700),
                   ),
                   const SizedBox(height: 16),
                 ],
               ),
             ),
-            
+
             // Medication Details
             Padding(
               padding: const EdgeInsets.all(20),
@@ -94,7 +91,7 @@ class PrescriptionDetailPage extends StatelessWidget {
                     icon: Icons.description,
                   ),
                   const SizedBox(height: 20),
-                  
+
                   _buildSectionTitle('Prescription Details'),
                   _buildDetailItem(
                     'Prescribed by',
@@ -103,7 +100,9 @@ class PrescriptionDetailPage extends StatelessWidget {
                   ),
                   _buildDetailItem(
                     'Prescription date',
-                    DateFormat('MMMM d, yyyy').format(medication.prescriptionDate),
+                    DateFormat(
+                      'MMMM d, yyyy',
+                    ).format(medication.prescriptionDate),
                     Icons.event,
                   ),
                   _buildDetailItem(
@@ -113,40 +112,50 @@ class PrescriptionDetailPage extends StatelessWidget {
                   ),
                   _buildDetailItem(
                     'Expiration date',
-                    DateFormat('MMMM d, yyyy').format(medication.refillDate.add(const Duration(days: 90))),
+                    DateFormat('MMMM d, yyyy').format(
+                      medication.refillDate.add(const Duration(days: 90)),
+                    ),
                     Icons.timer_off,
                   ),
-                  
+
                   const SizedBox(height: 30),
-                  
+
                   // Action Buttons
                   Row(
                     children: [
                       Expanded(
                         child: ElevatedButton.icon(
                           icon: const Icon(Icons.refresh),
-                          label: Text(medication.isActive 
-                            ? (medication.remainingRefills > 0 ? 'Request Refill' : 'Request Renewal') 
-                            : 'Request Again'),
+                          label: Text(
+                            medication.isActive
+                                ? (medication.remainingRefills > 0
+                                    ? 'Request Refill'
+                                    : 'Request Renewal')
+                                : 'Request Again',
+                          ),
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            backgroundColor: medication.isActive ? Colors.teal : Colors.blue,
+                            backgroundColor:
+                                medication.isActive ? Colors.teal : Colors.blue,
                           ),
                           onPressed: () {
                             // Handle refill request
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  medication.isActive 
-                                    ? (medication.remainingRefills > 0 
-                                        ? 'Refill requested' 
-                                        : 'Prescription renewal requested')
-                                    : 'New prescription requested'
+                                  medication.isActive
+                                      ? (medication.remainingRefills > 0
+                                          ? 'Refill requested'
+                                          : 'Prescription renewal requested')
+                                      : 'New prescription requested',
                                 ),
-                                backgroundColor: medication.isActive ? Colors.teal : Colors.blue,
+                                backgroundColor:
+                                    medication.isActive
+                                        ? Colors.teal
+                                        : Colors.blue,
                               ),
                             );
                           },
@@ -182,10 +191,7 @@ class PrescriptionDetailPage extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Text(
         title,
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -203,10 +209,7 @@ class PrescriptionDetailPage extends StatelessWidget {
             Icon(icon, color: Colors.teal),
             const SizedBox(width: 16),
             Expanded(
-              child: Text(
-                content,
-                style: const TextStyle(fontSize: 16),
-              ),
+              child: Text(content, style: const TextStyle(fontSize: 16)),
             ),
           ],
         ),
@@ -219,28 +222,16 @@ class PrescriptionDetailPage extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Row(
         children: [
-          Icon(
-            icon,
-            size: 22,
-            color: Colors.teal,
-          ),
+          Icon(icon, size: 22, color: Colors.teal),
           const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 label,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
               ),
-              Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
-              ),
+              Text(value, style: const TextStyle(fontSize: 16)),
             ],
           ),
         ],

@@ -20,10 +20,7 @@ class ConnectedDevicesList extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: Center(
-            child: Text(
-              'No devices connected',
-              style: TextStyle(fontSize: 16),
-            ),
+            child: Text('No devices connected', style: TextStyle(fontSize: 16)),
           ),
         ),
       );

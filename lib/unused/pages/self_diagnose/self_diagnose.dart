@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:healthcare_superplatform/pages/self_diagnose/self_diagnose_fatigue.dart';
-import 'package:healthcare_superplatform/pages/self_diagnose/self_diagnose_health.dart';
+import 'package:healthcare_superplatform/unused/pages/self_diagnose/self_diagnose_fatigue.dart';
+import 'package:healthcare_superplatform/unused/pages/self_diagnose/self_diagnose_health.dart';
 
 class SelfDiagnosePage extends StatefulWidget {
   const SelfDiagnosePage({super.key});

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
-import 'package:healthcare_superplatform/models/human_body_button_model.dart';
-import 'package:healthcare_superplatform/pages/eyesight_page.dart';
-import 'package:healthcare_superplatform/widgets/custom_appbar.dart';
+import 'package:healthcare_superplatform/unused/models/human_body_button_model.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/eyesight_page.dart';
+import 'package:healthcare_superplatform/unused/widgets/custom_appbar.dart';
 
 class BodyPresentation extends StatefulWidget {
   const BodyPresentation({super.key});

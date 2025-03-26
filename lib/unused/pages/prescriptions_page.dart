@@ -10,26 +10,29 @@ class PrescriptionsPage extends StatefulWidget {
   State<PrescriptionsPage> createState() => _PrescriptionsPageState();
 }
 
-class _PrescriptionsPageState extends State<PrescriptionsPage> with SingleTickerProviderStateMixin {
+class _PrescriptionsPageState extends State<PrescriptionsPage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
   }
-  
+
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    final List<Medication> activeMedications = MedicationDataService.getActiveMedications();
-    final List<Medication> expiredMedications = MedicationDataService.getExpiredMedications();
-    
+    final List<Medication> activeMedications =
+        MedicationDataService.getActiveMedications();
+    final List<Medication> expiredMedications =
+        MedicationDataService.getExpiredMedications();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Prescriptions'),
@@ -51,10 +54,7 @@ class _PrescriptionsPageState extends State<PrescriptionsPage> with SingleTicker
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: Colors.white,
-          tabs: const [
-            Tab(text: 'Active'),
-            Tab(text: 'Expired'),
-          ],
+          tabs: const [Tab(text: 'Active'), Tab(text: 'Expired')],
         ),
       ),
       body: TabBarView(
@@ -62,17 +62,17 @@ class _PrescriptionsPageState extends State<PrescriptionsPage> with SingleTicker
         children: [
           // Active Medications Tab
           _buildMedicationList(
-            context, 
-            activeMedications, 
-            'Active Medications', 
+            context,
+            activeMedications,
+            'Active Medications',
             'No active prescriptions',
           ),
-          
+
           // Expired Medications Tab
           _buildMedicationList(
-            context, 
-            expiredMedications, 
-            'Prescription History', 
+            context,
+            expiredMedications,
+            'Prescription History',
             'No expired prescriptions',
           ),
         ],
@@ -86,12 +86,12 @@ class _PrescriptionsPageState extends State<PrescriptionsPage> with SingleTicker
       ),
     );
   }
-  
+
   Widget _buildMedicationList(
-    BuildContext context, 
-    List<Medication> medications, 
-    String title, 
-    String emptyMessage
+    BuildContext context,
+    List<Medication> medications,
+    String title,
+    String emptyMessage,
   ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
@@ -110,42 +110,40 @@ class _PrescriptionsPageState extends State<PrescriptionsPage> with SingleTicker
               ),
               Text(
                 '${medications.length} Prescriptions',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
               ),
             ],
           ),
           const SizedBox(height: 16),
           Expanded(
-            child: medications.isEmpty
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.medication_outlined,
-                          size: 64,
-                          color: Colors.grey.shade400,
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          emptyMessage,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.grey.shade600,
+            child:
+                medications.isEmpty
+                    ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.medication_outlined,
+                            size: 64,
+                            color: Colors.grey.shade400,
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 16),
+                          Text(
+                            emptyMessage,
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                    : ListView.builder(
+                      itemCount: medications.length,
+                      itemBuilder: (context, index) {
+                        return MedicationCard(medication: medications[index]);
+                      },
                     ),
-                  )
-                : ListView.builder(
-                    itemCount: medications.length,
-                    itemBuilder: (context, index) {
-                      return MedicationCard(medication: medications[index]);
-                    },
-                  ),
           ),
         ],
       ),

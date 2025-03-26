@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:healthcare_superplatform/pages/devices_page.dart';
+import 'package:healthcare_superplatform/unused/pages/devices_page.dart';
 import '../services/device_storage.dart';
 import '../models/device.dart';
 import '../widgets/device_data_card.dart';
@@ -14,13 +14,13 @@ class DeviceDataPage extends StatefulWidget {
 class _DeviceDataPageState extends State<DeviceDataPage> {
   List<Device> connectedDevices = [];
   bool isLoading = true;
-  
+
   @override
   void initState() {
     super.initState();
     _loadConnectedDevices();
   }
-  
+
   Future<void> _loadConnectedDevices() async {
     setState(() {
       isLoading = true;
@@ -33,9 +33,9 @@ class _DeviceDataPageState extends State<DeviceDataPage> {
       });
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error loading devices: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error loading devices: $e')));
       }
     } finally {
       setState(() {
@@ -51,11 +51,12 @@ class _DeviceDataPageState extends State<DeviceDataPage> {
         title: const Text('My Device Data'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: isLoading 
-        ? const Center(child: CircularProgressIndicator())
-        : connectedDevices.isEmpty
-          ? _buildNoDevicesView()
-          : _buildDeviceDataView(),
+      body:
+          isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : connectedDevices.isEmpty
+              ? _buildNoDevicesView()
+              : _buildDeviceDataView(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final result = await Navigator.push(
@@ -69,7 +70,7 @@ class _DeviceDataPageState extends State<DeviceDataPage> {
       ),
     );
   }
-  
+
   Widget _buildNoDevicesView() {
     return Center(
       child: Column(
@@ -102,7 +103,7 @@ class _DeviceDataPageState extends State<DeviceDataPage> {
       ),
     );
   }
-  
+
   Widget _buildDeviceDataView() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
