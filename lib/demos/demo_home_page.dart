@@ -16,7 +16,7 @@ class DemoHomePage extends StatelessWidget {
           children: [
             _button(
               context,
-              'Old content',
+              'Old version',
               PageManager(notifications: notifications),
             ),
             _button(context, 'Eyesight demo', EyesightPage()),
