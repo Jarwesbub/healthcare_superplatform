@@ -128,7 +128,10 @@ Widget infoPagesView() {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 30, bottom: 10),
-            child: Text('Your eye health', style: EyesightTextStyle().header),
+            child: Text(
+              'Information center',
+              style: EyesightTextStyle().header,
+            ),
           ),
           EyesightPageButtonWidget(
             text: 'Contact your eye doctor',
