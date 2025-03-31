@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 
 // Widget that shows table data similar to Excel.
 
@@ -18,8 +19,8 @@ import 'package:flutter/material.dart';
       "Row3"      |     "data1"     |    "data2"
 */
 
-class CustomTableWidget extends StatelessWidget {
-  const CustomTableWidget({
+class EyesightTableWidget extends StatelessWidget {
+  const EyesightTableWidget({
     super.key,
     required this.tableContent,
     required this.columnFlexValues,
@@ -41,7 +42,7 @@ class CustomTableWidget extends StatelessWidget {
         width: 1,
         style: BorderStyle.solid,
         borderRadius: BorderRadius.circular(5),
-        color: Colors.black45,
+        color: EyesightColors().grey1,
       ),
       columnWidths: flexColumnWidths,
       children: List.generate(tableContent.length, (columnIndex) {
@@ -51,7 +52,7 @@ class CustomTableWidget extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
 
-              color: Colors.greenAccent,
+              color: EyesightColors().grey0,
             ),
             children: List.generate(rows, (rowIndex) {
               // Rows.
@@ -60,7 +61,11 @@ class CustomTableWidget extends StatelessWidget {
                 padding: const EdgeInsets.all(5),
                 child: Text(
                   title,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               );
             }),
@@ -79,7 +84,11 @@ class CustomTableWidget extends StatelessWidget {
               padding: const EdgeInsets.all(5),
               child: Text(
                 text,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  color: EyesightColors().onSurface,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             );
           }),

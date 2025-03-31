@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/unused/models/human_body_button_model.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/eyesight_page.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_stats_page.dart';
 import 'package:healthcare_superplatform/unused/widgets/custom_appbar.dart';
 
 class BodyPresentation extends StatefulWidget {
@@ -21,7 +21,7 @@ class _BodyPresentationState extends State<BodyPresentation> {
       info: 'Check information about your eyes',
       offset: Offset(0.48, 0.1),
       icon: Icons.remove_red_eye_rounded,
-      page: EyesightPage(),
+      page: EyesightStatsPage(),
     ),
     HumanBodyButtonModel(
       name: 'Teeth',
