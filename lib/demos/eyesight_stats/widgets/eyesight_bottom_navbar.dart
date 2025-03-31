@@ -16,9 +16,11 @@ class _NavigationBarState extends State<EyesightNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
+      type: BottomNavigationBarType.fixed,
+      items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(
+          backgroundColor: Colors.white,
           icon: Icon(FontAwesomeIcons.chartLine),
           label: 'Progress',
         ),
@@ -35,6 +37,7 @@ class _NavigationBarState extends State<EyesightNavigationBar> {
       backgroundColor: Colors.white,
       selectedItemColor: EyesightColors().customPrimary,
       unselectedItemColor: EyesightColors().customSecondary,
+
       onTap: (index) {
         widget.onButtonTap(index);
         setState(() => _currentPage = index);

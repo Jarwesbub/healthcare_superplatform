@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_table_widget.dart';
 
@@ -37,6 +38,7 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: EyesightAppBar(title: 'Eye stats'),
+      backgroundColor: EyesightColors().surface,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
         child: ListView(
