@@ -1,94 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 
 class EyesightAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const EyesightAppBar({super.key, required this.title});
+  const EyesightAppBar({
+    super.key,
+    required this.title,
+    required this.isBackButtonVisible,
+  });
   final String title;
+  final bool isBackButtonVisible;
 
   @override
   Widget build(BuildContext context) {
-    if (MediaQuery.of(context).size.width < 701) {
-      // Set the mobile view if the screen width is less than the given value.
-      return mobileView(context);
-    }
-    // Use desktop view by default.
-    return desktopView(context);
+    return mobileView(context);
   }
 
   Widget mobileView(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      title: Text(title),
-      centerTitle: true,
+      title: Text(title, style: EyesightTextStyle().title),
+      centerTitle: false,
       backgroundColor: EyesightColors().customPrimary,
       foregroundColor: EyesightColors().surface,
-      actions: [userPopupMenu()],
 
       leading:
-          Navigator.canPop(context) // Check if back button can be used.
-              ? IconButton(
-                onPressed: () {
-                  if (Navigator.canPop(context)) {
-                    // Checks if the current view can be closed.
-                    Navigator.pop(context);
-                  }
-                },
-                icon: const Icon(Icons.arrow_back, size: 30),
-              )
-              : null,
-    );
-  }
+          isBackButtonVisible
+              // Back button view.
+              ? iconButton(Icons.arrow_back, 30, () {
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                }
+              })
+              // Normal view.
+              : iconButton(FontAwesomeIcons.solidEye, 20, () {
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                }
+              }),
 
-  Widget desktopView(BuildContext context) {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      title: Text(title, style: TextStyle(color: Colors.white, fontSize: 24)),
-      centerTitle: true,
       actions: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              '<username>',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            userPopupMenu(),
-          ],
-        ),
+        iconButton(FontAwesomeIcons.solidBell, 20, () {
+          debugPrint('Pressed bell button');
+        }),
       ],
-      leading: null,
     );
   }
 
-  // Popup menu widget for the user specific actions.
-  Widget userPopupMenu() {
-    void onButtonPress(int buttonIndex) {
-      switch (buttonIndex) {
-        case 0:
-          debugPrint('Clicked Profile');
-          break;
-        case 1:
-          debugPrint('Clicked Settings');
-          break;
-        case 2:
-          debugPrint('Clicked Logout');
-          break;
-      }
-    }
-
-    return PopupMenuButton<int>(
-      offset: Offset(0, 52),
-      menuPadding: EdgeInsets.symmetric(horizontal: 20),
-      padding: const EdgeInsets.symmetric(horizontal: 40),
-      onSelected: (value) => onButtonPress(value),
-      icon: Icon(FontAwesomeIcons.solidBell),
-      itemBuilder:
-          (context) => [
-            PopupMenuItem<int>(value: 0, child: Text('Profile')),
-            PopupMenuItem<int>(value: 1, child: Text('Settings')),
-            PopupMenuItem<int>(value: 2, child: Text('Logout')),
-          ],
+  Widget iconButton(IconData icon, double size, VoidCallback? onPressed) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: IconButton(onPressed: onPressed, icon: Icon(icon, size: size)),
     );
   }
 

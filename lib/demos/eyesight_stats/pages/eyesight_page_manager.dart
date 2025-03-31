@@ -34,7 +34,10 @@ class _EyesightPageManagerState extends State<EyesightPageManager> {
         MediaQuery.of(context).size.width < PageConstants.mobileViewLimit;
 
     return Scaffold(
-      appBar: EyesightAppBar(title: pageList.keys.elementAt(currentPage)),
+      appBar: EyesightAppBar(
+        title: 'Visionary Health',
+        isBackButtonVisible: false,
+      ),
       backgroundColor: EyesightColors().surface,
       body: pageList.values.elementAt(currentPage),
       bottomNavigationBar:

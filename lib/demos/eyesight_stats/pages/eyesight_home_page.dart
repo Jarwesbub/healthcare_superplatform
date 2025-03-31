@@ -109,7 +109,7 @@ class EyesightHomePage extends StatelessWidget {
             ),
             EyesightPageButtonWidget(
               text: 'Eye filter',
-              icon: FontAwesomeIcons.glasses,
+              icon: FontAwesomeIcons.eyeLowVision,
               page: null,
             ),
           ],

@@ -37,7 +37,7 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: EyesightAppBar(title: 'Eye stats'),
+      appBar: EyesightAppBar(title: 'Eye stats', isBackButtonVisible: true),
       backgroundColor: EyesightColors().surface,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),

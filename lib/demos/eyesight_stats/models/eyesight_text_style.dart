@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 
 class EyesightTextStyle {
+  final title = TextStyle(
+    color: Colors.white,
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+  );
   final header = TextStyle(color: EyesightColors().onSurface, fontSize: 18);
-
   final label = TextStyle(
     color: EyesightColors().customSecondary,
     fontSize: 18,
