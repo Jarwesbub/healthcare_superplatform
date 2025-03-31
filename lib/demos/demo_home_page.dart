@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_home_page.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_stats_page.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_page_manager.dart';
 import 'package:healthcare_superplatform/unused/pages/page_manager.dart';
 import 'package:healthcare_superplatform/unused/widgets/notifications.dart';
 
@@ -20,7 +19,7 @@ class DemoHomePage extends StatelessWidget {
               'Old version',
               PageManager(notifications: notifications),
             ),
-            _button(context, 'Eyesight demo', EyesightHomePage()),
+            _button(context, 'Eyesight demo', EyesightPageManager()),
           ],
         ),
       ),

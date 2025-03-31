@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class EyesightNavigationBar extends StatefulWidget {
   const EyesightNavigationBar({super.key, required this.onButtonTap});
@@ -17,10 +18,13 @@ class _NavigationBarState extends State<EyesightNavigationBar> {
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(
-          icon: Icon(Icons.medical_services_sharp),
-          label: 'Services',
+          icon: Icon(FontAwesomeIcons.chartColumn),
+          label: 'Progress',
         ),
-        BottomNavigationBarItem(icon: Icon(Icons.device_hub), label: 'Devices'),
+        BottomNavigationBarItem(
+          icon: Icon(FontAwesomeIcons.facebookMessenger),
+          label: 'Messages',
+        ),
         BottomNavigationBarItem(
           icon: Icon(Icons.account_circle),
           label: 'Profile',
