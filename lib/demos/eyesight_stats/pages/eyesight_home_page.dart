@@ -99,12 +99,12 @@ class EyesightHomePage extends StatelessWidget {
             ),
             EyesightPageButtonWidget(
               text: 'Training',
-              icon: FontAwesomeIcons.clipboardCheck,
+              icon: FontAwesomeIcons.listCheck,
               page: null,
             ),
             EyesightPageButtonWidget(
               text: 'Quick test',
-              icon: FontAwesomeIcons.solidClock,
+              icon: FontAwesomeIcons.clock,
               page: null,
             ),
             EyesightPageButtonWidget(
@@ -132,12 +132,12 @@ Widget infoPagesView() {
           ),
           EyesightPageButtonWidget(
             text: 'Contact your eye doctor',
-            icon: FontAwesomeIcons.chartColumn,
+            icon: FontAwesomeIcons.stethoscope,
             page: null,
           ),
           EyesightPageButtonWidget(
             text: 'Compare your stats',
-            icon: FontAwesomeIcons.clipboardCheck,
+            icon: FontAwesomeIcons.leftRight,
             page: null,
           ),
         ],

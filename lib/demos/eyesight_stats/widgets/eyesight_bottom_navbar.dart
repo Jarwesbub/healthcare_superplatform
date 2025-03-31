@@ -19,7 +19,7 @@ class _NavigationBarState extends State<EyesightNavigationBar> {
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(
-          icon: Icon(FontAwesomeIcons.chartColumn),
+          icon: Icon(FontAwesomeIcons.chartLine),
           label: 'Progress',
         ),
         BottomNavigationBarItem(
