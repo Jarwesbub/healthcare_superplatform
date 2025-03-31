@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 
 class EyesightNavigationBar extends StatefulWidget {
   const EyesightNavigationBar({super.key, required this.onButtonTap});
@@ -32,8 +33,8 @@ class _NavigationBarState extends State<EyesightNavigationBar> {
       ],
       currentIndex: _currentPage,
       backgroundColor: Colors.white,
-      selectedItemColor: Colors.green[700],
-      unselectedItemColor: Colors.grey,
+      selectedItemColor: EyesightColors().customPrimary,
+      unselectedItemColor: EyesightColors().customSecondary,
       onTap: (index) {
         widget.onButtonTap(index);
         setState(() => _currentPage = index);

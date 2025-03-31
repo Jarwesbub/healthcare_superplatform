@@ -5,6 +5,10 @@ class EyesightHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center();
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+
+      child: ListView(children: []),
+    );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:healthcare_superplatform/themes/custom_appbar_theme.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 
 class EyesightAppBar extends StatelessWidget implements PreferredSizeWidget {
   const EyesightAppBar({super.key, required this.title});
@@ -21,8 +21,8 @@ class EyesightAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title: Text(title),
       centerTitle: true,
-      backgroundColor: const Color(0xFF1681AC),
-      foregroundColor: const Color(0xFFEFF1F1),
+      backgroundColor: EyesightColors().customPrimary,
+      foregroundColor: EyesightColors().surface,
       actions: [userPopupMenu()],
 
       leading:
@@ -45,8 +45,6 @@ class EyesightAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title: Text(title, style: TextStyle(color: Colors.white, fontSize: 24)),
       centerTitle: true,
-      backgroundColor: CustomAppBarTheme.lightAppBarTheme.backgroundColor,
-      foregroundColor: CustomAppBarTheme.lightAppBarTheme.foregroundColor,
       actions: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
