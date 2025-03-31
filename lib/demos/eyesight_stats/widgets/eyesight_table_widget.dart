@@ -18,8 +18,8 @@ import 'package:flutter/material.dart';
       "Row3"      |     "data1"     |    "data2"
 */
 
-class CustomTableWidget extends StatelessWidget {
-  const CustomTableWidget({
+class EyesightTableWidget extends StatelessWidget {
+  const EyesightTableWidget({
     super.key,
     required this.tableContent,
     required this.columnFlexValues,
@@ -51,7 +51,7 @@ class CustomTableWidget extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
 
-              color: Colors.greenAccent,
+              color: const Color(0xFFEFF1F1),
             ),
             children: List.generate(rows, (rowIndex) {
               // Rows.

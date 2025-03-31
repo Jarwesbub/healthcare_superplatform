@@ -3,21 +3,17 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:healthcare_superplatform/unused/widgets/custom_appbar.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/custom_table_widget.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_table_widget.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
 
-class EyesightPage extends StatefulWidget {
-  const EyesightPage({super.key});
+class EyesightStatsPage extends StatefulWidget {
+  const EyesightStatsPage({super.key});
 
   @override
-  State<EyesightPage> createState() => _EyeSightState();
+  State<EyesightStatsPage> createState() => _EyesightStatsState();
 }
 
-class _EyeSightState extends State<EyesightPage> {
-  final Map<String, Color> itemColors = {
-    'primary': Color(0xFF95F3BC),
-    'secondary': Colors.white,
-  };
+class _EyesightStatsState extends State<EyesightStatsPage> {
   Map<String, dynamic>? data;
 
   Future<dynamic> readJson() async {
@@ -41,7 +37,7 @@ class _EyeSightState extends State<EyesightPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Your eyesight stats'),
+      appBar: const EyesightAppBar(title: 'Your eyesight stats'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
         child: ListView(
@@ -49,7 +45,7 @@ class _EyeSightState extends State<EyesightPage> {
             const SizedBox(height: 10),
             SvgPicture.asset('assets/images/eye.svg'),
             _headline('Basic information'),
-            CustomTableWidget(
+            EyesightTableWidget(
               tableContent: [
                 ['Type', 'Left', 'Right'],
                 [
@@ -71,7 +67,7 @@ class _EyeSightState extends State<EyesightPage> {
               columnFlexValues: [2, 1, 1],
             ),
             _headline('Keratometry'),
-            CustomTableWidget(
+            EyesightTableWidget(
               tableContent: [
                 ['Type', 'Left', 'Right'],
                 [
@@ -94,7 +90,7 @@ class _EyeSightState extends State<EyesightPage> {
               columnFlexValues: [2, 1, 1],
             ),
             _headline('Other'),
-            CustomTableWidget(
+            EyesightTableWidget(
               tableContent: [
                 ['Type', 'Information'],
                 ['Color vision', '${data?['color_vision']}'],
@@ -114,8 +110,7 @@ class _EyeSightState extends State<EyesightPage> {
       height: 35,
       width: double.infinity,
       alignment: Alignment.center,
-      margin: const EdgeInsets.symmetric(vertical: 40),
-      decoration: BoxDecoration(color: itemColors['primary']),
+      margin: const EdgeInsets.symmetric(vertical: 20),
       child: Text(
         text,
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
