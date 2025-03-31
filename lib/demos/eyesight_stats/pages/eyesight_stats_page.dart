@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_table_widget.dart';
 
@@ -112,10 +113,7 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
       width: double.infinity,
       alignment: Alignment.center,
       margin: const EdgeInsets.symmetric(vertical: 20),
-      child: Text(
-        text,
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-      ),
+      child: Text(text, style: EyesightTextStyle().header),
     );
   }
 }

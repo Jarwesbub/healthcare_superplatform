@@ -7,7 +7,11 @@ class EyesightTextStyle {
     fontSize: 20,
     fontWeight: FontWeight.w600,
   );
-  final header = TextStyle(color: EyesightColors().onSurface, fontSize: 18);
+  final header = TextStyle(
+    color: EyesightColors().onSurface,
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+  );
   final label = TextStyle(
     color: EyesightColors().customSecondary,
     fontSize: 18,
