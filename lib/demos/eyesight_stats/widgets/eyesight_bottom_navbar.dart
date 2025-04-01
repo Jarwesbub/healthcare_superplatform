@@ -26,7 +26,7 @@ class _NavigationBarState extends State<EyesightNavigationBar> {
         ),
         BottomNavigationBarItem(
           icon: Icon(FontAwesomeIcons.facebookMessenger),
-          label: 'Messages',
+          label: 'Chat',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.account_circle),
