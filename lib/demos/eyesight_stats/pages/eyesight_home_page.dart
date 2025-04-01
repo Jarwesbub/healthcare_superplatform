@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_stats_page.dart';
@@ -12,9 +13,16 @@ class EyesightHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-      children: [todaysPlanView(), mainPagesView(), infoPagesView()],
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: PageConstants.mobileViewLimit.toDouble(),
+        ),
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          children: [todaysPlanView(), mainPagesView(), infoPagesView()],
+        ),
+      ),
     );
   }
 

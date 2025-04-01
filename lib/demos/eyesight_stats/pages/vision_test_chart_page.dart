@@ -21,25 +21,31 @@ class _VisionTestChartState extends State<VisionTestChartPage> {
       backgroundColor: EyesightColors().surface,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-        child: Column(
-          children: [
-            Flexible(
-              flex: 3,
-              child: Column(
-                children: List.generate(7, (index) {
-                  index += 2;
-                  return imageRow(index);
-                }),
-              ),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 400),
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 10,
+                  child: Column(
+                    children: List.generate(7, (index) {
+                      index += 2;
+                      return imageRow(index);
+                    }),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 40),
+                    child: startButton(),
+                  ),
+                ),
+                Expanded(flex: 1, child: const SizedBox()),
+              ],
             ),
-            Flexible(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 40),
-                child: startButton(),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -68,9 +74,8 @@ class _VisionTestChartState extends State<VisionTestChartPage> {
   }
 
   Widget startButton() {
-    return SizedBox(
-      width: 120,
-      height: 40,
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 60, minHeight: 40, minWidth: 100),
       child: Material(
         borderRadius: BorderRadius.circular(8),
         color: EyesightColors().customPrimary,

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
@@ -41,67 +42,74 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
       appBar: EyesightAppBar(title: 'Eye stats', isBackButtonVisible: true),
       backgroundColor: EyesightColors().surface,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-        child: ListView(
-          children: [
-            const SizedBox(height: 10),
-            SvgPicture.asset('assets/images/eye.svg'),
-            _headline('Basic information'),
-            EyesightTableWidget(
-              tableContent: [
-                ['Type', 'Left', 'Right'],
-                [
-                  'Visual acuity',
-                  '${data?['visual_acuity']['left_eye']}',
-                  '${data?['visual_acuity']['right_eye']}',
-                ],
-                [
-                  'Refraction',
-                  '${data?['refraction']['left_eye']}',
-                  '${data?['refraction']['right_eye']}',
-                ],
-                [
-                  'Intraocular pressure',
-                  '${data?['intraocular_pressure']['left_eye']}',
-                  '${data?['intraocular_pressure']['right_eye']}',
-                ],
-              ],
-              columnFlexValues: [2, 1, 1],
+        padding: const EdgeInsets.all(20),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: PageConstants.mobileViewLimit.toDouble(),
             ),
-            _headline('Keratometry'),
-            EyesightTableWidget(
-              tableContent: [
-                ['Type', 'Left', 'Right'],
-                [
-                  'Flat curvature',
-                  '${data?['keratometry']['left_eye']['flat_k']}',
-                  '${data?['keratometry']['right_eye']['flat_k']}',
-                ],
-                [
-                  'Steep curvature',
-                  '${data?['keratometry']['left_eye']['steep_k']}',
-                  '${data?['keratometry']['right_eye']['steep_k']}',
-                ],
-                [
-                  'Axis',
-                  '${data?['keratometry']['left_eye']['axis']}',
-                  '${data?['keratometry']['right_eye']['axis']}',
-                ],
+            child: ListView(
+              children: [
+                const SizedBox(height: 10),
+                SvgPicture.asset('assets/images/eye.svg'),
+                _headline('Basic information'),
+                EyesightTableWidget(
+                  tableContent: [
+                    ['Type', 'Left', 'Right'],
+                    [
+                      'Visual acuity',
+                      '${data?['visual_acuity']['left_eye']}',
+                      '${data?['visual_acuity']['right_eye']}',
+                    ],
+                    [
+                      'Refraction',
+                      '${data?['refraction']['left_eye']}',
+                      '${data?['refraction']['right_eye']}',
+                    ],
+                    [
+                      'Intraocular pressure',
+                      '${data?['intraocular_pressure']['left_eye']}',
+                      '${data?['intraocular_pressure']['right_eye']}',
+                    ],
+                  ],
+                  columnFlexValues: [2, 1, 1],
+                ),
+                _headline('Keratometry'),
+                EyesightTableWidget(
+                  tableContent: [
+                    ['Type', 'Left', 'Right'],
+                    [
+                      'Flat curvature',
+                      '${data?['keratometry']['left_eye']['flat_k']}',
+                      '${data?['keratometry']['right_eye']['flat_k']}',
+                    ],
+                    [
+                      'Steep curvature',
+                      '${data?['keratometry']['left_eye']['steep_k']}',
+                      '${data?['keratometry']['right_eye']['steep_k']}',
+                    ],
+                    [
+                      'Axis',
+                      '${data?['keratometry']['left_eye']['axis']}',
+                      '${data?['keratometry']['right_eye']['axis']}',
+                    ],
+                  ],
+                  // Set the first column twice as wide.
+                  columnFlexValues: [2, 1, 1],
+                ),
+                _headline('Other'),
+                EyesightTableWidget(
+                  tableContent: [
+                    ['Type', 'Information'],
+                    ['Color vision', '${data?['color_vision']}'],
+                    ['Diagnosis', '${data?['diagnosis']}'],
+                    ['Recommendations', '${data?['recommendations']}'],
+                  ],
+                  columnFlexValues: [1, 1],
+                ),
               ],
-              // Set the first column twice as wide.
-              columnFlexValues: [2, 1, 1],
             ),
-            _headline('Other'),
-            EyesightTableWidget(
-              tableContent: [
-                ['Type', 'Information'],
-                ['Color vision', '${data?['color_vision']}'],
-                ['Diagnosis', '${data?['diagnosis']}'],
-                ['Recommendations', '${data?['recommendations']}'],
-              ],
-              columnFlexValues: [1, 1],
-            ),
-          ],
+          ),
         ),
       ),
     );
