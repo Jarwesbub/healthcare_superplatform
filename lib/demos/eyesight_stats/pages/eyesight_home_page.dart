@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_stats_page.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_test_chart_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mini_button_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_page_button_widget.dart';
 
@@ -105,7 +106,7 @@ class EyesightHomePage extends StatelessWidget {
             EyesightPageButtonWidget(
               text: 'Quick test',
               icon: FontAwesomeIcons.clock,
-              page: null,
+              page: const VisionTestChartPage(),
             ),
             EyesightPageButtonWidget(
               text: 'Eye filter',
