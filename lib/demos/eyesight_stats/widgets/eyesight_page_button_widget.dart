@@ -39,7 +39,7 @@ class EyesightPageButtonWidget extends StatelessWidget {
               debugPrint('Tapped $text page');
               return;
             }
-            ;
+
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => page!),
