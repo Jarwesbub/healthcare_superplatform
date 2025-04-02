@@ -24,7 +24,7 @@ class _VisionTestChartState extends State<VisionTestChartPage> {
         child: Center(
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: 400),
-            child: Column(
+            child: ListView(
               children: [
                 Expanded(
                   flex: 10,

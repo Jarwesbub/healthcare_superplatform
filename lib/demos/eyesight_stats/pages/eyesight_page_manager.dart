@@ -3,6 +3,7 @@ import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_chatbot_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_home_page.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_progress_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_bottom_navbar.dart';
 
@@ -23,7 +24,7 @@ class _EyesightPageManagerState extends State<EyesightPageManager> {
     super.initState();
     pageList = {
       'Home': EyesightHomePage(),
-      'Progress': Center(child: const Text('Progress')),
+      'Progress': EyesightProgressPage(),
       'Chat': EyesightChatbotPage(),
       'Profile': Center(child: const Text('Profile')),
     };
