@@ -100,140 +100,141 @@ class _ChatbotPageState extends State<EyesightChatbotPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 15, bottom: 10),
-            child: Text(
-              "Today, ${DateFormat("Hm").format(DateTime.now())}",
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-          Flexible(
-            child: ListView.builder(
-              reverse: true,
-              itemCount: messsages.length,
-              itemBuilder:
-                  (context, index) => chat(
-                    messsages[index]["message"].toString(),
-                    messsages[index]["data"],
-                  ),
-            ),
-          ),
-
-          if (firstMessageSent)
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Row(
-                children: [
-                  // Hide/Show button
-                  IconButton(
-                    icon: Icon(
-                      showQuickReplies
-                          ? Icons.visibility
-                          : Icons.visibility_off,
-                      color: EyesightColors().customPrimary,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        showQuickReplies =
-                            !showQuickReplies; // Toggle visibility
-                      });
-                    },
-                  ),
-
-                  // Quick reply buttons inside the SingleChildScrollView
-                  if (showQuickReplies)
-                    Expanded(
-                      child: SingleChildScrollView(
-                        scrollDirection:
-                            Axis.horizontal, // Set to horizontal scrolling
-                        child: Row(
-                          children: [
-                            _buildQuickReplyButton(
-                              "Where can i find my vaccine information?",
-                              "Where can i find my vaccine information?",
-                            ),
-                            SizedBox(width: 10),
-                            _buildQuickReplyButton(
-                              "Where can i find the energy calculator?",
-                              "Where can i find the energy calculator?",
-                            ),
-                            SizedBox(width: 10),
-                            _buildQuickReplyButton(
-                              "What features does this app contain?",
-                              "What features does this app contain?",
-                            ),
-                            SizedBox(width: 10),
-                            _buildQuickReplyButton(
-                              "Where can i find my recipes?",
-                              "Where can i find my recipes?",
-                            ),
-                            SizedBox(width: 10),
-                            _buildQuickReplyButton(
-                              "Where can i find my oralhealth information?",
-                              "Where can i find my oralhealth information?",
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-
-          Divider(height: 5.0, color: EyesightColors().customPrimary),
-          ListTile(
-            leading: IconButton(
-              icon: Icon(
-                Icons.camera_alt,
-                color: EyesightColors().customPrimary,
-                size: 35,
-              ),
-              onPressed: () {},
-            ),
-            title: Container(
-              height: 35,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Color.fromRGBO(220, 220, 220, 1),
-              ),
-              padding: EdgeInsets.only(left: 15, bottom: 5),
-              child: TextField(
-                style: TextStyle(color: Colors.black),
-                controller: messageInsert,
-                decoration: InputDecoration(
-                  hintText: "Enter a Message...",
-                  hintStyle: TextStyle(
-                    color: const Color.fromARGB(255, 0, 0, 0),
-                  ),
-                  border: InputBorder.none,
+      body: Center(
+        child: ConstrainedBox(constraints: const BoxConstraints(maxWidth: 800),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 15, bottom: 10),
+                child: Text(
+                  "Today, ${DateFormat("Hm").format(DateTime.now())}",
+                  style: TextStyle(fontSize: 20),
                 ),
               ),
-            ),
-            trailing: IconButton(
-              icon: Icon(
-                Icons.send,
-                size: 30.0,
-                color: EyesightColors().customPrimary,
+              Flexible(
+                child: ListView.builder(
+                  reverse: true,
+                  itemCount: messsages.length,
+                  itemBuilder:
+                      (context, index) => chat(
+                        messsages[index]["message"].toString(),
+                        messsages[index]["data"],
+                      ),
+                ),
               ),
-              onPressed: () {
-                if (messageInsert.text.isNotEmpty) {
-                  setState(() {
-                    messsages.insert(0, {
-                      "data": 1,
-                      "message": messageInsert.text,
-                    });
-                  });
-                  response(messageInsert.text);
-                  messageInsert.clear();
-                  FocusScope.of(context).unfocus();
-                }
-              },
-            ),
+          
+              if (firstMessageSent)
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Row(
+                    children: [
+                      // Hide/Show button
+                      IconButton(
+                        icon: Icon(
+                          showQuickReplies
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: EyesightColors().customPrimary,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            showQuickReplies =
+                                !showQuickReplies; // Toggle visibility
+                          });
+                        },
+                      ),
+          
+                      // Quick reply buttons inside the SingleChildScrollView
+                      if (showQuickReplies)
+                        Expanded(
+                          child: SingleChildScrollView(
+                            scrollDirection:
+                                Axis.horizontal, // Set to horizontal scrolling
+                            child: Row(
+                              children: [
+                                _buildQuickReplyButton(
+                                  "Where can I find the quick test for my eyes?",
+                                  "Where can I find the quick test for my eyes?",
+                                  
+                                ),
+                                SizedBox(width: 10),
+                                _buildQuickReplyButton(
+                                  "Where can I find my eyesight progress?",
+                                  "Where can I find my eyesight progress?",
+                                
+                                ),
+                                SizedBox(width: 10),
+                                _buildQuickReplyButton(
+                                  "What features does this app contain?",
+                                  "What features does this app contain?",
+                                ),
+                                SizedBox(width: 10),
+                                _buildQuickReplyButton(
+                                  "Where can I find the eye filter?",
+                                  "Where can I find the eye filter?",
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+          
+              Divider(height: 5.0, color: EyesightColors().customPrimary),
+              ListTile(
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.camera_alt,
+                    color: EyesightColors().customPrimary,
+                    size: 35,
+                  ),
+                  onPressed: () {},
+                ),
+                title: Container(
+                  height: 35,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Color.fromRGBO(220, 220, 220, 1),
+                  ),
+                  padding: EdgeInsets.only(left: 15, bottom: 5),
+                  child: TextField(
+                    style: TextStyle(color: Colors.black),
+                    controller: messageInsert,
+                    decoration: InputDecoration(
+                      hintText: "Enter a Message...",
+                      hintStyle: TextStyle(
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                      ),
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+                trailing: IconButton(
+                  icon: Icon(
+                    Icons.send,
+                    size: 30.0,
+                    color: EyesightColors().customPrimary,
+                  ),
+                  onPressed: () {
+                    if (messageInsert.text.isNotEmpty) {
+                      setState(() {
+                        messsages.insert(0, {
+                          "data": 1,
+                          "message": messageInsert.text,
+                        });
+                      });
+                      response(messageInsert.text);
+                      messageInsert.clear();
+                      FocusScope.of(context).unfocus();
+                    }
+                  },
+                ),
+              ),
+              SizedBox(height: 15.0),
+            ],
           ),
-          SizedBox(height: 15.0),
-        ],
+        ),
       ),
     );
   }
