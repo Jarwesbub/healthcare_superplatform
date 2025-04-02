@@ -32,117 +32,120 @@ class EyesightProgressPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Eyesight Progress'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: FutureBuilder<List<List<FlSpot>>>(
-          future: Future.wait([_loadRightEyeData(), _loadLeftEyeData()]),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(child: Text('No data available'));
-            }
-        
-            final rightEyeData = snapshot.data![0];
-            final leftEyeData = snapshot.data![1];
-        
-            // Build the LineChart with the loaded data
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: LineChart(
-                LineChartData(
-                  gridData: FlGridData(
-                    show: true,
-                    drawVerticalLine: true,
-                    verticalInterval: 1,
-                    horizontalInterval: 0.1,
-                    getDrawingHorizontalLine: (value) {
-                      return FlLine(
-                        color: Colors.grey.withOpacity(0.2),
-                        strokeWidth: 1,
-                      );
-                    },
-                    getDrawingVerticalLine: (value) {
-                      return FlLine(
-                        color: Colors.grey.withOpacity(0.2),
-                        strokeWidth: 1,
-                      );
-                    },
-                  ),
-                  titlesData: FlTitlesData(
-                    leftTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        reservedSize: 40,
-                        getTitlesWidget: (value, meta) {
-                          return Text(
-                            value.toStringAsFixed(1),
-                            style: const TextStyle(
-                              color: Colors.black54,
-                              fontSize: 12,
-                            ),
-                          );
-                        },
-                      ),
+      body: Center(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: FutureBuilder<List<List<FlSpot>>>(
+            future: Future.wait([_loadRightEyeData(), _loadLeftEyeData()]),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return const Center(child: Text('No data available'));
+              }
+          
+              final rightEyeData = snapshot.data![0];
+              final leftEyeData = snapshot.data![1];
+          
+              // Build the LineChart with the loaded data
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: LineChart(
+                  LineChartData(
+                    gridData: FlGridData(
+                      show: true,
+                      drawVerticalLine: true,
+                      verticalInterval: 1,
+                      horizontalInterval: 0.1,
+                      getDrawingHorizontalLine: (value) {
+                        return FlLine(
+                          color: Colors.grey.withOpacity(0.2),
+                          strokeWidth: 1,
+                        );
+                      },
+                      getDrawingVerticalLine: (value) {
+                        return FlLine(
+                          color: Colors.grey.withOpacity(0.2),
+                          strokeWidth: 1,
+                        );
+                      },
                     ),
-                    rightTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: false, // Hide right side titles
-                      ),
-                    ),
-                    bottomTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        reservedSize: 40,
-                        getTitlesWidget: (value, meta) {
-                          // Only show unique years (integer values)
-                          if (value % 1 == 0) {
+                    titlesData: FlTitlesData(
+                      leftTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          reservedSize: 40,
+                          getTitlesWidget: (value, meta) {
                             return Text(
-                              'Year ${value.toInt()}',
+                              value.toStringAsFixed(1),
                               style: const TextStyle(
                                 color: Colors.black54,
                                 fontSize: 12,
                               ),
                             );
-                          }
-                          return const SizedBox.shrink(); // Hide duplicates
-                        },
+                          },
+                        ),
+                      ),
+                      rightTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: false, // Hide right side titles
+                        ),
+                      ),
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          reservedSize: 40,
+                          getTitlesWidget: (value, meta) {
+                            // Only show unique years (integer values)
+                            if (value % 1 == 0) {
+                              return Text(
+                                'Year ${value.toInt()}',
+                                style: const TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 12,
+                                ),
+                              );
+                            }
+                            return const SizedBox.shrink(); // Hide duplicates
+                          },
+                        ),
                       ),
                     ),
+                    borderData: FlBorderData(
+                      show: true,
+                      border: Border.all(
+                        color: Colors.grey.withOpacity(0.5),
+                        width: 1,
+                      ),
+                    ),
+                    minY: 0.4, // Set minimum y-axis value slightly below the lowest data point
+                    maxY: 1.1, // Set maximum y-axis value slightly above the highest data point
+                    lineBarsData: [
+                      LineChartBarData(
+                        spots: rightEyeData,
+                        isCurved: true,
+                        color: Colors.blue, // Blue for right eye
+                        barWidth: 4,
+                        isStrokeCapRound: true,
+                        belowBarData: BarAreaData(show: false),
+                      ),
+                      LineChartBarData(
+                        spots: leftEyeData,
+                        isCurved: true,
+                        color: Colors.green, // Green for left eye
+                        barWidth: 4,
+                        isStrokeCapRound: true,
+                        belowBarData: BarAreaData(show: false),
+                      ),
+                    ],
                   ),
-                  borderData: FlBorderData(
-                    show: true,
-                    border: Border.all(
-                      color: Colors.grey.withOpacity(0.5),
-                      width: 1,
-                    ),
-                  ),
-                  minY: 0.4, // Set minimum y-axis value slightly below the lowest data point
-                  maxY: 1.1, // Set maximum y-axis value slightly above the highest data point
-                  lineBarsData: [
-                    LineChartBarData(
-                      spots: rightEyeData,
-                      isCurved: true,
-                      color: Colors.blue, // Blue for right eye
-                      barWidth: 4,
-                      isStrokeCapRound: true,
-                      belowBarData: BarAreaData(show: false),
-                    ),
-                    LineChartBarData(
-                      spots: leftEyeData,
-                      isCurved: true,
-                      color: Colors.green, // Green for left eye
-                      barWidth: 4,
-                      isStrokeCapRound: true,
-                      belowBarData: BarAreaData(show: false),
-                    ),
-                  ],
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );
