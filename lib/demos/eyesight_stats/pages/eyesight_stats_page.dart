@@ -258,7 +258,7 @@ class EyesightVisualAcuityChart extends StatelessWidget {
           ),
           child: Text(
             'Visual acuity measures how clearly you can see. A value of 1.0 represents normal "20/20" vision. Higher numbers mean better than average vision, while lower numbers indicate that objects must be closer for you to see them clearly.',
-            style: const TextStyle(fontSize: 12, color: Colors.black87),
+            style: const TextStyle(fontSize: 14, color: Colors.black87),
           ),
         ),
         // Personalized interpretation
@@ -273,7 +273,7 @@ class EyesightVisualAcuityChart extends StatelessWidget {
           child: Text(
             'What this means for you: $acuityInterpretation',
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: FontWeight.bold, 
               color: EyesightColors().primary
             ),
@@ -313,7 +313,7 @@ class EyesightVisualAcuityChart extends StatelessWidget {
                           'Visual Acuity',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 12,
+                            fontSize: 14,
                           ),
                         ),
                       );
@@ -335,7 +335,7 @@ class EyesightVisualAcuityChart extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 8.0),
                         child: Text(
                           label,
-                          style: const TextStyle(fontSize: 10),
+                          style: const TextStyle(fontSize: 12),
                         ),
                       );
                     },
@@ -415,7 +415,7 @@ class EyesightVisualAcuityChart extends StatelessWidget {
           color: color,
         ),
         const SizedBox(width: 4),
-        Text(label, style: const TextStyle(fontSize: 12)),
+        Text(label, style: const TextStyle(fontSize: 14)),
       ],
     );
   }
@@ -509,7 +509,7 @@ class EyesightAxisChart extends StatelessWidget {
           ),
           child: const Text(
             'The corneal axis shows the orientation of your corneal astigmatism. It indicates which direction your cornea is steeper. Values typically range from 0° to 180°. The axis value itself is less important than whether it aligns with any astigmatism in your lens prescription.',
-            style: TextStyle(fontSize: 12, color: Colors.black87),
+            style: TextStyle(fontSize: 14, color: Colors.black87),
           ),
         ),
         const SizedBox(height: 20),
@@ -544,7 +544,7 @@ class EyesightAxisChart extends StatelessWidget {
                           'Corneal Axis',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 12,
+                            fontSize: 14,
                           ),
                         ),
                       );
@@ -631,7 +631,7 @@ class EyesightAxisChart extends StatelessWidget {
           color: color,
         ),
         const SizedBox(width: 4),
-        Text(label, style: const TextStyle(fontSize: 12)),
+        Text(label, style: const TextStyle(fontSize: 14)),
       ],
     );
   }
@@ -691,7 +691,7 @@ class EyesightComparisonChart extends StatelessWidget {
             isKeratometry
                 ? 'Keratometry measures the curvature of your cornea. Flat K and Steep K values represent the different curvatures across your cornea surface. Normal values range around 42-46 diopters. Values outside this range may indicate conditions like astigmatism or keratoconus.'
                 : 'Intraocular Pressure (IOP) is the fluid pressure inside your eye. Normal IOP ranges from 12-22 mmHg. Higher values may indicate glaucoma risk, while lower values can sometimes indicate other eye conditions.',
-            style: const TextStyle(fontSize: 12, color: Colors.black87),
+            style: const TextStyle(fontSize: 14, color: Colors.black87),
           ),
         ),
         const SizedBox(height: 20),
@@ -727,7 +727,7 @@ class EyesightComparisonChart extends StatelessWidget {
                           _getMetricName(value.toInt(), isKeratometry),
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 12,
+                            fontSize: 14,
                           ),
                         ),
                       );
@@ -785,7 +785,7 @@ class EyesightComparisonChart extends StatelessWidget {
           color: color,
         ),
         const SizedBox(width: 4),
-        Text(label, style: const TextStyle(fontSize: 12)),
+        Text(label, style: const TextStyle(fontSize: 14)),
       ],
     );
   }
