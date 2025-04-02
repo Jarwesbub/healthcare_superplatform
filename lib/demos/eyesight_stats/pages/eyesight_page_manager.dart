@@ -43,7 +43,7 @@ class _EyesightPageManagerState extends State<EyesightPageManager> {
       backgroundColor: EyesightColors().surface,
       body: pageList.values.elementAt(currentPage),
       bottomNavigationBar:
-          isMobileView ? EyesightNavigationBar(onButtonTap: onButtonTap) : null,
+           EyesightNavigationBar(onButtonTap: onButtonTap),
     );
   }
 
