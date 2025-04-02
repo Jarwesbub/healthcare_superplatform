@@ -1,35 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_data_utils.dart';
 
 class SimplifiedPressureChart extends StatelessWidget {
   final Map<String, dynamic>? eyesightData;
-  
-  const SimplifiedPressureChart({
-    Key? key,
-    required this.eyesightData,
-  }) : super(key: key);
+
+  const SimplifiedPressureChart({Key? key, required this.eyesightData})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (eyesightData == null) {
       return const Center(child: CircularProgressIndicator());
     }
-    
+
     // Extract eye pressure data
     double leftPressure = EyesightDataUtils.parseNumericValue(
-      eyesightData?['intraocular_pressure']['left_eye']
+      eyesightData?['intraocular_pressure']['left_eye'],
     );
     double rightPressure = EyesightDataUtils.parseNumericValue(
-      eyesightData?['intraocular_pressure']['right_eye']
+      eyesightData?['intraocular_pressure']['right_eye'],
     );
-    
+
     // Get interpretation
     String interpretationText = EyesightDataUtils.getIOPInterpretation(
-      leftPressure, rightPressure
+      leftPressure,
+      rightPressure,
     );
-    
+
     return Card(
       elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 8),
@@ -43,31 +41,36 @@ class SimplifiedPressureChart extends StatelessWidget {
               children: [
                 const Text(
                   'Eye Pressure',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(width: 8),
                 Tooltip(
-                  message: 'Eye pressure is the fluid pressure inside your eye. Normal pressure is between 12-22 mmHg.',
-                  child: Icon(Icons.info_outline, 
-                    size: 18, 
-                    color: Colors.blue[300]
+                  message:
+                      'Eye pressure is the fluid pressure inside your eye. Normal pressure is between 12-22 mmHg.',
+                  child: Icon(
+                    Icons.info_outline,
+                    size: 18,
+                    color: Colors.blue[300],
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 16),
-            
+
             // Main interpretation with gauge-like visual
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: _getPressureColor(leftPressure, rightPressure).withOpacity(0.1),
+                color: _getPressureColor(
+                  leftPressure,
+                  rightPressure,
+                ).withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: _getPressureColor(leftPressure, rightPressure).withOpacity(0.3)
+                  color: _getPressureColor(
+                    leftPressure,
+                    rightPressure,
+                  ).withOpacity(0.3),
                 ),
               ),
               child: Row(
@@ -81,26 +84,22 @@ class SimplifiedPressureChart extends StatelessWidget {
                   Expanded(
                     child: Text(
                       interpretationText,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        height: 1.3,
-                      ),
+                      style: const TextStyle(fontSize: 16, height: 1.3),
                     ),
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 24),
-            
+
             // Horizontal linear gauge chart with exact values
-            Row(
+            Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Your Eye Pressure',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+                Center(
+                  child: const Text(
+                    'Your Eye Pressure',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                 ),
                 // Show exact values with units
@@ -135,7 +134,7 @@ class SimplifiedPressureChart extends StatelessWidget {
               child: _buildPressureGauge(leftPressure, rightPressure),
             ),
             const SizedBox(height: 16),
-            
+
             // Legend
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -145,58 +144,58 @@ class SimplifiedPressureChart extends StatelessWidget {
                 _buildLegendItem(Colors.green, 'Right Eye'),
               ],
             ),
-            
+
             // Range indicators
             const SizedBox(height: 24),
             _buildPressureRangeIndicators(),
-            
+
             // What this means section
             const SizedBox(height: 24),
             const Text(
               'What This Means',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 8),
             Text(
               _getDetailedPressureExplanation(leftPressure, rightPressure),
-              style: const TextStyle(
-                fontSize: 14,
-                height: 1.4,
-              ),
+              style: const TextStyle(fontSize: 14, height: 1.4),
             ),
           ],
         ),
       ),
     );
   }
-  
+
   // Build a horizontal gauge chart to show eye pressure
   Widget _buildPressureGauge(double leftValue, double rightValue) {
     return BarChart(
       BarChartData(
         alignment: BarChartAlignment.spaceAround,
-        maxY: 40,  // Maximum pressure to show
+        maxY: 40, // Maximum pressure to show
         minY: 0,
         barTouchData: BarTouchData(
           enabled: true,
           touchTooltipData: BarTouchTooltipData(
             getTooltipItem: (group, groupIndex, rod, rodIndex) {
               String label;
-              switch(group.x.toInt()) {
-                case 0: label = 'Left Eye: ${leftValue.toStringAsFixed(1)} mmHg';
+              switch (group.x.toInt()) {
+                case 0:
+                  label = 'Left Eye: ${leftValue.toStringAsFixed(1)} mmHg';
                   break;
-                case 1: label = 'Right Eye: ${rightValue.toStringAsFixed(1)} mmHg';
+                case 1:
+                  label = 'Right Eye: ${rightValue.toStringAsFixed(1)} mmHg';
                   break;
-                default: label = '';
+                default:
+                  label = '';
               }
               return BarTooltipItem(
                 label,
-                const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               );
-            }
+            },
           ),
         ),
         titlesData: FlTitlesData(
@@ -211,7 +210,10 @@ class SimplifiedPressureChart extends StatelessWidget {
                 if (value % 5 == 0 && value <= 35) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 8),
-                    child: Text('${value.toInt()}', style: const TextStyle(fontSize: 10)),
+                    child: Text(
+                      '${value.toInt()}',
+                      style: const TextStyle(fontSize: 10),
+                    ),
                   );
                 }
                 return const SizedBox.shrink();
@@ -225,7 +227,7 @@ class SimplifiedPressureChart extends StatelessWidget {
           getDrawingHorizontalLine: (value) {
             Color lineColor = Colors.grey.shade200;
             double strokeWidth = 0.5;
-            
+
             // Highlight normal range
             if (value == 12) {
               lineColor = Colors.green.withOpacity(0.3);
@@ -237,11 +239,8 @@ class SimplifiedPressureChart extends StatelessWidget {
               lineColor = Colors.red.withOpacity(0.3);
               strokeWidth = 1;
             }
-            
-            return FlLine(
-              color: lineColor,
-              strokeWidth: strokeWidth,
-            );
+
+            return FlLine(color: lineColor, strokeWidth: strokeWidth);
           },
           horizontalInterval: 5,
           drawVerticalLine: false,
@@ -262,10 +261,10 @@ class SimplifiedPressureChart extends StatelessWidget {
                 // Add value labels to the bars
                 rodStackItems: [
                   BarChartRodStackItem(
-                    0, 
-                    leftValue, 
+                    0,
+                    leftValue,
                     Colors.blue,
-                    BorderSide.none
+                    BorderSide.none,
                   ),
                 ],
                 // Show background for context
@@ -291,10 +290,10 @@ class SimplifiedPressureChart extends StatelessWidget {
                 // Add value labels to the bars
                 rodStackItems: [
                   BarChartRodStackItem(
-                    0, 
-                    rightValue, 
+                    0,
+                    rightValue,
                     Colors.green,
-                    BorderSide.none
+                    BorderSide.none,
                   ),
                 ],
                 // Show background for context
@@ -310,7 +309,7 @@ class SimplifiedPressureChart extends StatelessWidget {
       ),
     );
   }
-  
+
   // Build pressure range indicators with clearer labels
   Widget _buildPressureRangeIndicators() {
     return Container(
@@ -340,32 +339,25 @@ class SimplifiedPressureChart extends StatelessWidget {
       ),
     );
   }
-  
+
   Widget _buildRangeIndicator(String label, String range, Color color) {
     return Column(
       children: [
-        Container(
-          width: 30,
-          height: 10,
-          color: color,
-        ),
+        Container(width: 30, height: 10, color: color),
         const SizedBox(height: 4),
         Text(
           label,
           style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
         ),
-        Text(
-          range,
-          style: const TextStyle(fontSize: 10),
-        ),
+        Text(range, style: const TextStyle(fontSize: 10)),
       ],
     );
   }
-  
+
   // Get appropriate icon based on eye pressure
   IconData _getPressureIcon(double leftValue, double rightValue) {
     double avgPressure = (leftValue + rightValue) / 2;
-    
+
     if (avgPressure < 10) {
       return Icons.arrow_downward;
     } else if (avgPressure <= 21) {
@@ -376,11 +368,11 @@ class SimplifiedPressureChart extends StatelessWidget {
       return Icons.error;
     }
   }
-  
+
   // Get appropriate color based on eye pressure
   Color _getPressureColor(double leftValue, double rightValue) {
     double avgPressure = (leftValue + rightValue) / 2;
-    
+
     if (avgPressure < 10) {
       return Colors.blue;
     } else if (avgPressure <= 21) {
@@ -391,11 +383,11 @@ class SimplifiedPressureChart extends StatelessWidget {
       return Colors.red;
     }
   }
-  
+
   // More detailed explanation of pressure values
   String _getDetailedPressureExplanation(double leftValue, double rightValue) {
     double avgPressure = (leftValue + rightValue) / 2;
-    
+
     if (avgPressure < 10) {
       return 'Low eye pressure is typically not a concern unless you have other eye conditions. Your doctor might want to monitor this over time to ensure it stays stable.';
     } else if (avgPressure <= 21) {
@@ -406,16 +398,12 @@ class SimplifiedPressureChart extends StatelessWidget {
       return 'Significantly elevated eye pressure requires attention as it may damage your optic nerve over time, potentially leading to vision loss if not treated. Follow your doctor\'s recommendations closely.';
     }
   }
-  
+
   // Simple legend item
   Widget _buildLegendItem(Color color, String label) {
     return Row(
       children: [
-        Container(
-          width: 14,
-          height: 14,
-          color: color,
-        ),
+        Container(width: 14, height: 14, color: color),
         const SizedBox(width: 4),
         Text(label, style: const TextStyle(fontSize: 12)),
       ],

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_score_utils.dart';
@@ -45,12 +44,13 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
     return Scaffold(
       appBar: EyesightAppBar(title: 'My Eye Health', isBackButtonVisible: true),
       backgroundColor: Colors.grey[50],
-      body: data == null 
-          ? const Center(child: CircularProgressIndicator())
-          : _buildContent(),
+      body:
+          data == null
+              ? const Center(child: CircularProgressIndicator())
+              : _buildContent(),
     );
   }
-  
+
   Widget _buildContent() {
     return SingleChildScrollView(
       child: Padding(
@@ -65,24 +65,21 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
               children: [
                 // Header section with eye icon and intro text
                 _buildHeaderSection(),
-                
+
                 const SizedBox(height: 16),
-                
+
                 // Eye health summary card
                 _buildSummaryCard(),
-                
+
                 const SizedBox(height: 24),
-                
+
                 // Toggle between charts and tables
                 _buildViewToggle(),
-                
+
                 const SizedBox(height: 16),
-                
+
                 // Main content - either charts or tables
-                if (showCharts) 
-                  _buildChartsView()
-                else
-                  _buildTablesView(),
+                if (showCharts) _buildChartsView() else _buildTablesView(),
               ],
             ),
           ),
@@ -90,18 +87,15 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
       ),
     );
   }
-  
+
   Widget _buildHeaderSection() {
     return Column(
       children: [
-        // Eye icon 
-        SvgPicture.asset(
-          'assets/images/eye.svg',
-          height: 100,
-        ),
-        
+        // Eye icon
+        SvgPicture.asset('assets/images/eye.svg', height: 100),
+
         const SizedBox(height: 16),
-        
+
         // Intro text
         Text(
           'Your Eye Health Summary',
@@ -112,31 +106,28 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
           ),
           textAlign: TextAlign.center,
         ),
-        
+
         const SizedBox(height: 8),
-        
+
         const Text(
           'This report shows key measurements from your recent eye exam in simple, easy-to-understand charts.',
-          style: TextStyle(
-            fontSize: 16,
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 16, height: 1.4),
           textAlign: TextAlign.center,
         ),
       ],
     );
   }
-  
+
   Widget _buildSummaryCard() {
     // Calculate a simplified vision health score (0-100%)
     double visionScore = VisionScoreUtils.calculateVisionScore(data);
-    
+
     // Determine vision health status
     String visionStatus = VisionScoreUtils.getVisionStatus(visionScore);
-    
+
     // Get appropriate color
     Color scoreColor = VisionScoreUtils.getScoreColor(visionScore);
-    
+
     return Card(
       elevation: 2,
       child: Padding(
@@ -150,10 +141,7 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
                 const SizedBox(width: 8),
                 const Text(
                   'At a Glance',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -163,25 +151,29 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
             _buildSummaryItem(
               'Diagnosis',
               _getDiagnosis(),
-              Icons.medical_information
+              Icons.medical_information,
             ),
             _buildSummaryItem(
               'Color Vision',
               _getColorVision(),
-              Icons.colorize
+              Icons.colorize,
             ),
             _buildSummaryItem(
               'Recommendation',
               _getRecommendation(),
-              Icons.medical_services
+              Icons.medical_services,
             ),
           ],
         ),
       ),
     );
   }
-  
-  Widget _buildVisionScoreIndicator(double score, String status, Color scoreColor) {
+
+  Widget _buildVisionScoreIndicator(
+    double score,
+    String status,
+    Color scoreColor,
+  ) {
     return Row(
       children: [
         // Circular score indicator (enlarged)
@@ -235,11 +227,8 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
               ),
               const SizedBox(height: 2),
               Text(
-                'Based on your recent eye exam',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey.shade600,
-                ),
+                'Based on 1recent eye exam',
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
               ),
             ],
           ),
@@ -247,7 +236,7 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
       ],
     );
   }
-  
+
   Widget _buildDiagnosisSection() {
     return Container(
       width: double.infinity,
@@ -262,30 +251,28 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
         children: [
           Row(
             children: [
-              Icon(Icons.medical_information, size: 18, color: Colors.grey.shade700),
+              Icon(
+                Icons.medical_information,
+                size: 18,
+                color: Colors.grey.shade700,
+              ),
               const SizedBox(width: 6),
               const Text(
                 'Doctor\'s Note',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
               ),
             ],
           ),
           const SizedBox(height: 8),
           Text(
             _getDiagnosis(),
-            style: const TextStyle(
-              fontSize: 14,
-              height: 1.4,
-            ),
+            style: const TextStyle(fontSize: 14, height: 1.4),
           ),
         ],
       ),
     );
   }
-  
+
   Widget _buildSummaryItem(String label, String value, IconData icon) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
@@ -295,23 +282,15 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
           const SizedBox(width: 12),
           Text(
             '$label:',
-            style: const TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 15,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
           ),
           const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              value,
-              style: const TextStyle(fontSize: 15),
-            ),
-          ),
+          Expanded(child: Text(value, style: const TextStyle(fontSize: 15))),
         ],
       ),
     );
   }
-  
+
   Widget _buildViewToggle() {
     return Center(
       child: SegmentedButton<bool>(
@@ -334,38 +313,38 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
           });
         },
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.selected)) {
-                return EyesightColors().primary.withOpacity(0.1);
-              }
-              return Colors.transparent;
-            },
-          ),
+          backgroundColor: MaterialStateProperty.resolveWith<Color>((
+            Set<MaterialState> states,
+          ) {
+            if (states.contains(MaterialState.selected)) {
+              return EyesightColors().primary.withOpacity(0.1);
+            }
+            return Colors.transparent;
+          }),
         ),
       ),
     );
   }
-  
+
   Widget _buildChartsView() {
     return Column(
       children: [
         // Visual acuity chart - our simplified version
         SimplifiedVisualAcuityChart(eyesightData: data),
-        
+
         const SizedBox(height: 16),
-        
+
         // Intraocular Pressure Chart
         SimplifiedPressureChart(eyesightData: data),
-        
+
         const SizedBox(height: 16),
-        
+
         // Keratometry Chart
         SimplifiedKeratometryChart(eyesightData: data),
       ],
     );
   }
-  
+
   Widget _buildTablesView() {
     return Column(
       children: [
@@ -411,7 +390,7 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
             ),
           ),
         ),
-        
+
         Card(
           elevation: 2,
           margin: const EdgeInsets.only(bottom: 16),
@@ -459,7 +438,7 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
             ),
           ),
         ),
-        
+
         Card(
           elevation: 2,
           child: Padding(
@@ -492,7 +471,7 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
       ],
     );
   }
-  
+
   Widget _buildDoctorsNotes() {
     // This method is no longer needed as we've integrated the notes into the main card
     return const SizedBox.shrink();
@@ -501,16 +480,18 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
   // Helper method to get color vision safely
   String _getColorVision() {
     return data?['color_vision'] ?? 'No color vision assessment provided.';
-  }  // Calculate an overall vision health score based on available metrics
+  } // Calculate an overall vision health score based on available metrics
+
   double _calculateVisionScore() {
     return VisionScoreUtils.calculateVisionScore(data);
   }
-  
+
   // Helper method to remove need to check for null in template
   String _getRecommendation() {
-    return data?['recommendations'] ?? 'Follow up with your eye doctor regularly.';
+    return data?['recommendations'] ??
+        'Follow up with your eye doctor regularly.';
   }
-  
+
   // Helper method to get diagnosis safely
   String _getDiagnosis() {
     return data?['diagnosis'] ?? 'No specific diagnosis provided.';
