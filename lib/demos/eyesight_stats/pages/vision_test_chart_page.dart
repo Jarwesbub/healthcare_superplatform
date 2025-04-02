@@ -1,10 +1,11 @@
 import 'dart:math';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/models/vision_image_model.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/vision_image_widget.dart';
 
 class VisionTestChartPage extends StatefulWidget {
   const VisionTestChartPage({super.key});
@@ -14,8 +15,25 @@ class VisionTestChartPage extends StatefulWidget {
 }
 
 class _VisionTestChartState extends State<VisionTestChartPage> {
+  List<Widget> imageWidgets = [];
+  List<VisionImageModel> imageModels = [];
+  int imageIndex = 0;
+  int? activeImageId;
+  String currentEye = 'left';
+
+  @override
+  void initState() {
+    super.initState();
+    imageIndex = 0;
+    imageWidgets = List.generate(7, (index) {
+      index += 2;
+      return imageRow(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    imageIndex = 0;
     return Scaffold(
       appBar: EyesightAppBar(title: 'Quick test', isBackButtonVisible: true),
       backgroundColor: EyesightColors().surface,
@@ -26,23 +44,15 @@ class _VisionTestChartState extends State<VisionTestChartPage> {
             constraints: BoxConstraints(maxWidth: 400),
             child: ListView(
               children: [
-                Expanded(
-                  flex: 10,
-                  child: Column(
-                    children: List.generate(7, (index) {
-                      index += 2;
-                      return imageRow(index);
-                    }),
-                  ),
+                Column(children: imageWidgets),
+                Padding(
+                  padding: const EdgeInsets.only(top: 40),
+                  child:
+                      activeImageId == null
+                          ? startButton()
+                          : instructionsText(),
                 ),
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 40),
-                    child: startButton(),
-                  ),
-                ),
-                Expanded(flex: 1, child: const SizedBox()),
+                const SizedBox(),
               ],
             ),
           ),
@@ -53,22 +63,13 @@ class _VisionTestChartState extends State<VisionTestChartPage> {
 
   Widget imageRow(int columnIndex) {
     return Row(
-      spacing: 10,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(columnIndex, (index) {
-        // Generate random number.
-        int rand = Random().nextInt(4);
-        return Expanded(
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: RotatedBox(
-              quarterTurns: rand,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: SvgPicture.asset('assets/images/open_circle.svg'),
-              ),
-            ),
-          ),
-        );
+        final model = VisionImageModel(id: imageIndex);
+        imageModels.add(model);
+        imageIndex++;
+
+        return VisionImageWidget(model: model);
       }),
     );
   }
@@ -81,7 +82,7 @@ class _VisionTestChartState extends State<VisionTestChartPage> {
         color: EyesightColors().customPrimary,
         child: InkWell(
           onTap: () {
-            debugPrint('Tapped start button');
+            setTimer();
           },
           child: Center(
             child: Text(
@@ -93,5 +94,64 @@ class _VisionTestChartState extends State<VisionTestChartPage> {
         ),
       ),
     );
+  }
+
+  Widget instructionsText() {
+    return Center(
+      child: Text(
+        'Close your $currentEye eye',
+        textAlign: TextAlign.center,
+        style: TextStyle(color: EyesightColors().onSurface, fontSize: 24),
+      ),
+    );
+  }
+
+  void setTimer() {
+    _chooseRandomImage();
+    currentEye = 'left';
+    int maxCount = 10;
+    int counter = maxCount;
+    debugPrint('Timer started');
+    Timer.periodic(const Duration(seconds: 3), (timer) {
+      counter--;
+      try {
+        debugPrint('Timer counter: $counter');
+        switch (counter) {
+          case 0: // Timer ends.
+            debugPrint('Timer ended');
+            _clearImage(reset: true);
+            timer.cancel();
+            break;
+          case 5: // Change eye.
+            currentEye = 'right';
+            _clearImage(reset: false);
+            break;
+          case _:
+            _chooseRandomImage();
+            break;
+        }
+      } catch (error) {
+        debugPrint('Error: Page was closed -> cancel timer.');
+        timer.cancel();
+      }
+    });
+  }
+
+  void _chooseRandomImage() {
+    setState(() {
+      if (activeImageId != null) {
+        imageModels[activeImageId!].color = Colors.grey;
+      }
+      debugPrint('ActiveImageId: $activeImageId');
+      activeImageId = Random().nextInt(imageModels.length);
+      imageModels[activeImageId!].color = Colors.black;
+    });
+  }
+
+  void _clearImage({required bool reset}) {
+    setState(() {
+      imageModels[activeImageId!].color = Colors.grey;
+      if (reset) activeImageId = null;
+    });
   }
 }
