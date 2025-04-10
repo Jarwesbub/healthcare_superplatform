@@ -28,6 +28,13 @@ class _HomePageState extends State<EyesightHomePage> {
     EyesightMiniButtonWidget(
       excercise: 'Eye Exercise 2 (Day)',
       time: 5,
+      icon: FontAwesomeIcons.solidSun,
+      isCompleted: false,
+      page: null,
+    ),
+    EyesightMiniButtonWidget(
+      excercise: 'Eye Exercise 3 (Night)',
+      time: 5,
       icon: FontAwesomeIcons.solidMoon,
       isCompleted: false,
       page: null,
@@ -51,15 +58,15 @@ class _HomePageState extends State<EyesightHomePage> {
 
   Widget todaysPlanView() {
     return Container(
-      width: double.infinity,
+      width: 500,
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: EyesightColors().boxColor,
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            offset: Offset(1.0, 1.0),
-            blurRadius: 1.0,
+            offset: Offset(0.0, 1.0),
+            blurRadius: 4.0,
             color: EyesightColors().boxShadow,
           ),
         ],
@@ -86,10 +93,18 @@ class _HomePageState extends State<EyesightHomePage> {
               ),
             ],
           ),
-          Row(
-            children: List.generate(miniButtons.length, (index) {
-              return Expanded(child: miniButtons[index]);
-            }),
+          ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: double.maxFinite,
+              maxHeight: 100,
+            ),
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              children: List.generate(miniButtons.length, (index) {
+                return miniButtons[index];
+              }),
+            ),
           ),
         ],
       ),

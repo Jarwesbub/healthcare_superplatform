@@ -10,10 +10,9 @@ class EyesightColors {
   final Color plain = Colors.white;
   final Color grey0 = const Color(0xffE8E8E8);
   final Color grey1 = const Color(0xffA6A6A6);
-  final Color grey2 = const Color(0xff4A5866);
   final Color yellow0 = const Color(0xffEFA111);
   final Color boxColor = Colors.white;
-  final Color boxShadow = const Color.fromARGB(255, 194, 194, 194);
+  final Color boxShadow = const Color(0xff04052A);
   final Color background = const Color(0xFFF5F5F5); // Example background color
   final Color textPrimary = const Color(
     0xFF212121,

@@ -23,7 +23,8 @@ class EyesightMiniButtonWidget extends StatelessWidget {
     final progressColor =
         isCompleted ? EyesightColors().primary : EyesightColors().grey1;
     return Container(
-      height: 100,
+      height: 120,
+      width: 160,
       margin: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         color: EyesightColors().plain,

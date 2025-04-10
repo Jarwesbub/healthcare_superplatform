@@ -10,7 +10,7 @@ class EyesightTextStyle {
   final header = TextStyle(
     color: EyesightColors().onSurface,
     fontSize: 18,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w500,
   );
   final label = TextStyle(
     color: EyesightColors().customSecondary,
@@ -20,12 +20,12 @@ class EyesightTextStyle {
 
   final miniHeader = TextStyle(color: EyesightColors().onSurface, fontSize: 12);
   final miniLabelMain = TextStyle(
-    color: EyesightColors().grey2,
+    color: EyesightColors().onSurface,
     fontSize: 14,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w500,
   );
   final miniLabelSecondary = TextStyle(
-    color: EyesightColors().grey2,
+    color: EyesightColors().onSurface,
     fontSize: 12,
   );
 }
