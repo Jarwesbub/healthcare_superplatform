@@ -32,7 +32,7 @@ class EyesightMiniButtonWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Material(
-        borderRadius: BorderRadius.circular(8),
+        color: Colors.transparent,
         child: InkWell(
           onTap: () {
             if (page == null) {

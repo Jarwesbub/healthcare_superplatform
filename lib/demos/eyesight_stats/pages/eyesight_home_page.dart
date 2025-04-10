@@ -5,7 +5,7 @@ import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_co
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_exercise_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_stats_page.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_test_chart_page.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_icon_box_button_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mini_button_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_page_button_widget.dart';
 
@@ -41,6 +41,21 @@ class _HomePageState extends State<EyesightHomePage> {
     ),
   ];
 
+  final List<EyesightIconBoxButtonWidget> quickActionButtons = [
+    EyesightIconBoxButtonWidget(
+      text: 'Calendar',
+      icon: FontAwesomeIcons.solidCalendarCheck,
+    ),
+    EyesightIconBoxButtonWidget(
+      text: 'Training',
+      icon: FontAwesomeIcons.clipboardCheck,
+    ),
+    EyesightIconBoxButtonWidget(
+      text: 'Tests',
+      icon: FontAwesomeIcons.stopwatch,
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -50,7 +65,14 @@ class _HomePageState extends State<EyesightHomePage> {
         ),
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-          children: [todaysPlanView(), mainPagesView(), infoPagesView()],
+          children: [
+            todaysPlanView(),
+            const SizedBox(height: 30),
+            quickActionsView(),
+            const SizedBox(height: 30),
+            statsAndProgressView(),
+            const SizedBox(height: 10),
+          ],
         ),
       ),
     );
@@ -111,70 +133,54 @@ class _HomePageState extends State<EyesightHomePage> {
     );
   }
 
-  Widget mainPagesView() {
+  Widget quickActionsView() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: Text('Quick Actions', style: EyesightTextStyle().header),
+        ),
+        ConstrainedBox(
+          constraints: const BoxConstraints(
+            maxWidth: double.maxFinite,
+            maxHeight: 100,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(quickActionButtons.length, (index) {
+              return Expanded(
+                child: Row(children: [quickActionButtons[index], Spacer()]),
+              );
+            }),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget statsAndProgressView() {
     return Builder(
       builder: (context) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: const EdgeInsets.only(top: 30, bottom: 10),
-              child: Text('Your eye health', style: EyesightTextStyle().header),
-            ),
+            Text('Your eye information', style: EyesightTextStyle().header),
             EyesightPageButtonWidget(
               text: 'Stats',
               icon: FontAwesomeIcons.chartColumn,
               page: EyesightStatsPage(),
             ),
             EyesightPageButtonWidget(
-              text: 'Training',
+              text: 'Progress',
               icon: FontAwesomeIcons.listCheck,
               page: EyeExercisePage(),
-            ),
-            EyesightPageButtonWidget(
-              text: 'Quick test',
-              icon: FontAwesomeIcons.clock,
-              page: const VisionTestChartPage(),
-            ),
-            EyesightPageButtonWidget(
-              text: 'Eye filter',
-              icon: FontAwesomeIcons.eyeLowVision,
-              page: null,
             ),
           ],
         );
       },
     );
   }
-}
-
-Widget infoPagesView() {
-  return Builder(
-    builder: (context) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 30, bottom: 10),
-            child: Text(
-              'Information center',
-              style: EyesightTextStyle().header,
-            ),
-          ),
-          EyesightPageButtonWidget(
-            text: 'Contact your eye doctor',
-            icon: FontAwesomeIcons.stethoscope,
-            page: null,
-          ),
-          EyesightPageButtonWidget(
-            text: 'Compare your stats',
-            icon: FontAwesomeIcons.leftRight,
-            page: null,
-          ),
-        ],
-      );
-    },
-  );
 }

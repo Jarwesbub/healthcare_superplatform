@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class EyesightColors {
   final Color onSurface = Color(0xFF404040);
-  final Color surface = const Color(0xFFEFF1F1);
+  final Color surface = const Color(0xFFF4F7FD);
   final Color customPrimary = const Color(0xFF1681AC);
   final Color customSecondary = const Color(0xFF696969);
   final Color primary = const Color(0xFF1681AC);
