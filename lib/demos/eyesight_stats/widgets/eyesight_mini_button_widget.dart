@@ -1,39 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 
 class EyesightMiniButtonWidget extends StatelessWidget {
   const EyesightMiniButtonWidget({
     super.key,
-    required this.day,
     required this.excercise,
-    required this.mins,
+    required this.time,
     required this.icon,
+    required this.isCompleted,
     this.page,
   });
-  final String day;
-  final String excercise;
-  final int mins;
+  final String excercise; // Exercise name.
+  final int time; // Minutes.
   final IconData icon;
+  final bool isCompleted;
   final Widget? page;
 
   @override
   Widget build(BuildContext context) {
+    final progressColor =
+        isCompleted ? EyesightColors().primary : EyesightColors().grey1;
     return Container(
       height: 100,
-      padding: const EdgeInsets.all(6),
+      margin: const EdgeInsets.all(6),
+      decoration: BoxDecoration(
+        color: EyesightColors().plain,
+        border: Border.all(color: EyesightColors().primary, width: 1),
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: Material(
-        color: EyesightColors().grey0,
         borderRadius: BorderRadius.circular(8),
         child: InkWell(
           onTap: () {
             if (page == null) {
-              debugPrint('Tapped $excercise ($day) button');
+              debugPrint('Tapped $excercise button');
               return;
             }
           },
           child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -41,8 +48,21 @@ class EyesightMiniButtonWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(icon, color: EyesightColors().grey2, size: 18),
-                    Text(day, style: EyesightTextStyle().miniHeader),
+                    Icon(icon, color: EyesightColors().yellow0, size: 18),
+                    Row(
+                      children: [
+                        Text(
+                          isCompleted ? 'Completed' : 'In Progress',
+                          style: TextStyle(color: progressColor, fontSize: 12),
+                        ),
+                        const SizedBox(width: 5),
+                        Icon(
+                          FontAwesomeIcons.solidCircleCheck,
+                          color: progressColor,
+                          size: 18,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
                 Text(
@@ -51,7 +71,7 @@ class EyesightMiniButtonWidget extends StatelessWidget {
                   style: EyesightTextStyle().miniLabelSecondary,
                 ),
                 Text(
-                  '$mins mins',
+                  '$time mins',
                   textAlign: TextAlign.start,
                   style: EyesightTextStyle().miniLabelMain,
                 ),

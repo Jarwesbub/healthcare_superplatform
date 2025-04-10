@@ -9,8 +9,30 @@ import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_test_
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mini_button_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_page_button_widget.dart';
 
-class EyesightHomePage extends StatelessWidget {
+class EyesightHomePage extends StatefulWidget {
   const EyesightHomePage({super.key});
+
+  @override
+  State<EyesightHomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<EyesightHomePage> {
+  final List<EyesightMiniButtonWidget> miniButtons = [
+    EyesightMiniButtonWidget(
+      excercise: 'Eye Exercise 1 (Day)',
+      time: 5,
+      icon: FontAwesomeIcons.solidSun,
+      isCompleted: true,
+      page: null,
+    ),
+    EyesightMiniButtonWidget(
+      excercise: 'Eye Exercise 2 (Day)',
+      time: 5,
+      icon: FontAwesomeIcons.solidMoon,
+      isCompleted: false,
+      page: null,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -65,26 +87,9 @@ class EyesightHomePage extends StatelessWidget {
             ],
           ),
           Row(
-            children: [
-              Expanded(
-                child: EyesightMiniButtonWidget(
-                  day: 'Morning',
-                  excercise: 'Eye exercise',
-                  mins: 5,
-                  icon: FontAwesomeIcons.solidSun,
-                  page: null,
-                ),
-              ),
-              Expanded(
-                child: EyesightMiniButtonWidget(
-                  day: 'Night',
-                  excercise: 'Eye relaxation',
-                  mins: 10,
-                  icon: FontAwesomeIcons.solidMoon,
-                  page: null,
-                ),
-              ),
-            ],
+            children: List.generate(miniButtons.length, (index) {
+              return Expanded(child: miniButtons[index]);
+            }),
           ),
         ],
       ),
