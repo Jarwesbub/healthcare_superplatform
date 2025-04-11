@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/models/exercise_task_model.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 
 class EyesightMiniWideButtonWidget extends StatelessWidget {
   const EyesightMiniWideButtonWidget({
     super.key,
-    required this.excercise,
-    required this.time,
-    required this.icon,
-    required this.completionTime,
+    required this.model,
     this.page,
+    this.setIsCompleted,
   });
-  final String excercise; // Exercise name.
-  final int time; // Minutes.
-  final IconData icon;
-  final String? completionTime;
+  final ExerciseTaskModel model;
   final Widget? page;
+  final Function(int)? setIsCompleted;
 
   @override
   Widget build(BuildContext context) {
     final progressColor =
-        completionTime != null
-            ? EyesightColors().primary
-            : EyesightColors().grey1;
+        model.completionTime.isEmpty
+            ? EyesightColors().grey1
+            : EyesightColors().primary;
     return Container(
       height: 88,
       margin: const EdgeInsets.all(6),
@@ -37,14 +34,16 @@ class EyesightMiniWideButtonWidget extends StatelessWidget {
         child: InkWell(
           onTap: () {
             if (page == null) {
-              debugPrint('Tapped $excercise button');
+              debugPrint('Tapped ${model.excercise} button');
               return;
             }
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => page!),
             ).then((_) {
-              debugPrint('Exercise closed!'); // Test.
+              // Called when the page.
+              debugPrint('Exercise completed!');
+              setIsCompleted?.call(model.id);
             });
           },
           child: Padding(
@@ -57,7 +56,7 @@ class EyesightMiniWideButtonWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      excercise,
+                      model.excercise,
                       textAlign: TextAlign.start,
                       style: EyesightTextStyle().miniHeader,
                     ),
@@ -74,19 +73,23 @@ class EyesightMiniWideButtonWidget extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Icon(icon, color: EyesightColors().orange0, size: 18),
+                        Icon(
+                          model.icon,
+                          color: EyesightColors().orange0,
+                          size: 18,
+                        ),
                         const SizedBox(width: 10),
                         Text(
-                          '$time mins',
+                          '${model.duration} mins',
                           textAlign: TextAlign.start,
                           style: EyesightTextStyle().miniLabelMain,
                         ),
                       ],
                     ),
                     Text(
-                      completionTime != null
-                          ? 'Completed at $completionTime'
-                          : 'In Progress',
+                      model.completionTime.isEmpty
+                          ? 'In Progress'
+                          : 'Completed at ${{model.completionTime}}',
                       style: TextStyle(color: progressColor, fontSize: 12),
                     ),
                   ],

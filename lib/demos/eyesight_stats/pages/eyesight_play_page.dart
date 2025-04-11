@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/models/exercise_task_model.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_exercise_page.dart';
@@ -17,31 +18,60 @@ class EyesightPlayPage extends StatefulWidget {
 }
 
 class _EyesightPlayState extends State<EyesightPlayPage> {
-  // Buttons for the today's plan view.
-  final List<EyesightMiniWideButtonWidget> miniButtons = [
-    EyesightMiniWideButtonWidget(
-      excercise: 'Eye Exercise 1 (Day)',
-      time: 5,
+  List<ExerciseTaskModel> tasks = [
+    ExerciseTaskModel(
+      id: 0,
+      excercise: 'excercise 1 (Day)',
+      duration: 5,
       icon: FontAwesomeIcons.solidSun,
-      completionTime: '10:05',
-      page: EyeExercisePage(),
+      completionTime: '10.06',
     ),
-    EyesightMiniWideButtonWidget(
-      excercise: 'Eye Exercise 2 (Day)',
-      time: 5,
+    ExerciseTaskModel(
+      id: 1,
+      excercise: 'excercise 2 (Day)',
+      duration: 5,
       icon: FontAwesomeIcons.solidSun,
-      completionTime: null,
-      page: EyeExercisePage(),
+      completionTime: '',
     ),
-    EyesightMiniWideButtonWidget(
-      excercise: 'Eye Exercise 3 (Night)',
-      time: 5,
+    ExerciseTaskModel(
+      id: 2,
+      excercise: 'excercise 3 (Night)',
+      duration: 5,
       icon: FontAwesomeIcons.solidMoon,
-      completionTime: null,
-      page: EyeExercisePage(),
+      completionTime: '',
     ),
   ];
-  double completionPercentage = 33;
+
+  // Buttons for the today's plan view.
+  double completionPercentage = 0;
+
+  void _setExerciseCompleted(int id) {
+    //final String completionTime = DateTime.now() as String;
+    debugPrint('Called completion time');
+    setState(() {
+      tasks[id].completionTime = '10:00';
+      _calculateCompletionPercentage();
+    });
+  }
+
+  void _calculateCompletionPercentage() {
+    completionPercentage = 0;
+    int count = 0;
+    for (final exercise in tasks) {
+      if (exercise.completionTime.isNotEmpty) {
+        count++;
+      }
+    }
+    double value = count / tasks.length;
+    completionPercentage = value * 100;
+    debugPrint('$completionPercentage');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _calculateCompletionPercentage();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,8 +140,12 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
             ),
             child: ListView(
               shrinkWrap: true,
-              children: List.generate(miniButtons.length, (index) {
-                return miniButtons[index];
+              children: List.generate(tasks.length, (index) {
+                return EyesightMiniWideButtonWidget(
+                  model: tasks[index],
+                  page: EyeExercisePage(),
+                  setIsCompleted: _setExerciseCompleted,
+                );
               }),
             ),
           ),
