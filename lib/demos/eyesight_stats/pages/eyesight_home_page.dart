@@ -3,11 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_exercise_page.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_progress_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_stats_page.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_icon_box_button_widget.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mini_button_widget.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_page_button_widget.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/eyesight_icon_box_button_widget.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/eyesight_mini_button_widget.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/eyesight_page_button_widget.dart';
 
 class EyesightHomePage extends StatefulWidget {
   const EyesightHomePage({super.key});
@@ -17,6 +17,7 @@ class EyesightHomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<EyesightHomePage> {
+  // Buttons for the today's plan view.
   final List<EyesightMiniButtonWidget> miniButtons = [
     EyesightMiniButtonWidget(
       excercise: 'Eye Exercise 1 (Day)',
@@ -41,6 +42,7 @@ class _HomePageState extends State<EyesightHomePage> {
     ),
   ];
 
+  // Buttons for the quick actions view.
   final List<EyesightIconBoxButtonWidget> quickActionButtons = [
     EyesightIconBoxButtonWidget(
       text: 'Calendar',
@@ -102,7 +104,7 @@ class _HomePageState extends State<EyesightHomePage> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Text("Today's plan:", style: EyesightTextStyle().header),
+                child: Text("Today's Plan:", style: EyesightTextStyle().header),
               ),
               // Upper left corner arrow button.
               IconButton(
@@ -167,7 +169,7 @@ class _HomePageState extends State<EyesightHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Your eye information', style: EyesightTextStyle().header),
+            Text('Your Eye Information', style: EyesightTextStyle().header),
             EyesightPageButtonWidget(
               text: 'Stats',
               icon: FontAwesomeIcons.chartColumn,
@@ -176,7 +178,7 @@ class _HomePageState extends State<EyesightHomePage> {
             EyesightPageButtonWidget(
               text: 'Progress',
               icon: FontAwesomeIcons.listCheck,
-              page: EyeExercisePage(),
+              page: EyesightProgressPage(),
             ),
           ],
         );

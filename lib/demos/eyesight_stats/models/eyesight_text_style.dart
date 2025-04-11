@@ -23,7 +23,7 @@ class EyesightTextStyle {
     fontWeight: FontWeight.w500,
   );
 
-  final miniHeader = TextStyle(color: EyesightColors().onSurface, fontSize: 12);
+  final miniHeader = TextStyle(color: EyesightColors().onSurface, fontSize: 14);
   final miniHeaderNegative = TextStyle(
     color: EyesightColors().plain,
     fontSize: 12,
