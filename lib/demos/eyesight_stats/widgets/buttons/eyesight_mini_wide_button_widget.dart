@@ -40,6 +40,12 @@ class EyesightMiniWideButtonWidget extends StatelessWidget {
               debugPrint('Tapped $excercise button');
               return;
             }
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => page!),
+            ).then((_) {
+              debugPrint('Exercise closed!'); // Test.
+            });
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -68,7 +74,7 @@ class EyesightMiniWideButtonWidget extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Icon(icon, color: EyesightColors().yellow0, size: 18),
+                        Icon(icon, color: EyesightColors().orange0, size: 18),
                         const SizedBox(width: 10),
                         Text(
                           '$time mins',

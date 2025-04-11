@@ -49,7 +49,7 @@ class EyesightMiniButtonWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(icon, color: EyesightColors().yellow0, size: 18),
+                    Icon(icon, color: EyesightColors().orange0, size: 18),
                     Row(
                       children: [
                         Text(

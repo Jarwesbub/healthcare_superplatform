@@ -7,6 +7,7 @@ import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_exercise
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_test_chart_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/eyesight_mini_wide_button_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/eyesight_page_button_widget.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/custom_circular_indicator.dart';
 
 class EyesightPlayPage extends StatefulWidget {
   const EyesightPlayPage({super.key});
@@ -23,23 +24,24 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
       time: 5,
       icon: FontAwesomeIcons.solidSun,
       completionTime: '10:05',
-      page: null,
+      page: EyeExercisePage(),
     ),
     EyesightMiniWideButtonWidget(
       excercise: 'Eye Exercise 2 (Day)',
       time: 5,
       icon: FontAwesomeIcons.solidSun,
       completionTime: null,
-      page: null,
+      page: EyeExercisePage(),
     ),
     EyesightMiniWideButtonWidget(
       excercise: 'Eye Exercise 3 (Night)',
       time: 5,
       icon: FontAwesomeIcons.solidMoon,
       completionTime: null,
-      page: null,
+      page: EyeExercisePage(),
     ),
   ];
+  double completionPercentage = 33;
 
   @override
   Widget build(BuildContext context) {
@@ -79,28 +81,27 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Text("Today's plan:", style: EyesightTextStyle().header),
-              ),
-              Row(
-                children: [
-                  Text('Completion:', style: EyesightTextStyle().miniHeader),
-                  // Test icon.
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      FontAwesomeIcons.circle,
-                      size: 18,
-                      color: EyesightColors().grey1,
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Today's Tasks", style: EyesightTextStyle().header),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        'Completion:',
+                        style: EyesightTextStyle().miniHeader,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    // Test icon.
+                    CustomCircularIndicator(percentage: completionPercentage),
+                  ],
+                ),
+              ],
+            ),
           ),
           ConstrainedBox(
             constraints: const BoxConstraints(
