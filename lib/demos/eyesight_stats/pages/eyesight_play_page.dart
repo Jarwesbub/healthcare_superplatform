@@ -20,44 +20,19 @@ class EyesightPlayPage extends StatefulWidget {
 }
 
 class _EyesightPlayState extends State<EyesightPlayPage> {
-  final data = ExerciseData(); // Exercise data singleton.
-  // Holds all the exercise task widget information.
-  final List<ExerciseTaskModel> tasks = [
-    ExerciseTaskModel(
-      id: 0,
-      excercise: 'excercise 1 (Day)',
-      duration: 5,
-      icon: FontAwesomeIcons.solidSun,
-      completionTime: '',
-    ),
-    ExerciseTaskModel(
-      id: 1,
-      excercise: 'excercise 2 (Day)',
-      duration: 5,
-      icon: FontAwesomeIcons.solidSun,
-      completionTime: '',
-    ),
-    ExerciseTaskModel(
-      id: 2,
-      excercise: 'excercise 3 (Night)',
-      duration: 5,
-      icon: FontAwesomeIcons.solidMoon,
-      completionTime: '',
-    ),
-  ];
-
+  final data = ExerciseData();
   double completionPercentage = 0; // Exercise completion percentage.
 
-  void _setExerciseCompleted(int id) {
+  late List<ExerciseTaskModel> tasks;
+
+  void _setExerciseCompleted(int index) {
     // Set current time.
     var timeFormat = DateFormat("HH:mm");
     String time = timeFormat.format(DateTime.now());
 
-    data.init(tasks.length); // Initialize data singleton.
-
     setState(() {
-      data.setCompletionTime(id, time); // Update time by id.
-      tasks[id].completionTime = data.getCompletionTimes[id];
+      data.setCompletionTimeByIndex(index, time);
+      tasks[index].completionTime = time;
       _calculateCompletionPercentage();
     });
   }
@@ -72,7 +47,7 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
         count++;
       }
     }
-    double value = count / tasks.length;
+    double value = count / data.length;
     completionPercentage = value * 100;
   }
 
@@ -81,6 +56,7 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
     data.reset();
     setState(() {
       for (var task in tasks) {
+        // Reset widget completion times.
         task.completionTime = '';
       }
       completionPercentage = 0;
@@ -90,10 +66,18 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
   @override
   void initState() {
     super.initState();
-    // Set completion times for the widgets.
-    for (int i = 0; i < data.getCompletionTimesLength; i++) {
-      tasks[i].completionTime = data.getCompletionTimes[i];
-    }
+    debugPrint('Data length: ${data.length}');
+    tasks = List.generate(data.length, (index) {
+      final exercise = data.getExerciseByIndex(index);
+      return ExerciseTaskModel(
+        id: index,
+        excercise: exercise.name,
+        duration: exercise.duration,
+        icon: exercise.icon,
+        completionTime: exercise.completionTime,
+      );
+    });
+
     _calculateCompletionPercentage();
   }
 

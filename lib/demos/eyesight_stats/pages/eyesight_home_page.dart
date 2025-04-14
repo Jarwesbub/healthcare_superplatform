@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:healthcare_superplatform/data/exercise_data_singleton.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
@@ -17,6 +18,7 @@ class EyesightHomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<EyesightHomePage> {
+  final data = ExerciseDataSingleton(); // Exercise data singleton.
   // Buttons for the today's plan view.
   final List<EyesightMiniButtonWidget> miniButtons = [
     EyesightMiniButtonWidget(
@@ -57,6 +59,12 @@ class _HomePageState extends State<EyesightHomePage> {
       icon: FontAwesomeIcons.stopwatch,
     ),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    //data.init(tasks.length); // Initialize data singleton.
+  }
 
   @override
   Widget build(BuildContext context) {
