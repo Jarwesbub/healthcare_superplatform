@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:healthcare_superplatform/data/exercise_data.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/exercise_task_model.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
@@ -9,6 +10,7 @@ import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_test_
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/eyesight_mini_wide_button_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/eyesight_page_button_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/custom_circular_indicator.dart';
+import 'package:intl/intl.dart';
 
 class EyesightPlayPage extends StatefulWidget {
   const EyesightPlayPage({super.key});
@@ -18,13 +20,15 @@ class EyesightPlayPage extends StatefulWidget {
 }
 
 class _EyesightPlayState extends State<EyesightPlayPage> {
-  List<ExerciseTaskModel> tasks = [
+  final data = ExerciseData(); // Exercise data singleton.
+  // Holds all the exercise task widget information.
+  final List<ExerciseTaskModel> tasks = [
     ExerciseTaskModel(
       id: 0,
       excercise: 'excercise 1 (Day)',
       duration: 5,
       icon: FontAwesomeIcons.solidSun,
-      completionTime: '10.06',
+      completionTime: '',
     ),
     ExerciseTaskModel(
       id: 1,
@@ -42,34 +46,54 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
     ),
   ];
 
-  // Buttons for the today's plan view.
-  double completionPercentage = 0;
+  double completionPercentage = 0; // Exercise completion percentage.
 
   void _setExerciseCompleted(int id) {
-    //final String completionTime = DateTime.now() as String;
-    debugPrint('Called completion time');
+    // Set current time.
+    var timeFormat = DateFormat("HH:mm");
+    String time = timeFormat.format(DateTime.now());
+
+    data.init(tasks.length); // Initialize data singleton.
+
     setState(() {
-      tasks[id].completionTime = '10:00';
+      data.setCompletionTime(id, time); // Update time by id.
+      tasks[id].completionTime = data.getCompletionTimes[id];
       _calculateCompletionPercentage();
     });
   }
 
+  // Calculates completion of the current active exercises.
   void _calculateCompletionPercentage() {
     completionPercentage = 0;
     int count = 0;
     for (final exercise in tasks) {
       if (exercise.completionTime.isNotEmpty) {
+        // Updates completion time if not set yet.
         count++;
       }
     }
     double value = count / tasks.length;
     completionPercentage = value * 100;
-    debugPrint('$completionPercentage');
+  }
+
+  // Resets all the active exercise data.
+  void _resetExerciseData() {
+    data.reset();
+    setState(() {
+      for (var task in tasks) {
+        task.completionTime = '';
+      }
+      completionPercentage = 0;
+    });
   }
 
   @override
   void initState() {
     super.initState();
+    // Set completion times for the widgets.
+    for (int i = 0; i < data.getCompletionTimesLength; i++) {
+      tasks[i].completionTime = data.getCompletionTimes[i];
+    }
     _calculateCompletionPercentage();
   }
 
@@ -127,7 +151,14 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
                       ),
                     ),
                     // Test icon.
-                    CustomCircularIndicator(percentage: completionPercentage),
+                    InkWell(
+                      onTap: () {
+                        _showClearDialog();
+                      },
+                      child: CustomCircularIndicator(
+                        percentage: completionPercentage,
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -171,6 +202,41 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
               text: 'Quick test',
               icon: FontAwesomeIcons.solidClock,
               page: VisionTestChartPage(),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Popup window with buttons for clearing all the exercise data.
+  Future<void> _showClearDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Reset all the data?'),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('All the exercise data will be cleared.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Yes'),
+              onPressed: () {
+                _resetExerciseData();
+                Navigator.of(context).pop();
+              },
             ),
           ],
         );

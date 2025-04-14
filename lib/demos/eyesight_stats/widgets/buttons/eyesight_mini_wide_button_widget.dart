@@ -89,7 +89,7 @@ class EyesightMiniWideButtonWidget extends StatelessWidget {
                     Text(
                       model.completionTime.isEmpty
                           ? 'In Progress'
-                          : 'Completed at ${{model.completionTime}}',
+                          : 'Completed at ${model.completionTime}',
                       style: TextStyle(color: progressColor, fontSize: 12),
                     ),
                   ],
