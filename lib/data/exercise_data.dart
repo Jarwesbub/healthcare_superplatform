@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthcare_superplatform/data/exercise_data_singleton.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/models/exercise_task_model.dart';
 
 // List of active exercises for the demonstration.
 // Saves completion times to the Singleton variable.
@@ -20,31 +20,34 @@ class ExerciseData {
 
   // Hard coded eye exercises for the demonstration.
   // Can be developed further.
-  final List<ExerciseDataModel> _exercises = [
-    ExerciseDataModel(
+  final List<ExerciseTaskModel> _exercises = [
+    ExerciseTaskModel(
       id: 0,
-      name: 'Exercise 1 (Day)',
+      excercise: 'Exercise 1 (Day)',
       duration: 5,
       icon: FontAwesomeIcons.solidSun,
+      completionTime: '',
     ),
-    ExerciseDataModel(
+    ExerciseTaskModel(
       id: 1,
-      name: 'Exercise 2 (Day)',
+      excercise: 'Exercise 2 (Day)',
       duration: 5,
       icon: FontAwesomeIcons.solidSun,
+      completionTime: '',
     ),
-    ExerciseDataModel(
+    ExerciseTaskModel(
       id: 2,
-      name: 'Exercise 3 (Day)',
+      excercise: 'Exercise 3 (Day)',
       duration: 5,
       icon: FontAwesomeIcons.solidMoon,
+      completionTime: '',
     ),
   ];
 
   int get length => _exercises.length; // Getter for exercise count.
 
   // Get exercise data model based on the index value.
-  ExerciseDataModel getExerciseByIndex(int index) {
+  ExerciseTaskModel getExerciseByIndex(int index) {
     return _exercises[index];
   }
 
@@ -61,19 +64,4 @@ class ExerciseData {
       exercise.completionTime = '';
     }
   }
-}
-
-// Data model for exercise information.
-class ExerciseDataModel {
-  ExerciseDataModel({
-    required this.id,
-    required this.name,
-    required this.duration,
-    required this.icon,
-  });
-  final int id;
-  final String name;
-  final int duration;
-  final IconData icon;
-  String completionTime = '';
 }

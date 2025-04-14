@@ -66,16 +66,8 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
   @override
   void initState() {
     super.initState();
-    debugPrint('Data length: ${data.length}');
     tasks = List.generate(data.length, (index) {
-      final exercise = data.getExerciseByIndex(index);
-      return ExerciseTaskModel(
-        id: index,
-        excercise: exercise.name,
-        duration: exercise.duration,
-        icon: exercise.icon,
-        completionTime: exercise.completionTime,
-      );
+      return data.getExerciseByIndex(index);
     });
 
     _calculateCompletionPercentage();

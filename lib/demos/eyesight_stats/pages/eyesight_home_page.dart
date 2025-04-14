@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:healthcare_superplatform/data/exercise_data_singleton.dart';
+import 'package:healthcare_superplatform/data/exercise_data.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/models/exercise_task_model.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_exercise_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_progress_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_stats_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/eyesight_icon_box_button_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/eyesight_mini_button_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/eyesight_page_button_widget.dart';
+import 'package:intl/intl.dart';
 
 class EyesightHomePage extends StatefulWidget {
   const EyesightHomePage({super.key});
@@ -18,31 +21,8 @@ class EyesightHomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<EyesightHomePage> {
-  final data = ExerciseDataSingleton(); // Exercise data singleton.
-  // Buttons for the today's plan view.
-  final List<EyesightMiniButtonWidget> miniButtons = [
-    EyesightMiniButtonWidget(
-      excercise: 'Eye Exercise 1 (Day)',
-      time: 5,
-      icon: FontAwesomeIcons.solidSun,
-      isCompleted: true,
-      page: null,
-    ),
-    EyesightMiniButtonWidget(
-      excercise: 'Eye Exercise 2 (Day)',
-      time: 5,
-      icon: FontAwesomeIcons.solidSun,
-      isCompleted: false,
-      page: null,
-    ),
-    EyesightMiniButtonWidget(
-      excercise: 'Eye Exercise 3 (Night)',
-      time: 5,
-      icon: FontAwesomeIcons.solidMoon,
-      isCompleted: false,
-      page: null,
-    ),
-  ];
+  final data = ExerciseData();
+  late List<ExerciseTaskModel> tasks;
 
   // Buttons for the quick actions view.
   final List<EyesightIconBoxButtonWidget> quickActionButtons = [
@@ -60,10 +40,24 @@ class _HomePageState extends State<EyesightHomePage> {
     ),
   ];
 
+  void _setExerciseCompleted(int index) {
+    // Set current time.
+    var timeFormat = DateFormat("HH:mm");
+    String time = timeFormat.format(DateTime.now());
+
+    setState(() {
+      data.setCompletionTimeByIndex(index, time);
+      //miniButtons[index].model.completionTime = time;
+      tasks[index].completionTime = time;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    //data.init(tasks.length); // Initialize data singleton.
+    tasks = List.generate(data.length, (index) {
+      return data.getExerciseByIndex(index);
+    });
   }
 
   @override
@@ -133,8 +127,12 @@ class _HomePageState extends State<EyesightHomePage> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
-              children: List.generate(miniButtons.length, (index) {
-                return miniButtons[index];
+              children: List.generate(tasks.length, (index) {
+                return EyesightMiniButtonWidget(
+                  model: tasks[index],
+                  page: EyeExercisePage(),
+                  setIsCompleted: _setExerciseCompleted,
+                );
               }),
             ),
           ),
