@@ -4,8 +4,10 @@ import 'package:healthcare_superplatform/demos/eyesight_stats/models/exercise_ta
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 
-class EyesightMiniButtonWidget extends StatelessWidget {
-  const EyesightMiniButtonWidget({
+// Small button inside the "Today's Plan" widget in home page.
+
+class ExerciseMiniButtonWidget extends StatelessWidget {
+  const ExerciseMiniButtonWidget({
     super.key,
     required this.model,
     this.page,

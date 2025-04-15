@@ -7,8 +7,8 @@ import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_co
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_exercise_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_test_chart_page.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/eyesight_mini_wide_button_widget.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/eyesight_page_button_widget.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/exercise_button_widget.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/normal_page_button_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/custom_circular_indicator.dart';
 import 'package:intl/intl.dart';
 
@@ -20,44 +20,47 @@ class EyesightPlayPage extends StatefulWidget {
 }
 
 class _EyesightPlayState extends State<EyesightPlayPage> {
-  final data = ExerciseData();
+  final data = ExerciseData(); // Data handling and storing.
   double completionPercentage = 0; // Exercise completion percentage.
+  late List<ExerciseTaskModel> exercises; // Model for the exercise widgets.
 
-  late List<ExerciseTaskModel> tasks;
-
+  // Called when the exercise is completed.
+  // Current build calls this automatically when the exercise page is closed.
   void _setExerciseCompleted(int index) {
     // Set current time.
     var timeFormat = DateFormat("HH:mm");
     String time = timeFormat.format(DateTime.now());
 
     setState(() {
+      // Update exercise data by the index/id.
       data.setCompletionTimeByIndex(index, time);
-      tasks[index].completionTime = time;
+      exercises[index].completionTime = time;
       _calculateCompletionPercentage();
     });
   }
 
-  // Calculates completion of the current active exercises.
+  // Calculates completion percentage based on the active exercises.
   void _calculateCompletionPercentage() {
     completionPercentage = 0;
     int count = 0;
-    for (final exercise in tasks) {
+    for (final exercise in exercises) {
       if (exercise.completionTime.isNotEmpty) {
-        // Updates completion time if not set yet.
+        // Update completion time if not set yet.
         count++;
       }
     }
+    // Calculate completion percentage based on the total exercise count.
     double value = count / data.length;
     completionPercentage = value * 100;
   }
 
   // Resets all the active exercise data.
-  void _resetExerciseData() {
+  void _resetExercises() {
     data.reset();
     setState(() {
-      for (var task in tasks) {
+      for (var exercise in exercises) {
         // Reset widget completion times.
-        task.completionTime = '';
+        exercise.completionTime = '';
       }
       completionPercentage = 0;
     });
@@ -66,7 +69,8 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
   @override
   void initState() {
     super.initState();
-    tasks = List.generate(data.length, (index) {
+    // Update task information when initialized.
+    exercises = List.generate(data.length, (index) {
       return data.getExerciseByIndex(index);
     });
 
@@ -147,9 +151,9 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
             ),
             child: ListView(
               shrinkWrap: true,
-              children: List.generate(tasks.length, (index) {
-                return EyesightMiniWideButtonWidget(
-                  model: tasks[index],
+              children: List.generate(exercises.length, (index) {
+                return ExerciseButtonWidget(
+                  model: exercises[index],
                   page: EyeExercisePage(),
                   setIsCompleted: _setExerciseCompleted,
                 );
@@ -169,12 +173,12 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Train & Check', style: EyesightTextStyle().header),
-            EyesightPageButtonWidget(
+            NormalPageButtonWidget(
               text: 'Exercise',
               icon: FontAwesomeIcons.clipboardCheck,
               page: EyeExercisePage(),
             ),
-            EyesightPageButtonWidget(
+            NormalPageButtonWidget(
               text: 'Quick test',
               icon: FontAwesomeIcons.solidClock,
               page: VisionTestChartPage(),
@@ -210,7 +214,7 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
             TextButton(
               child: const Text('Yes'),
               onPressed: () {
-                _resetExerciseData();
+                _resetExercises();
                 Navigator.of(context).pop();
               },
             ),

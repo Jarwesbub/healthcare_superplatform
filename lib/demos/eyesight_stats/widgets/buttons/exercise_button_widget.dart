@@ -4,8 +4,10 @@ import 'package:healthcare_superplatform/demos/eyesight_stats/models/exercise_ta
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 
-class EyesightMiniWideButtonWidget extends StatelessWidget {
-  const EyesightMiniWideButtonWidget({
+// Eyesight exercise button widget from the play view.
+
+class ExerciseButtonWidget extends StatelessWidget {
+  const ExerciseButtonWidget({
     super.key,
     required this.model,
     this.page,

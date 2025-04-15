@@ -8,9 +8,10 @@ import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_te
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_exercise_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_progress_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_stats_page.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/eyesight_icon_box_button_widget.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/eyesight_mini_button_widget.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/eyesight_page_button_widget.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_test_chart_page.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/quick_action_button_widget.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/exercise_mini_button_widget.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/normal_page_button_widget.dart';
 import 'package:intl/intl.dart';
 
 class EyesightHomePage extends StatefulWidget {
@@ -21,41 +22,47 @@ class EyesightHomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<EyesightHomePage> {
-  final data = ExerciseData();
-  late List<ExerciseTaskModel> tasks;
+  final data = ExerciseData(); // Data handling and storing.
+  late List<ExerciseTaskModel> exercises; // Model for the exercise widgets.
 
   // Buttons for the quick actions view.
-  final List<EyesightIconBoxButtonWidget> quickActionButtons = [
-    EyesightIconBoxButtonWidget(
-      text: 'Calendar',
-      icon: FontAwesomeIcons.solidCalendarCheck,
-    ),
-    EyesightIconBoxButtonWidget(
+  final List<QuickActionButtonWidget> quickActionButtons = [
+    QuickActionButtonWidget(
       text: 'Training',
       icon: FontAwesomeIcons.clipboardCheck,
+      page: EyeExercisePage(),
     ),
-    EyesightIconBoxButtonWidget(
+    QuickActionButtonWidget(
       text: 'Tests',
       icon: FontAwesomeIcons.stopwatch,
+      page: VisionTestChartPage(),
+    ),
+    QuickActionButtonWidget(
+      text: 'Contact',
+      icon: FontAwesomeIcons.solidAddressCard,
+      page: null,
     ),
   ];
 
+  // Called when the exercise is completed.
+  // Current build calls this automatically when the exercise page is closed.
   void _setExerciseCompleted(int index) {
     // Set current time.
     var timeFormat = DateFormat("HH:mm");
     String time = timeFormat.format(DateTime.now());
 
     setState(() {
+      // Update exercise data by the index/id.
       data.setCompletionTimeByIndex(index, time);
-      //miniButtons[index].model.completionTime = time;
-      tasks[index].completionTime = time;
+      exercises[index].completionTime = time;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    tasks = List.generate(data.length, (index) {
+    // Update task information when initialized.
+    exercises = List.generate(data.length, (index) {
       return data.getExerciseByIndex(index);
     });
   }
@@ -72,7 +79,7 @@ class _HomePageState extends State<EyesightHomePage> {
           children: [
             todaysPlanView(),
             const SizedBox(height: 30),
-            quickActionsView(),
+            quickActionsView(MediaQuery.of(context).size.width),
             const SizedBox(height: 30),
             statsAndProgressView(),
             const SizedBox(height: 10),
@@ -82,6 +89,7 @@ class _HomePageState extends State<EyesightHomePage> {
     );
   }
 
+  // Shows all the exercises of the day in more compact way.
   Widget todaysPlanView() {
     return Container(
       width: 500,
@@ -127,9 +135,9 @@ class _HomePageState extends State<EyesightHomePage> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
-              children: List.generate(tasks.length, (index) {
-                return EyesightMiniButtonWidget(
-                  model: tasks[index],
+              children: List.generate(exercises.length, (index) {
+                return ExerciseMiniButtonWidget(
+                  model: exercises[index],
                   page: EyeExercisePage(),
                   setIsCompleted: _setExerciseCompleted,
                 );
@@ -141,7 +149,9 @@ class _HomePageState extends State<EyesightHomePage> {
     );
   }
 
-  Widget quickActionsView() {
+  // Buttons for quick actions.
+  Widget quickActionsView(double screenWidth) {
+    final double padding = screenWidth / 40;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,24 +160,21 @@ class _HomePageState extends State<EyesightHomePage> {
           padding: const EdgeInsets.only(bottom: 10),
           child: Text('Quick Actions', style: EyesightTextStyle().header),
         ),
-        ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: double.maxFinite,
-            maxHeight: 100,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(quickActionButtons.length, (index) {
-              return Expanded(
-                child: Row(children: [quickActionButtons[index], Spacer()]),
-              );
-            }),
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            quickActionButtons[0],
+            SizedBox(width: padding),
+            quickActionButtons[1],
+            SizedBox(width: padding),
+            quickActionButtons[2],
+          ],
         ),
       ],
     );
   }
 
+  // Shows your eye information including stats and progress.
   Widget statsAndProgressView() {
     return Builder(
       builder: (context) {
@@ -176,12 +183,12 @@ class _HomePageState extends State<EyesightHomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Your Eye Information', style: EyesightTextStyle().header),
-            EyesightPageButtonWidget(
+            NormalPageButtonWidget(
               text: 'Stats',
               icon: FontAwesomeIcons.chartColumn,
               page: EyesightStatsPage(),
             ),
-            EyesightPageButtonWidget(
+            NormalPageButtonWidget(
               text: 'Progress',
               icon: FontAwesomeIcons.listCheck,
               page: EyesightProgressPage(),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// Holds all the required exercise information.
+// Used in widgets and data handling.
+
 class ExerciseTaskModel {
   ExerciseTaskModel({
     required this.id,

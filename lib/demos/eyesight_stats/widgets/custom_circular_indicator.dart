@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 
+// Circular percentage indicator.
+// Used in the Today's Tasks widget in the play view.
+
 class CustomCircularIndicator extends StatelessWidget {
   const CustomCircularIndicator({super.key, required this.percentage});
   final double percentage;
