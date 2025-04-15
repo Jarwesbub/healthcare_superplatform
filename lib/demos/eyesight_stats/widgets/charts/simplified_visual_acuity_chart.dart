@@ -12,111 +12,117 @@ class SimplifiedVisualAcuityChart extends BaseEyesightChart {
   @override
   Widget buildChartContent(BuildContext context) {
     // Extract visual acuity data
-    double leftVisualAcuity = EyesightDataUtils.convertVisualAcuityToNumber(eyesightData?['visual_acuity']['left_eye']);
-    double rightVisualAcuity = EyesightDataUtils.convertVisualAcuityToNumber(eyesightData?['visual_acuity']['right_eye']);
-    
+    double leftVisualAcuity = EyesightDataUtils.convertVisualAcuityToNumber(
+      eyesightData?['visual_acuity']['left_eye'],
+    );
+    double rightVisualAcuity = EyesightDataUtils.convertVisualAcuityToNumber(
+      eyesightData?['visual_acuity']['right_eye'],
+    );
+
     // Get Snellen notation equivalents for display
     String leftSnellen = EyesightDataUtils.decimalToSnellen(leftVisualAcuity);
     String rightSnellen = EyesightDataUtils.decimalToSnellen(rightVisualAcuity);
-    
+
     // Get a simple interpretation text
-    String interpretationText = EyesightDataUtils.getVisualAcuityInterpretation(leftVisualAcuity, rightVisualAcuity);
-    
+    String interpretationText = EyesightDataUtils.getVisualAcuityInterpretation(
+      leftVisualAcuity,
+      rightVisualAcuity,
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Title with info button
         buildTitle(
           'How Well You See',
-          'Visual acuity measures how clearly you can see. 20/20 is considered normal vision.'
+          'Visual acuity measures how clearly you can see. 20/20 is considered normal vision.',
         ),
         const SizedBox(height: 16),
-        
+
         // Main interpretation text
         buildInterpretationPanel(
-          icon: EyesightDataUtils.getVisionIcon(leftVisualAcuity, rightVisualAcuity),
+          icon: EyesightDataUtils.getVisionIcon(
+            leftVisualAcuity,
+            rightVisualAcuity,
+          ),
           color: Colors.blue,
           text: interpretationText,
         ),
         const SizedBox(height: 24),
-            
-            // Simple comparison chart with exact values
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Your Vision Compared to Normal',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                // Show exact values
-                RichText(
-                  text: TextSpan(
-                    style: const TextStyle(fontSize: 14, color: Colors.black87),
-                    children: [
-                      TextSpan(
-                        text: 'Left: ',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text: '${leftVisualAcuity.toStringAsFixed(2)} ',
-                        style: TextStyle(color: Colors.blue),
-                      ),
-                      TextSpan(
-                        text: 'Right: ',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text: '${rightVisualAcuity.toStringAsFixed(2)}',
-                        style: TextStyle(color: Colors.green),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            SizedBox(
-              height: 180,
-              child: _buildSimpleChart(leftVisualAcuity, rightVisualAcuity),
-            ),
-            const SizedBox(height: 16),
-            
-            // Legend
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildLegendItem(Colors.blue, 'Left Eye'),
-                const SizedBox(width: 24),
-                _buildLegendItem(Colors.green, 'Right Eye'),
-                const SizedBox(width: 24),
-                _buildLegendItem(Colors.grey.shade300, 'Normal Vision'),
-              ],
-            ),
-            
-            // What this means section
-            const SizedBox(height: 24),
-            const Text(
-              'What This Means',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
+
+        // Simple comparison chart with exact values
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Center(
+              child: const Text(
+                'Your Vision Compared to Normal',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
             ),
-            const SizedBox(height: 8),
-            Text(
-              EyesightDataUtils.getVisualAcuityExplanation(leftVisualAcuity, rightVisualAcuity),
-              style: const TextStyle(
-                fontSize: 14,
-                height: 1.4,
+            // Show exact values
+            RichText(
+              text: TextSpan(
+                style: const TextStyle(fontSize: 14, color: Colors.black87),
+                children: [
+                  TextSpan(
+                    text: 'Left: ',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(
+                    text: '${leftVisualAcuity.toStringAsFixed(2)} ',
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                  TextSpan(
+                    text: 'Right: ',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(
+                    text: '${rightVisualAcuity.toStringAsFixed(2)}',
+                    style: TextStyle(color: Colors.green),
+                  ),
+                ],
               ),
             ),
           ],
-        );
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 180,
+          child: _buildSimpleChart(leftVisualAcuity, rightVisualAcuity),
+        ),
+        const SizedBox(height: 16),
+
+        // Legend
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildLegendItem(Colors.blue, 'Left Eye'),
+            const SizedBox(width: 24),
+            _buildLegendItem(Colors.green, 'Right Eye'),
+            const SizedBox(width: 24),
+            _buildLegendItem(Colors.grey.shade300, 'Normal Vision'),
+          ],
+        ),
+
+        // What this means section
+        const SizedBox(height: 24),
+        const Text(
+          'What This Means',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          EyesightDataUtils.getVisualAcuityExplanation(
+            leftVisualAcuity,
+            rightVisualAcuity,
+          ),
+          style: const TextStyle(fontSize: 14, height: 1.4),
+        ),
+      ],
+    );
   }
-  
+
   // Build a simplified horizontal bar chart
   Widget _buildSimpleChart(double leftValue, double rightValue) {
     return BarChart(
@@ -129,20 +135,27 @@ class SimplifiedVisualAcuityChart extends BaseEyesightChart {
           touchTooltipData: BarTouchTooltipData(
             getTooltipItem: (group, groupIndex, rod, rodIndex) {
               String label;
-              switch(group.x.toInt()) {
-                case 0: label = 'Left Eye: ${leftValue.toStringAsFixed(2)}';
+              switch (group.x.toInt()) {
+                case 0:
+                  label = 'Left Eye: ${leftValue.toStringAsFixed(2)}';
                   break;
-                case 1: label = 'Right Eye: ${rightValue.toStringAsFixed(2)}';
+                case 1:
+                  label = 'Right Eye: ${rightValue.toStringAsFixed(2)}';
                   break;
-                case 2: label = 'Normal: 1.00';
+                case 2:
+                  label = 'Normal: 1.00';
                   break;
-                default: label = '';
+                default:
+                  label = '';
               }
               return BarTooltipItem(
                 label,
-                const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               );
-            }
+            },
           ),
         ),
         titlesData: FlTitlesData(
@@ -154,12 +167,15 @@ class SimplifiedVisualAcuityChart extends BaseEyesightChart {
               showTitles: true,
               getTitlesWidget: (value, meta) {
                 String text = '';
-                switch(value.toInt()) {
-                  case 0: text = 'Left Eye';
+                switch (value.toInt()) {
+                  case 0:
+                    text = 'Left Eye';
                     break;
-                  case 1: text = 'Right Eye';
+                  case 1:
+                    text = 'Right Eye';
                     break;
-                  case 2: text = 'Normal';
+                  case 2:
+                    text = 'Normal';
                     break;
                 }
                 return Padding(
@@ -207,10 +223,7 @@ class SimplifiedVisualAcuityChart extends BaseEyesightChart {
                 dashArray: [5, 5],
               );
             }
-            return FlLine(
-              color: Colors.grey.shade200,
-              strokeWidth: 0.5,
-            );
+            return FlLine(color: Colors.grey.shade200, strokeWidth: 0.5);
           },
           horizontalInterval: 0.5,
           drawVerticalLine: false,
@@ -281,16 +294,12 @@ class SimplifiedVisualAcuityChart extends BaseEyesightChart {
       ),
     );
   }
-  
+
   // Simple legend item
   Widget _buildLegendItem(Color color, String label) {
     return Row(
       children: [
-        Container(
-          width: 14,
-          height: 14,
-          color: color,
-        ),
+        Container(width: 14, height: 14, color: color),
         const SizedBox(width: 4),
         Text(label, style: const TextStyle(fontSize: 12)),
       ],

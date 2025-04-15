@@ -21,8 +21,8 @@ class _NavigationBarState extends State<EyesightNavigationBar> {
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(
           backgroundColor: Colors.white,
-          icon: Icon(FontAwesomeIcons.chartLine),
-          label: 'Progress',
+          icon: Icon(FontAwesomeIcons.clipboardList),
+          label: 'Play',
         ),
         BottomNavigationBarItem(
           icon: Icon(FontAwesomeIcons.facebookMessenger),
