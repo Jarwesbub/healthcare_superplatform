@@ -6,7 +6,7 @@ import 'package:healthcare_superplatform/demos/eyesight_stats/models/exercise_ta
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_exercise_page.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_exercises_page.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_movement_exercise_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_test_chart_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/exercise_button_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/normal_page_button_widget.dart';
@@ -155,7 +155,7 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
               children: List.generate(exercises.length, (index) {
                 return ExerciseButtonWidget(
                   model: exercises[index],
-                  page: EyeExercisesPage(),
+                  page: EyeMovementExercisePage(),
                   setIsCompleted: _setExerciseCompleted,
                 );
               }),
