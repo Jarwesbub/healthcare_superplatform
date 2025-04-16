@@ -1,3 +1,4 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
@@ -16,7 +17,8 @@ class EyeMovementExercisePage extends StatefulWidget {
 class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
     with TickerProviderStateMixin {
   // 0 = idle, 1 = exercise start, 2 = exercise completed.
-  late final AnimationController controller;
+  late final AnimationController animationController;
+  late final ConfettiController confettiController;
   int currentTaskIndex = 0;
   List<String> instructions = ['Sit comfortably and relax your eyes'];
   String buttonText = 'Start';
@@ -25,7 +27,10 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(vsync: this);
+    animationController = AnimationController(vsync: this);
+    confettiController = ConfettiController(
+      duration: const Duration(seconds: 2),
+    );
   }
 
   // Called everytime when the button is pressed.
@@ -46,6 +51,7 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
         _animationStop();
         instructions = ['Well done! Exercise completed.'];
         buttonText = 'Close';
+        confettiController.play();
         break;
       case _: // Default.
         isExerciseCompleted = true;
@@ -65,18 +71,20 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
 
   void _animationPlay() {
     // Start animation.
-    controller.reset();
-    controller.repeat();
+    animationController.reset();
+    animationController.repeat();
   }
 
   void _animationStop() {
-    controller.reset();
-    controller.stop();
+    animationController.reset();
+    animationController.stop();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    // Dispose all the controllers.
+    animationController.dispose();
+    confettiController.dispose();
     super.dispose();
   }
 
@@ -102,11 +110,17 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
                   child: Lottie.asset(
                     'assets/animations/eyes_horizontal_movement.json',
                     repeat: false,
-                    controller: controller,
+                    controller: animationController,
                     onLoaded: (composition) {
-                      controller.duration = composition.duration;
+                      animationController.duration = composition.duration;
                     },
                   ),
+                ),
+                // Confetti animation widget.
+                ConfettiWidget(
+                  confettiController: confettiController,
+                  shouldLoop: false,
+                  blastDirectionality: BlastDirectionality.explosive,
                 ),
                 Expanded(child: _instructionsWidget()),
                 _buttonInfoWidget(),
