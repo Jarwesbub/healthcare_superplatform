@@ -72,7 +72,7 @@ class _HomePageState extends State<EyesightHomePage> {
     return Center(
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          maxWidth: PageConstants.mobileViewLimit.toDouble(),
+          maxWidth: PageConstants.maxViewWidth.toDouble(),
         ),
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
