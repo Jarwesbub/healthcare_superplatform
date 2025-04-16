@@ -6,6 +6,8 @@ import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_hom
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_progress_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_bottom_navbar.dart';
+//import "package:healthcare_superplatform/demos/eyesight_stats/pages/profile.dart";
+import "package:healthcare_superplatform/demos/eyesight_stats/pages/profile_page.dart";
 
 class EyesightPageManager extends StatefulWidget {
   const EyesightPageManager({super.key});
@@ -26,7 +28,7 @@ class _EyesightPageManagerState extends State<EyesightPageManager> {
       'Home': EyesightHomePage(),
       'Progress': EyesightProgressPage(),
       'Chat': EyesightChatbotPage(),
-      'Profile': Center(child: const Text('Profile')),
+      'Profile': ProfilePage(),
     };
   }
 
@@ -42,8 +44,7 @@ class _EyesightPageManagerState extends State<EyesightPageManager> {
       ),
       backgroundColor: EyesightColors().surface,
       body: pageList.values.elementAt(currentPage),
-      bottomNavigationBar:
-           EyesightNavigationBar(onButtonTap: onButtonTap),
+      bottomNavigationBar: EyesightNavigationBar(onButtonTap: onButtonTap),
     );
   }
 
