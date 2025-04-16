@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/basic_button_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
@@ -14,15 +15,11 @@ class EyeMovementExercisePage extends StatefulWidget {
 
 class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
     with TickerProviderStateMixin {
-  final List<String> tasks = [
-    'Sit comfortably and relax your eyes',
-    'Slowly follow the movement shown in the animation with your eyes',
-    'Perform the exercise for 30-60 seconds',
-    'After completing the exercise, close your eyes and take a few deep breaths',
-    'Well done! Exercise completed.',
-  ];
+  // 0 = idle, 1 = exercise start, 2 = exercise completed.
   late final AnimationController controller;
   int currentTaskIndex = 0;
+  List<String> instructions = ['Sit comfortably and relax your eyes'];
+  String buttonText = 'Start';
   bool isExerciseCompleted = false;
 
   @override
@@ -34,24 +31,47 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
   // Called everytime when the button is pressed.
   void _onButtonTap() {
     debugPrint('Pressed button. Current task index: $currentTaskIndex');
-    if (currentTaskIndex == 0) {
-      // Start animation.
-      controller.reset();
-      controller.repeat();
-    } else if (isExerciseCompleted) {
+
+    switch (currentTaskIndex) {
+      case 0: // Start animation.
+        _animationPlay();
+        instructions = [
+          'Slowly follow the movement shown in the animation with your eyes',
+          'Perform the exercise for 30-60 seconds',
+          'After completing the exercise, close your eyes and take a few deep breaths',
+        ];
+        buttonText = 'Finish';
+        break;
+      case 1: // Stop animation.
+        _animationStop();
+        instructions = ['Well done! Exercise completed.'];
+        buttonText = 'Close';
+        break;
+      case _: // Default.
+        isExerciseCompleted = true;
+        break;
+    }
+
+    if (isExerciseCompleted) {
       // Close the page.
       Navigator.pop(context);
       return;
     }
+
     setState(() {
-      if (currentTaskIndex >= tasks.length - 2) {
-        isExerciseCompleted = true;
-        currentTaskIndex = tasks.length - 1;
-        return;
-      }
-      // Proceed to the next instruction.
       currentTaskIndex++;
     });
+  }
+
+  void _animationPlay() {
+    // Start animation.
+    controller.reset();
+    controller.repeat();
+  }
+
+  void _animationStop() {
+    controller.reset();
+    controller.stop();
   }
 
   @override
@@ -63,44 +83,40 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: EyesightAppBar(title: 'Eye Exercise', isBackButtonVisible: true),
-      backgroundColor: Colors.white,
+      appBar: EyesightAppBar(title: 'Task', isBackButtonVisible: true),
+      backgroundColor: EyesightColors().background,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 800),
-            child: ListView(
+            constraints: const BoxConstraints(maxWidth: 500),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  'Eye Exercise Test',
+                  'Horizontal Eye Exercise',
                   style: EyesightTextStyle().header,
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 20),
-                Lottie.asset(
-                  'assets/animations/eyes_horizontal_movement.json',
-                  repeat: false,
-                  controller: controller,
-                  onLoaded: (composition) {
-                    controller.duration = composition.duration;
-                  },
+                Expanded(
+                  child: Lottie.asset(
+                    'assets/animations/eyes_horizontal_movement.json',
+                    repeat: false,
+                    controller: controller,
+                    onLoaded: (composition) {
+                      controller.duration = composition.duration;
+                    },
+                  ),
                 ),
-                const SizedBox(height: 20),
-                _instructionsWidget(),
-                const SizedBox(height: 50),
+                Expanded(child: _instructionsWidget()),
                 _buttonInfoWidget(),
                 BasicButtonWidget(
-                  text:
-                      currentTaskIndex == 0
-                          ? 'Start'
-                          : isExerciseCompleted
-                          ? 'Exit'
-                          : 'Continue',
+                  text: buttonText,
                   onTap: () {
                     _onButtonTap();
                   },
                 ),
+                const SizedBox(height: 20), // Bottom padding.
               ],
             ),
           ),
@@ -110,38 +126,70 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
   }
 
   Widget _instructionsWidget() {
-    return SizedBox(
-      height: 180,
-      //alignment: Alignment.center,
-      child: Column(
-        children: [
-          const SizedBox(height: 10),
-          Text(
-            'Instructions:',
-            style: EyesightTextStyle().label,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 40),
-          Text(
-            tasks[currentTaskIndex],
-            style: EyesightTextStyle().header,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Instructions:', style: EyesightTextStyle().label),
+        const SizedBox(height: 20),
+        ...List.generate(instructions.length, (index) {
+          if (instructions.length == 1) {
+            // Text in a single line.
+            return Text(
+              instructions[0],
+              style: EyesightTextStyle().label.copyWith(
+                color: EyesightColors().textSecondary,
+                fontSize: 18,
+              ),
+            );
+          }
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 12,
+              children: [
+                Text(
+                  '${index + 1}',
+                  style: EyesightTextStyle().label.copyWith(
+                    color: EyesightColors().textSecondary,
+                    fontSize: 16,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    instructions[index],
+                    style: EyesightTextStyle().label.copyWith(
+                      color: EyesightColors().textSecondary,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
+      ],
     );
   }
 
   Widget _buttonInfoWidget() {
-    if (currentTaskIndex != 0) {
+    String text = switch (currentTaskIndex) {
+      0 => '(Press start to begin your exercise)',
+      2 => '(Close the current exercise)',
+      _ => '',
+    };
+    if (currentTaskIndex == 1) {
       return const SizedBox(height: 80);
     }
     return Column(
       children: [
         SizedBox(
-          height: 80,
-          child: const Text(
-            '(Press Start to begin your exercise)',
+          height: 40,
+          child: Text(
+            text,
+            style: EyesightTextStyle().miniHeader,
             textAlign: TextAlign.center,
           ),
         ),
