@@ -25,7 +25,10 @@ class _ProfilePageState extends State<ProfilePage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(
+      length: 2,
+      vsync: this,
+    ); //Change length to 3 to see vision, and uncomment vision tab
 
     Timer(const Duration(milliseconds: 300), () {
       setState(() {
@@ -121,7 +124,7 @@ class _ProfilePageState extends State<ProfilePage>
                 indicatorColor: Colors.white,
                 tabs: const [
                   Tab(icon: Icon(Icons.person), text: "Profile"),
-                  Tab(icon: Icon(Icons.visibility), text: "Vision"),
+                  //Tab(icon: Icon(Icons.visibility), text: "Vision"),
                   Tab(icon: Icon(Icons.settings), text: "Settings"),
                 ],
               ),
@@ -136,12 +139,12 @@ class _ProfilePageState extends State<ProfilePage>
                     secondaryTextColor,
                     primaryColor,
                   ),
-                  _buildVisionTab(
+                  /* _buildVisionTab(
                     backgroundColor,
                     textColor,
                     secondaryTextColor,
                     primaryColor,
-                  ),
+                  ),*/
                   _buildSettingsTab(
                     backgroundColor,
                     textColor,
