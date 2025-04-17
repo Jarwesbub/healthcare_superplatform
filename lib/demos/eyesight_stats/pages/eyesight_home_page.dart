@@ -8,6 +8,7 @@ import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_te
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_movement_exercise_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_progress_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_stats_page.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_statistics_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_test_chart_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/quick_action_button_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/exercise_mini_button_widget.dart';
@@ -186,7 +187,7 @@ class _HomePageState extends State<EyesightHomePage> {
             NormalPageButtonWidget(
               text: 'Stats',
               icon: FontAwesomeIcons.chartColumn,
-              page: EyesightStatsPage(),
+              page: EyesightStatisticsPage(),
             ),
             NormalPageButtonWidget(
               text: 'Progress',
