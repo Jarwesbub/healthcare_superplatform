@@ -5,6 +5,7 @@ import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_co
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_exercise_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_stats_page.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_statistics_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_test_chart_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mini_button_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_page_button_widget.dart';
@@ -105,7 +106,7 @@ class EyesightHomePage extends StatelessWidget {
             EyesightPageButtonWidget(
               text: 'Stats',
               icon: FontAwesomeIcons.chartColumn,
-              page: EyesightStatsPage(),
+              page: EyesightStatisticsPage(),
             ),
             EyesightPageButtonWidget(
               text: 'Training',
