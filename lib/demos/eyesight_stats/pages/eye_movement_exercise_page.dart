@@ -105,6 +105,7 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Expanded(
+                  flex: 2,
                   child: Lottie.asset(
                     'assets/animations/eyes_horizontal_movement.json',
                     repeat: false,
@@ -120,7 +121,7 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
                   shouldLoop: false,
                   blastDirectionality: BlastDirectionality.explosive,
                 ),
-                Expanded(child: _instructionsWidget()),
+                Expanded(flex: 3, child: _instructionsWidget()),
                 _buttonInfoWidget(),
                 BasicButtonWidget(
                   text: buttonText,
@@ -128,7 +129,7 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
                     _onButtonTap();
                   },
                 ),
-                const SizedBox(height: 20), // Bottom padding.
+                const SizedBox(height: 40), // Bottom padding.
               ],
             ),
           ),
