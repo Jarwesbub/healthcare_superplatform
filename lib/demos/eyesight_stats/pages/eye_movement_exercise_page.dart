@@ -91,7 +91,10 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: EyesightAppBar(title: 'Task', isBackButtonVisible: true),
+      appBar: EyesightAppBar(
+        title: 'Horizontal Eye Exercise',
+        isBackButtonVisible: true,
+      ),
       backgroundColor: EyesightColors().background,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
@@ -101,11 +104,6 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
-                  'Horizontal Eye Exercise',
-                  style: EyesightTextStyle().header,
-                  textAlign: TextAlign.center,
-                ),
                 Expanded(
                   child: Lottie.asset(
                     'assets/animations/eyes_horizontal_movement.json',
@@ -144,7 +142,10 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Instructions:', style: EyesightTextStyle().label),
+        Text(
+          currentTaskIndex >= 2 ? '' : 'Instructions:',
+          style: EyesightTextStyle().label,
+        ),
         const SizedBox(height: 20),
         ...List.generate(instructions.length, (index) {
           if (instructions.length == 1) {
