@@ -72,7 +72,7 @@ class _HomePageState extends State<EyesightHomePage> {
     return Center(
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          maxWidth: PageConstants.maxViewWidth.toDouble(),
+          maxWidth: PageConstants.mobileViewLimit.toDouble(),
         ),
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
@@ -139,7 +139,7 @@ class _HomePageState extends State<EyesightHomePage> {
                 return ExerciseMiniButtonWidget(
                   model: exercises[index],
                   page: EyeMovementExercisePage(),
-                  setIsCompleted: _setExerciseCompleted,
+                  onPageClosed: _setExerciseCompleted,
                 );
               }),
             ),
