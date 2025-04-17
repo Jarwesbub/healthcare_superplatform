@@ -6,7 +6,6 @@ import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_hom
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_progress_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_bottom_navbar.dart';
-//import "package:healthcare_superplatform/demos/eyesight_stats/pages/profile.dart";
 import "package:healthcare_superplatform/demos/eyesight_stats/pages/profile_page.dart";
 
 class EyesightPageManager extends StatefulWidget {

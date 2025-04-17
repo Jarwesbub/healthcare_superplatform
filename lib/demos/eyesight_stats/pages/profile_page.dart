@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -80,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage>
                 content: Text(
                   'Appointment scheduled for ${selectedDate.toLocal().toString().split(' ')[0]} at ${selectedTime.format(context)}',
                 ),
-                backgroundColor: Colors.green,
+                backgroundColor: EyesightColors().primary,
               ),
             );
           }
@@ -97,12 +98,15 @@ class _ProfilePageState extends State<ProfilePage>
 
   @override
   Widget build(BuildContext context) {
-    final Color primaryColor = _isDarkMode ? Colors.teal[300]! : Colors.teal;
+    final Color primaryColor =
+        _isDarkMode
+            ? EyesightColors().customPrimary
+            : EyesightColors().customPrimary;
     final Color backgroundColor =
         _isDarkMode ? Colors.grey[900]! : Colors.white;
     final Color textColor = _isDarkMode ? Colors.white : Colors.black87;
     final Color secondaryTextColor =
-        _isDarkMode ? Colors.grey[300]! : Colors.grey[700]!;
+        _isDarkMode ? Colors.white : Colors.grey[700]!;
 
     return Theme(
       data: _isDarkMode ? ThemeData.dark() : ThemeData.light(),
@@ -388,7 +392,7 @@ class _ProfilePageState extends State<ProfilePage>
                 icon: const Icon(Icons.calendar_today),
                 label: const Text('Schedule Appointment'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
+                  backgroundColor: _isDarkMode ? Colors.black38 : Colors.white,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 12,
@@ -406,7 +410,7 @@ class _ProfilePageState extends State<ProfilePage>
                 icon: const Icon(Icons.folder),
                 label: const Text('Records'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
+                  backgroundColor: _isDarkMode ? Colors.black38 : Colors.white,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 12,
@@ -1070,9 +1074,10 @@ class _ProfilePageState extends State<ProfilePage>
                                 (context, index) => const Divider(),
                             itemBuilder: (context, index) {
                               return ListTile(
-                                leading: const CircleAvatar(
-                                  backgroundColor: Colors.teal,
-                                  child: Icon(
+                                leading: CircleAvatar(
+                                  backgroundColor:
+                                      EyesightColors().customPrimary,
+                                  child: const Icon(
                                     Icons.notifications,
                                     color: Colors.white,
                                     size: 20,
