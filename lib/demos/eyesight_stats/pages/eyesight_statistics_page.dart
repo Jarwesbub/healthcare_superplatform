@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'dart:math';
+import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/optical_test_results_page.dart';
@@ -11,7 +11,7 @@ class EyesightApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = EyesightColors();
-    
+
     return MaterialApp(
       title: 'Eyesight Statistics',
       theme: ThemeData(
@@ -34,10 +34,7 @@ class EyesightApp extends StatelessWidget {
           backgroundColor: colors.grey0,
           labelStyle: TextStyle(color: colors.textPrimary),
         ),
-        dividerTheme: DividerThemeData(
-          color: colors.grey0,
-          thickness: 1,
-        ),
+        dividerTheme: DividerThemeData(color: colors.grey0, thickness: 1),
       ),
       home: const EyesightStatisticsPage(),
       debugShowCheckedModeBanner: false,
@@ -54,7 +51,12 @@ class EyesightStatisticsPage extends StatefulWidget {
 
 class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
   String _selectedTimeRange = '1 Month';
-  final List<String> _timeRanges = ['1 Month', '3 Months', '1 Year', 'All Time'];
+  final List<String> _timeRanges = [
+    '1 Month',
+    '3 Months',
+    '1 Year',
+    'All Time',
+  ];
   bool _showDetailedView = false;
   late final Map<String, List<EyesightData>> _eyesightData;
   late final EyesightColors colors = EyesightColors();
@@ -84,10 +86,10 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
   // 3 months
   List<EyesightData> _getThreeMonthData() {
     return [
-      EyesightData(DateTime(2025, 1, 19), 90, 91), 
-      EyesightData(DateTime(2025, 2, 2), 89, 90),  
-      EyesightData(DateTime(2025, 2, 16), 89, 90), 
-      EyesightData(DateTime(2025, 3, 2), 88, 89), 
+      EyesightData(DateTime(2025, 1, 19), 90, 91),
+      EyesightData(DateTime(2025, 2, 2), 89, 90),
+      EyesightData(DateTime(2025, 2, 16), 89, 90),
+      EyesightData(DateTime(2025, 3, 2), 88, 89),
       EyesightData(DateTime(2025, 3, 16), 88, 89),
       EyesightData(DateTime(2025, 3, 30), 87, 88),
       EyesightData(DateTime(2025, 4, 13), 86, 88),
@@ -132,273 +134,341 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
   @override
   Widget build(BuildContext context) {
     final currentData = _eyesightData[_selectedTimeRange]!.last;
-    final overallScore = ((currentData.leftEyeScore + currentData.rightEyeScore) / 2).round();
-    
+    final overallScore =
+        ((currentData.leftEyeScore + currentData.rightEyeScore) / 2).round();
+
     return Scaffold(
       appBar: EyesightAppBar(title: 'Statistics', isBackButtonVisible: true),
-        backgroundColor: EyesightColors().surface,
-        
-      
-      body: ListView(
-        
-        padding: const EdgeInsets.all(16.0),
-        children: [
-          _buildSectionHeader('Eye Statistics', ''),
-          Card(
-            color: EyesightColors().boxColor,
-            margin: const EdgeInsets.only(bottom: 24),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                children: [
-                  // Score for left eye
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(Icons.visibility, size: 18, color: colors.grey1),
-                            const SizedBox(width: 4),
-                            Text(
-                              'Left Eye',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: colors.grey2,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '${currentData.leftEyeScore}',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: colors.textPrimary,
-                                ),
-                              ),
-                              _getDecreaseTextSpan(_eyesightData[_selectedTimeRange]!, true),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  
-                  // Score for right eye
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(Icons.visibility, size: 18, color: colors.grey1),
-                            const SizedBox(width: 4),
-                            Text(
-                              'Right Eye',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: colors.grey2,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '${currentData.rightEyeScore}',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: colors.textPrimary,
-                                ),
-                              ),
-                              _getDecreaseTextSpan(_eyesightData[_selectedTimeRange]!, false),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+      backgroundColor: EyesightColors().surface,
+      body: Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: PageConstants.mobileViewLimit.toDouble(),
           ),
-          
-          _buildSectionHeader('Trend Analysis', ''),
-          
-          Card(
-            color: EyesightColors().boxColor,
-            margin: const EdgeInsets.only(bottom: 8),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
-              child: SizedBox(
-                height: 36,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: _timeRanges.length,
-                  itemBuilder: (context, index) {
-                    final isSelected = _timeRanges[index] == _selectedTimeRange;
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: ChoiceChip(
-                        label: Text(_timeRanges[index]),
-                        selected: isSelected,
-                        onSelected: (selected) {
-                          if (selected) {
-                            setState(() {
-                              _selectedTimeRange = _timeRanges[index];
-                            });
-                          }
-                        },
-                        backgroundColor: colors.grey0,
-                        selectedColor: colors.customPrimary,
-                        labelStyle: TextStyle(
-                          color: isSelected ? Colors.white : colors.textPrimary,
-                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          child: ListView(
+            padding: const EdgeInsets.all(16.0),
+            children: [
+              _buildSectionHeader('Eye Statistics', ''),
+              Card(
+                color: EyesightColors().boxColor,
+                margin: const EdgeInsets.only(bottom: 24),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    children: [
+                      // Score for left eye
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.visibility,
+                                  size: 18,
+                                  color: colors.grey1,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  'Left Eye',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: colors.grey2,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '${currentData.leftEyeScore}',
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: colors.textPrimary,
+                                    ),
+                                  ),
+                                  _getDecreaseTextSpan(
+                                    _eyesightData[_selectedTimeRange]!,
+                                    true,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    );
-                  },
+
+                      // Score for right eye
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.visibility,
+                                  size: 18,
+                                  color: colors.grey1,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  'Right Eye',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: colors.grey2,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '${currentData.rightEyeScore}',
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: colors.textPrimary,
+                                    ),
+                                  ),
+                                  _getDecreaseTextSpan(
+                                    _eyesightData[_selectedTimeRange]!,
+                                    false,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ),
-          
-          // Chart starts here
-          Card(
-            color: EyesightColors().boxColor,
-            margin: const EdgeInsets.only(bottom: 24),
-            child: SizedBox(
-              height: 250,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: _buildChart(),
-              ),
-            ),
-          ),
-          
-          _buildSectionHeader('Eyesight Metrics', 'View Details'),
-          
-          Card(
-            color: EyesightColors().boxColor,
-            margin: const EdgeInsets.only(bottom: 24),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  _buildMetricRow('Overall Score', '$overallScore', _getScoreRating(overallScore)),
-                  const Divider(),
-                  _buildMetricRow('Left Eye', '${currentData.leftEyeScore}', _getEyeScoreRating(currentData.leftEyeScore)),
-                  const Divider(),
-                  _buildMetricRow('Right Eye', '${currentData.rightEyeScore}', _getEyeScoreRating(currentData.rightEyeScore)),
-                  const Divider(),
-                  _buildMetricRow(
-                    'Next Checkup', 
-                    _getRecommendedCheckupInterval(currentData.leftEyeScore, currentData.rightEyeScore),
-                    'Recommend'
-                  ),
-                ],
-              ),
-            ),
-          ),
-          
-          Card(
-            color: EyesightColors().boxColor,
-            margin: const EdgeInsets.only(bottom: 24),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildActionButton('Placeholder', Icons.calendar_today, () {
-                    Navigator.push(
-                      context,
-                    MaterialPageRoute(builder: (context) => const OpticalTestResultsPage())
-                    );
-                  }),
-                  _buildActionButton('Test Results', Icons.assignment, () => _showTestHistorySheet(context)),
-                  _buildActionButton('Export', Icons.drive_folder_upload, () {}),
-                ],
-              ),
-            ),
-          ),
 
-          _buildSectionHeader('Recommendations', ''),
-          
-          Card(
-            color: EyesightColors().boxColor,
-            margin: const EdgeInsets.only(bottom: 24),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListTile(
-                    leading: Icon(Icons.schedule, color: colors.primary),
-                    title: Text(
-                      'Schedule Regular Eye Exams',
-                      style: TextStyle(color: colors.textPrimary),
-                    ),
-                    subtitle: Text(
-                      'Every ${_getRecommendedCheckupInterval(currentData.leftEyeScore, currentData.rightEyeScore)}',
-                      style: TextStyle(color: colors.textSecondary),
-                    ),
-                    contentPadding: EdgeInsets.zero,
+              _buildSectionHeader('Trend Analysis', ''),
+
+              Card(
+                color: EyesightColors().boxColor,
+                margin: const EdgeInsets.only(bottom: 8),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 12.0,
                   ),
-                  const Divider(),
-                  ListTile(
-                    leading: Icon(Icons.timer, color: colors.primary),
-                    title: Text(
-                      'Take Screen Breaks',
-                      style: TextStyle(color: colors.textPrimary),
+                  child: SizedBox(
+                    height: 36,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _timeRanges.length,
+                      itemBuilder: (context, index) {
+                        final isSelected =
+                            _timeRanges[index] == _selectedTimeRange;
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: ChoiceChip(
+                            label: Text(_timeRanges[index]),
+                            selected: isSelected,
+                            onSelected: (selected) {
+                              if (selected) {
+                                setState(() {
+                                  _selectedTimeRange = _timeRanges[index];
+                                });
+                              }
+                            },
+                            backgroundColor: colors.grey0,
+                            selectedColor: colors.customPrimary,
+                            labelStyle: TextStyle(
+                              color:
+                                  isSelected
+                                      ? Colors.white
+                                      : colors.textPrimary,
+                              fontWeight:
+                                  isSelected
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                    subtitle: Text(
-                      'Use the 20-20-20 rule: Every 20 minutes, look at something 20 feet away for 20 seconds',
-                      style: TextStyle(color: colors.textSecondary),
-                    ),
-                    contentPadding: EdgeInsets.zero,
                   ),
-                  const Divider(),
-                  ListTile(
-                    leading: Icon(Icons.lightbulb_outline, color: colors.primary),
-                    title: Text(
-                      'Ensure Proper Lighting',
-                      style: TextStyle(color: colors.textPrimary),
-                    ),
-                    subtitle: Text(
-                      'Maintain good lighting while reading and working to reduce eye strain',
-                      style: TextStyle(color: colors.textSecondary),
-                    ),
-                    contentPadding: EdgeInsets.zero,
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: Icon(
-                      Icons.favorite_outline,
-                      color: currentData.leftEyeScore < 80 ? Colors.redAccent : colors.primary,
-                    ),
-                    title: Text(
-                      _getAdditionalRecommendation(currentData.leftEyeScore, currentData.rightEyeScore).replaceAll('• ', ''),
-                      style: TextStyle(color: colors.textPrimary),
-                    ),
-                    contentPadding: EdgeInsets.zero,
-                  ),
-                ],
+                ),
               ),
-            ),
+
+              // Chart starts here
+              Card(
+                color: EyesightColors().boxColor,
+                margin: const EdgeInsets.only(bottom: 24),
+                child: SizedBox(
+                  height: 250,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: _buildChart(),
+                  ),
+                ),
+              ),
+
+              _buildSectionHeader('Eyesight Metrics', 'View Details'),
+
+              Card(
+                color: EyesightColors().boxColor,
+                margin: const EdgeInsets.only(bottom: 24),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      _buildMetricRow(
+                        'Overall Score',
+                        '$overallScore',
+                        _getScoreRating(overallScore),
+                      ),
+                      const Divider(),
+                      _buildMetricRow(
+                        'Left Eye',
+                        '${currentData.leftEyeScore}',
+                        _getEyeScoreRating(currentData.leftEyeScore),
+                      ),
+                      const Divider(),
+                      _buildMetricRow(
+                        'Right Eye',
+                        '${currentData.rightEyeScore}',
+                        _getEyeScoreRating(currentData.rightEyeScore),
+                      ),
+                      const Divider(),
+                      _buildMetricRow(
+                        'Next Checkup',
+                        _getRecommendedCheckupInterval(
+                          currentData.leftEyeScore,
+                          currentData.rightEyeScore,
+                        ),
+                        'Recommend',
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              Card(
+                color: EyesightColors().boxColor,
+                margin: const EdgeInsets.only(bottom: 24),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildActionButton(
+                        'Placeholder',
+                        Icons.calendar_today,
+                        () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => const OpticalTestResultsPage(),
+                            ),
+                          );
+                        },
+                      ),
+                      _buildActionButton(
+                        'Test Results',
+                        Icons.assignment,
+                        () => _showTestHistorySheet(context),
+                      ),
+                      _buildActionButton(
+                        'Export',
+                        Icons.drive_folder_upload,
+                        () {},
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              _buildSectionHeader('Recommendations', ''),
+
+              Card(
+                color: EyesightColors().boxColor,
+                margin: const EdgeInsets.only(bottom: 24),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListTile(
+                        leading: Icon(Icons.schedule, color: colors.primary),
+                        title: Text(
+                          'Schedule Regular Eye Exams',
+                          style: TextStyle(color: colors.textPrimary),
+                        ),
+                        subtitle: Text(
+                          'Every ${_getRecommendedCheckupInterval(currentData.leftEyeScore, currentData.rightEyeScore)}',
+                          style: TextStyle(color: colors.textSecondary),
+                        ),
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                      const Divider(),
+                      ListTile(
+                        leading: Icon(Icons.timer, color: colors.primary),
+                        title: Text(
+                          'Take Screen Breaks',
+                          style: TextStyle(color: colors.textPrimary),
+                        ),
+                        subtitle: Text(
+                          'Use the 20-20-20 rule: Every 20 minutes, look at something 20 feet away for 20 seconds',
+                          style: TextStyle(color: colors.textSecondary),
+                        ),
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                      const Divider(),
+                      ListTile(
+                        leading: Icon(
+                          Icons.lightbulb_outline,
+                          color: colors.primary,
+                        ),
+                        title: Text(
+                          'Ensure Proper Lighting',
+                          style: TextStyle(color: colors.textPrimary),
+                        ),
+                        subtitle: Text(
+                          'Maintain good lighting while reading and working to reduce eye strain',
+                          style: TextStyle(color: colors.textSecondary),
+                        ),
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                      const Divider(),
+                      ListTile(
+                        leading: Icon(
+                          Icons.favorite_outline,
+                          color:
+                              currentData.leftEyeScore < 80
+                                  ? Colors.redAccent
+                                  : colors.primary,
+                        ),
+                        title: Text(
+                          _getAdditionalRecommendation(
+                            currentData.leftEyeScore,
+                            currentData.rightEyeScore,
+                          ).replaceAll('• ', ''),
+                          style: TextStyle(color: colors.textPrimary),
+                        ),
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
-  
+
   Widget _buildSectionHeader(String title, String action) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 12.0),
@@ -426,7 +496,7 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
       ),
     );
   }
-  
+
   Widget _buildMetricRow(String title, String value, String status) {
     Color statusColor;
     if (status == 'Excellent' || status == 'Good') {
@@ -440,17 +510,17 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
     } else {
       statusColor = colors.customPrimary;
     }
-    
+
     String decreaseText = '';
-    
+
     if (title == 'Left Eye' || title == 'Right Eye') {
       final currentData = _eyesightData[_selectedTimeRange]!;
       final firstData = currentData.first;
       final lastData = currentData.last;
-      
+
       int firstScore = 0;
       int lastScore = 0;
-      
+
       if (title == 'Left Eye') {
         firstScore = firstData.leftEyeScore;
         lastScore = lastData.leftEyeScore;
@@ -458,13 +528,13 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
         firstScore = firstData.rightEyeScore;
         lastScore = lastData.rightEyeScore;
       }
-      
+
       int decrease = firstScore - lastScore;
       if (decrease > 0) {
         decreaseText = ' ↓$decrease';
       }
     }
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -472,10 +542,7 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
           Expanded(
             child: Text(
               title,
-              style: TextStyle(
-                fontSize: 16,
-                color: colors.textSecondary,
-              ),
+              style: TextStyle(fontSize: 16, color: colors.textSecondary),
             ),
           ),
           Expanded(
@@ -507,7 +574,10 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
                 ),
                 const SizedBox(width: 8),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: statusColor.withAlpha(20),
                     borderRadius: BorderRadius.circular(12),
@@ -529,7 +599,7 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
       ),
     );
   }
-  
+
   Widget _buildActionButton(String label, IconData icon, VoidCallback onTap) {
     return InkWell(
       onTap: onTap,
@@ -537,28 +607,18 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
         padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
         child: Column(
           children: [
-            Icon(
-              icon,
-              color: colors.grey2,
-              size: 28,
-            ),
+            Icon(icon, color: colors.grey2, size: 28),
             const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 14,
-                color: colors.grey2,
-              ),
-            ),
+            Text(label, style: TextStyle(fontSize: 14, color: colors.grey2)),
           ],
         ),
       ),
     );
   }
-  
+
   Widget _buildChart() {
     final data = _eyesightData[_selectedTimeRange]!;
-    
+    String currentValue = ''; // Keeps track of horizontal chart titles.
     return LineChart(
       LineChartData(
         gridData: FlGridData(
@@ -582,9 +642,16 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
               getTitlesWidget: (value, meta) {
                 int interval = (data.length / 4).round();
                 if (interval < 1) interval = 1;
-                
-                if (value.toInt() % interval == 0 && value.toInt() < data.length) {
+
+                if (value.toInt() % interval == 0 &&
+                    value.toInt() < data.length) {
                   final date = data[value.toInt()].date;
+                  if (currentValue == '${date.day}/${date.month}') {
+                    // Don't show same date and months.
+                    return Text('');
+                  }
+                  currentValue = '${date.day}/${date.month}';
+                  // Show day and month normally.
                   return Text('${date.day}/${date.month}');
                 }
                 return const Text('');
@@ -623,10 +690,8 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
           LineChartBarData(
             spots: List.generate(
               data.length,
-              (index) => FlSpot(
-                index.toDouble(),
-                data[index].leftEyeScore.toDouble(),
-              ),
+              (index) =>
+                  FlSpot(index.toDouble(), data[index].leftEyeScore.toDouble()),
             ),
             isCurved: true,
             color: colors.primary,
@@ -646,8 +711,8 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
                 if (data.length <= 8) {
                   return true;
                 }
-                return spot.x.toInt() % (data.length ~/ 5) == 0 || 
-                       spot.x.toInt() == data.length - 1;
+                return spot.x.toInt() % (data.length ~/ 5) == 0 ||
+                    spot.x.toInt() == data.length - 1;
               },
             ),
             belowBarData: BarAreaData(
@@ -689,8 +754,8 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
                 if (data.length <= 8) {
                   return true;
                 }
-                return spot.x.toInt() % (data.length ~/ 5) == 0 || 
-                       spot.x.toInt() == data.length - 1;
+                return spot.x.toInt() % (data.length ~/ 5) == 0 ||
+                    spot.x.toInt() == data.length - 1;
               },
             ),
             belowBarData: BarAreaData(
@@ -716,11 +781,11 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
                 final index = spot.x.toInt();
                 final data = _eyesightData[_selectedTimeRange]![index];
                 final date = data.date;
-                
+
                 String eyeType;
                 int score;
                 Color color;
-                
+
                 if (spot.barIndex == 0) {
                   eyeType = 'Left Eye';
                   score = data.leftEyeScore;
@@ -730,7 +795,7 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
                   score = data.rightEyeScore;
                   color = colors.secondary;
                 }
-                
+
                 return LineTooltipItem(
                   '$eyeType: $score\n${date.day}/${date.month}/${date.year}',
                   TextStyle(color: color, fontWeight: FontWeight.bold),
@@ -746,12 +811,13 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
   TextSpan _getDecreaseTextSpan(List<EyesightData> data, bool isLeftEye) {
     final firstData = data.first;
     final lastData = data.last;
-    
-    int firstScore = isLeftEye ? firstData.leftEyeScore : firstData.rightEyeScore;
+
+    int firstScore =
+        isLeftEye ? firstData.leftEyeScore : firstData.rightEyeScore;
     int lastScore = isLeftEye ? lastData.leftEyeScore : lastData.rightEyeScore;
-    
+
     int decrease = firstScore - lastScore;
-    
+
     if (decrease > 0) {
       return TextSpan(
         text: ' ↓$decrease',
@@ -762,7 +828,7 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
         ),
       );
     }
-    
+
     return const TextSpan(text: '');
   }
 
@@ -771,7 +837,7 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
     final allTimeData = _eyesightData['All Time']!;
     final sortedData = List<EyesightData>.from(allTimeData)
       ..sort((a, b) => b.date.compareTo(a.date));
-    
+
     showModalBottomSheet(
       backgroundColor: EyesightColors().boxColor,
       context: context,
@@ -820,9 +886,12 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
                     ],
                   ),
                 ),
-                
+
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 12,
+                  ),
                   child: Row(
                     children: [
                       Expanded(
@@ -875,38 +944,45 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
                     ],
                   ),
                 ),
-                
+
                 Expanded(
                   child: ListView.builder(
                     controller: scrollController,
                     itemCount: sortedData.length,
                     itemBuilder: (context, index) {
                       final testData = sortedData[index];
-                      final avgScore = ((testData.leftEyeScore + testData.rightEyeScore) / 2).round();
+                      final avgScore =
+                          ((testData.leftEyeScore + testData.rightEyeScore) / 2)
+                              .round();
                       final day = testData.date.day.toString().padLeft(2, '0');
-                      final month = testData.date.month.toString().padLeft(2, '0');
+                      final month = testData.date.month.toString().padLeft(
+                        2,
+                        '0',
+                      );
                       final year = testData.date.year;
-                      
+
                       String leftChange = '';
                       String rightChange = '';
-                      
+
                       if (index < sortedData.length - 1) {
                         final prevTest = sortedData[index + 1];
-                        final leftDiff = testData.leftEyeScore - prevTest.leftEyeScore;
-                        final rightDiff = testData.rightEyeScore - prevTest.rightEyeScore;
-                        
+                        final leftDiff =
+                            testData.leftEyeScore - prevTest.leftEyeScore;
+                        final rightDiff =
+                            testData.rightEyeScore - prevTest.rightEyeScore;
+
                         leftChange = _formatScoreChange(leftDiff);
                         rightChange = _formatScoreChange(rightDiff);
                       }
-                      
+
                       return Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 12,
+                        ),
                         decoration: BoxDecoration(
                           border: Border(
-                            bottom: BorderSide(
-                              color: colors.grey0,
-                              width: 0.5,
-                            ),
+                            bottom: BorderSide(color: colors.grey0, width: 0.5),
                           ),
                         ),
                         child: Row(
@@ -935,7 +1011,7 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
                                 ],
                               ),
                             ),
-                            
+
                             // Score for the left eye
                             Expanded(
                               flex: 2,
@@ -948,24 +1024,32 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 15,
-                                        color: _getColorForScore(testData.leftEyeScore),
+                                        color: _getColorForScore(
+                                          testData.leftEyeScore,
+                                        ),
                                       ),
                                     ),
                                     TextSpan(
                                       text: leftChange,
                                       style: TextStyle(
                                         fontSize: 12,
-                                        color: leftChange.contains('+') 
-                                            ? Colors.green 
-                                            : (leftChange.isEmpty ? Colors.transparent : Colors.red),
-                                        fontWeight: leftChange.contains('↓') ? FontWeight.bold : FontWeight.normal,
+                                        color:
+                                            leftChange.contains('+')
+                                                ? Colors.green
+                                                : (leftChange.isEmpty
+                                                    ? Colors.transparent
+                                                    : Colors.red),
+                                        fontWeight:
+                                            leftChange.contains('↓')
+                                                ? FontWeight.bold
+                                                : FontWeight.normal,
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
                             ),
-                            
+
                             // Score for the right eye
                             Expanded(
                               flex: 2,
@@ -978,34 +1062,49 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 15,
-                                        color: _getColorForScore(testData.rightEyeScore),
+                                        color: _getColorForScore(
+                                          testData.rightEyeScore,
+                                        ),
                                       ),
                                     ),
                                     TextSpan(
                                       text: rightChange,
                                       style: TextStyle(
                                         fontSize: 12,
-                                        color: rightChange.contains('+') 
-                                            ? Colors.green 
-                                            : (rightChange.isEmpty ? Colors.transparent : Colors.red),
-                                        fontWeight: rightChange.contains('↓') ? FontWeight.bold : FontWeight.normal,
+                                        color:
+                                            rightChange.contains('+')
+                                                ? Colors.green
+                                                : (rightChange.isEmpty
+                                                    ? Colors.transparent
+                                                    : Colors.red),
+                                        fontWeight:
+                                            rightChange.contains('↓')
+                                                ? FontWeight.bold
+                                                : FontWeight.normal,
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
                             ),
-                            
+
                             // Average score
                             Expanded(
                               flex: 2,
                               child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 4,
+                                ),
                                 decoration: BoxDecoration(
-                                  color: _getColorForScore(avgScore).withAlpha(26),
+                                  color: _getColorForScore(
+                                    avgScore,
+                                  ).withAlpha(26),
                                   borderRadius: BorderRadius.circular(12),
                                   border: Border.all(
-                                    color: _getColorForScore(avgScore).withAlpha(77),
+                                    color: _getColorForScore(
+                                      avgScore,
+                                    ).withAlpha(77),
                                     width: 1,
                                   ),
                                 ),
@@ -1033,18 +1132,26 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
       },
     );
   }
-  
+
   String _formatScoreChange(int diff) {
     if (diff == 0) return '';
     if (diff > 0) return ' (+$diff)';
     return ' (↓${diff.abs()})';
   }
-  
+
   String _formatDayOfWeek(DateTime date) {
-    final days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    final days = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ];
     return days[(date.weekday - 1) % 7];
   }
-  
+
   Color _getColorForScore(int score) {
     if (score >= 90) return Colors.green[700]!;
     if (score >= 80) return Colors.lightGreen[700]!;
