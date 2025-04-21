@@ -30,7 +30,7 @@ class _HomePageState extends State<EyesightHomePage> {
     QuickActionButtonWidget(
       text: 'Training',
       icon: FontAwesomeIcons.clipboardCheck,
-      page: EyeMovementExercisePage(),
+      page: EyeMovementExercisePage(exerciseType: 'rotation'),
     ),
     QuickActionButtonWidget(
       text: 'Tests',
@@ -138,7 +138,9 @@ class _HomePageState extends State<EyesightHomePage> {
               children: List.generate(exercises.length, (index) {
                 return ExerciseMiniButtonWidget(
                   model: exercises[index],
-                  page: EyeMovementExercisePage(),
+                  page: EyeMovementExercisePage(
+                    exerciseType: exercises[index].type,
+                  ),
                   onPageClosed: _setExerciseCompleted,
                 );
               }),

@@ -77,7 +77,7 @@ class ExerciseMiniButtonWidget extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  model.excercise,
+                  model.name,
                   textAlign: TextAlign.start,
                   style: EyesightTextStyle().miniLabelSecondary,
                 ),

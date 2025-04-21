@@ -151,7 +151,10 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
               children: List.generate(exercises.length, (index) {
                 return ExerciseButtonWidget(
                   model: exercises[index],
-                  page: EyeMovementExercisePage(),
+                  page: EyeMovementExercisePage(
+                    exerciseType: exercises[index].type,
+                  ),
+
                   onPageClosed: _setExerciseCompleted,
                 );
               }),

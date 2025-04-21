@@ -36,7 +36,7 @@ class ExerciseButtonWidget extends StatelessWidget {
         child: InkWell(
           onTap: () {
             if (page == null) {
-              debugPrint('Tapped ${model.excercise} button');
+              debugPrint('Tapped ${model.name} button');
               return;
             }
             Navigator.push(
@@ -57,7 +57,7 @@ class ExerciseButtonWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      model.excercise,
+                      model.name,
                       textAlign: TextAlign.start,
                       style: EyesightTextStyle().miniHeader,
                     ),

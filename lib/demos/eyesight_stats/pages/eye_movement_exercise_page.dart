@@ -7,7 +7,8 @@ import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_a
 import 'package:lottie/lottie.dart';
 
 class EyeMovementExercisePage extends StatefulWidget {
-  const EyeMovementExercisePage({super.key});
+  const EyeMovementExercisePage({super.key, this.exerciseType});
+  final String? exerciseType; // Horizontal-/rotation exercise.
 
   @override
   State<EyeMovementExercisePage> createState() =>
@@ -92,7 +93,10 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: EyesightAppBar(
-        title: 'Horizontal Eye Exercise',
+        title:
+            widget.exerciseType == 'rotation'
+                ? 'Eye Rotation Exercise'
+                : 'Horizontal Eye Exercise',
         isBackButtonVisible: true,
       ),
       backgroundColor: EyesightColors().background,
@@ -107,7 +111,9 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
                 Expanded(
                   flex: 2,
                   child: Lottie.asset(
-                    'assets/animations/eyes_horizontal_movement.json',
+                    widget.exerciseType == 'rotation'
+                        ? 'assets/animations/eyes_rotation_movement.json'
+                        : 'assets/animations/eyes_horizontal_movement.json',
                     repeat: false,
                     controller: animationController,
                     onLoaded: (composition) {
