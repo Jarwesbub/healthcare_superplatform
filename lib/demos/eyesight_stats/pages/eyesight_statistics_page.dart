@@ -543,12 +543,14 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
       child: Row(
         children: [
           Expanded(
+            flex: 1,
             child: Text(
               title,
               style: TextStyle(fontSize: 16, color: colors.textSecondary),
             ),
           ),
           Expanded(
+            flex: 2,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
