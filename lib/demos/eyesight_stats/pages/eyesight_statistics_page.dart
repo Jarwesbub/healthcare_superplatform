@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mobile_appbar.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/optical_test_results_page.dart';
 
 class EyesightApp extends StatelessWidget {
@@ -138,7 +138,10 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
         ((currentData.leftEyeScore + currentData.rightEyeScore) / 2).round();
 
     return Scaffold(
-      appBar: EyesightAppBar(title: 'Statistics', isBackButtonVisible: true),
+      appBar: EyesightMobileAppBar(
+        title: 'Statistics',
+        isBackButtonVisible: true,
+      ),
       backgroundColor: EyesightColors().surface,
       body: Center(
         child: ConstrainedBox(

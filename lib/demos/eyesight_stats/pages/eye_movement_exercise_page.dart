@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/basic_button_widget.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mobile_appbar.dart';
 import 'package:lottie/lottie.dart';
 
 class EyeMovementExercisePage extends StatefulWidget {
@@ -92,7 +92,7 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: EyesightAppBar(
+      appBar: EyesightMobileAppBar(
         title:
             widget.exerciseType == 'rotation'
                 ? 'Eye Rotation Exercise'

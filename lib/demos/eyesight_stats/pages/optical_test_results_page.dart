@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mobile_appbar.dart';
 
 class OpticalTestResultsPage extends StatefulWidget {
   const OpticalTestResultsPage({super.key});
@@ -9,10 +9,11 @@ class OpticalTestResultsPage extends StatefulWidget {
   State<OpticalTestResultsPage> createState() => _OpticalTestResultsPageState();
 }
 
-class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with SingleTickerProviderStateMixin {
+class _OpticalTestResultsPageState extends State<OpticalTestResultsPage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final EyesightColors colors = EyesightColors();
-  
+
   // Hardcoded data maybe add this to a json if we have time
   final Map<String, dynamic> _latestTest = {
     'date': DateTime(2025, 4, 10),
@@ -45,22 +46,13 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
       },
     },
     'keratometry': {
-      'rightEye': {
-        'k1': '43.75D @ 175°',
-        'k2': '44.50D @ 85°',
-      },
-      'leftEye': {
-        'k1': '43.50D @ 10°',
-        'k2': '44.00D @ 100°',
-      },
+      'rightEye': {'k1': '43.75D @ 175°', 'k2': '44.50D @ 85°'},
+      'leftEye': {'k1': '43.50D @ 10°', 'k2': '44.00D @ 100°'},
     },
-    'intraocularPressure': {
-      'rightEye': '16 mmHg',
-      'leftEye': '17 mmHg',
-    },
+    'intraocularPressure': {'rightEye': '16 mmHg', 'leftEye': '17 mmHg'},
     'pupilDistance': '63 mm',
   };
-  
+
   // Same here json if time
   final List<Map<String, dynamic>> _testHistory = [
     {
@@ -132,7 +124,10 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: EyesightAppBar(title: 'Optical Test Results', isBackButtonVisible: true),
+      appBar: EyesightMobileAppBar(
+        title: 'Optical Test Results',
+        isBackButtonVisible: true,
+      ),
       backgroundColor: colors.surface,
       body: Column(
         children: [
@@ -191,7 +186,7 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
   Widget _buildTestInfoCard() {
     final date = _latestTest['date'] as DateTime;
     final formattedDate = '${date.day}/${date.month}/${date.year}';
-    
+
     return Card(
       color: colors.boxColor,
       margin: EdgeInsets.zero,
@@ -206,7 +201,11 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
               children: [
                 CircleAvatar(
                   backgroundColor: colors.customPrimary.withOpacity(0.1),
-                  child: Icon(Icons.calendar_today, color: colors.customPrimary, size: 20),
+                  child: Icon(
+                    Icons.calendar_today,
+                    color: colors.customPrimary,
+                    size: 20,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Column(
@@ -234,7 +233,11 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
             const SizedBox(height: 16),
             _buildInfoRow(Icons.person, 'Doctor', _latestTest['doctor']),
             const SizedBox(height: 8),
-            _buildInfoRow(Icons.local_hospital, 'Clinic', _latestTest['clinic']),
+            _buildInfoRow(
+              Icons.local_hospital,
+              'Clinic',
+              _latestTest['clinic'],
+            ),
           ],
         ),
       ),
@@ -248,10 +251,7 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
         const SizedBox(width: 8),
         Text(
           '$label:',
-          style: TextStyle(
-            fontSize: 14,
-            color: colors.textSecondary,
-          ),
+          style: TextStyle(fontSize: 14, color: colors.textSecondary),
         ),
         const SizedBox(width: 4),
         Text(
@@ -282,7 +282,7 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
 
   Widget _buildVisualAcuityCard() {
     final vaData = _latestTest['visualAcuity'];
-    
+
     return Card(
       color: colors.boxColor,
       margin: EdgeInsets.zero,
@@ -372,13 +372,18 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
     );
   }
 
-  Widget _buildVisualAcuityRow(String label, String rightValue, String leftValue, {bool isHighlighted = false}) {
+  Widget _buildVisualAcuityRow(
+    String label,
+    String rightValue,
+    String leftValue, {
+    bool isHighlighted = false,
+  }) {
     final textStyle = TextStyle(
       fontWeight: isHighlighted ? FontWeight.bold : FontWeight.normal,
       fontSize: isHighlighted ? 16 : 14,
       color: isHighlighted ? colors.customPrimary : colors.textPrimary,
     );
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -387,10 +392,7 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
             width: 80,
             child: Text(
               label,
-              style: TextStyle(
-                fontSize: 14,
-                color: colors.textSecondary,
-              ),
+              style: TextStyle(fontSize: 14, color: colors.textSecondary),
             ),
           ),
           Expanded(
@@ -414,7 +416,7 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
 
   Widget _buildRefractionCard() {
     final refractionData = _latestTest['refraction'];
-    
+
     return Card(
       color: colors.boxColor,
       margin: EdgeInsets.zero,
@@ -453,7 +455,7 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
                 ],
               ),
             ),
-            
+
             Row(
               children: [
                 SizedBox(
@@ -492,7 +494,7 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
               ],
             ),
             const Divider(),
-            
+
             // SPH
             _buildRefractionRow(
               'Sphere',
@@ -500,7 +502,7 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
               refractionData['leftEye']['sphere'],
               isHighlighted: true,
             ),
-            
+
             // CYL
             _buildRefractionRow(
               'Cylinder',
@@ -508,14 +510,14 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
               refractionData['leftEye']['cylinder'],
               isHighlighted: true,
             ),
-            
+
             // Axis
             _buildRefractionRow(
               'Axis',
               refractionData['rightEye']['axis'],
               refractionData['leftEye']['axis'],
             ),
-            
+
             // Add
             _buildRefractionRow(
               'Add',
@@ -528,18 +530,20 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
     );
   }
 
-  Widget _buildRefractionRow(String label, String rightValue, String leftValue, {bool isHighlighted = false}) {
-    final regularTextStyle = TextStyle(
-      fontSize: 14,
-      color: colors.textPrimary,
-    );
-    
+  Widget _buildRefractionRow(
+    String label,
+    String rightValue,
+    String leftValue, {
+    bool isHighlighted = false,
+  }) {
+    final regularTextStyle = TextStyle(fontSize: 14, color: colors.textPrimary);
+
     final highlightedTextStyle = TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
       color: _getColorForRefractionValue(rightValue),
     );
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -548,10 +552,7 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
             width: 80,
             child: Text(
               label,
-              style: TextStyle(
-                fontSize: 14,
-                color: colors.textSecondary,
-              ),
+              style: TextStyle(fontSize: 14, color: colors.textSecondary),
             ),
           ),
           Expanded(
@@ -565,12 +566,14 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
             child: Text(
               leftValue,
               textAlign: TextAlign.center,
-              style: isHighlighted ? 
-                TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: _getColorForRefractionValue(leftValue),
-                ) : regularTextStyle,
+              style:
+                  isHighlighted
+                      ? TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: _getColorForRefractionValue(leftValue),
+                      )
+                      : regularTextStyle,
             ),
           ),
         ],
@@ -601,35 +604,26 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
         child: Column(
           children: [
             // Keratometry
-            _buildMeasurementSection(
-              'Keratometry (Corneal Curvature)',
-              {
-                'K1 (Right)': _latestTest['keratometry']['rightEye']['k1'],
-                'K2 (Right)': _latestTest['keratometry']['rightEye']['k2'],
-                'K1 (Left)': _latestTest['keratometry']['leftEye']['k1'],
-                'K2 (Left)': _latestTest['keratometry']['leftEye']['k2'],
-              },
-            ),
+            _buildMeasurementSection('Keratometry (Corneal Curvature)', {
+              'K1 (Right)': _latestTest['keratometry']['rightEye']['k1'],
+              'K2 (Right)': _latestTest['keratometry']['rightEye']['k2'],
+              'K1 (Left)': _latestTest['keratometry']['leftEye']['k1'],
+              'K2 (Left)': _latestTest['keratometry']['leftEye']['k2'],
+            }),
             const Divider(),
-            
+
             // IOP
-            _buildMeasurementSection(
-              'Intraocular Pressure (IOP)',
-              {
-                'Right Eye': _latestTest['intraocularPressure']['rightEye'],
-                'Left Eye': _latestTest['intraocularPressure']['leftEye'],
-                'Normal Range': '10-21 mmHg',
-              },
-            ),
+            _buildMeasurementSection('Intraocular Pressure (IOP)', {
+              'Right Eye': _latestTest['intraocularPressure']['rightEye'],
+              'Left Eye': _latestTest['intraocularPressure']['leftEye'],
+              'Normal Range': '10-21 mmHg',
+            }),
             const Divider(),
-            
+
             // Pupil Distance
-            _buildMeasurementSection(
-              'Pupillary Distance (PD)',
-              {
-                'Distance': _latestTest['pupilDistance'],
-              },
-            ),
+            _buildMeasurementSection('Pupillary Distance (PD)', {
+              'Distance': _latestTest['pupilDistance'],
+            }),
           ],
         ),
       ),
@@ -649,29 +643,33 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
           ),
         ),
         const SizedBox(height: 8),
-        ...values.entries.map((entry) => Padding(
-          padding: const EdgeInsets.only(left: 8.0, bottom: 4.0),
-          child: Row(
-            children: [
-              Text(
-                '${entry.key}:',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: colors.textSecondary,
+        ...values.entries
+            .map(
+              (entry) => Padding(
+                padding: const EdgeInsets.only(left: 8.0, bottom: 4.0),
+                child: Row(
+                  children: [
+                    Text(
+                      '${entry.key}:',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: colors.textSecondary,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      entry.value,
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: colors.textPrimary,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(width: 4),
-              Text(
-                entry.value,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: colors.textPrimary,
-                ),
-              ),
-            ],
-          ),
-        )).toList(),
+            )
+            .toList(),
       ],
     );
   }
@@ -720,7 +718,12 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
     );
   }
 
-  Widget _buildEyeHealthItem(String title, String description, IconData icon, Color iconColor) {
+  Widget _buildEyeHealthItem(
+    String title,
+    String description,
+    IconData icon,
+    Color iconColor,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
@@ -743,10 +746,7 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
                 const SizedBox(height: 2),
                 Text(
                   description,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: colors.textSecondary,
-                  ),
+                  style: TextStyle(fontSize: 13, color: colors.textSecondary),
                 ),
               ],
             ),
@@ -797,13 +797,18 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
         final test = _testHistory[index];
         final date = test['date'] as DateTime;
         final formattedDate = '${date.day}/${date.month}/${date.year}';
-        
+
         return Card(
           color: colors.boxColor,
           margin: const EdgeInsets.only(bottom: 12),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
           child: ExpansionTile(
-            tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            tilePadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 8,
+            ),
             leading: CircleAvatar(
               backgroundColor: colors.customPrimary.withOpacity(0.1),
               child: Text(
@@ -827,19 +832,12 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
                 const SizedBox(height: 4),
                 Text(
                   test['doctor'] as String,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: colors.textSecondary,
-                  ),
+                  style: TextStyle(fontSize: 13, color: colors.textSecondary),
                 ),
                 const SizedBox(height: 2),
                 Row(
                   children: [
-                    Icon(
-                      Icons.remove_red_eye,
-                      size: 14,
-                      color: colors.grey1,
-                    ),
+                    Icon(Icons.remove_red_eye, size: 14, color: colors.grey1),
                     const SizedBox(width: 4),
                     Text(
                       'OD: ${test['refraction']['rightEye']['sphere']} | OS: ${test['refraction']['leftEye']['sphere']}',
@@ -852,21 +850,40 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
                 ),
               ],
             ),
-            trailing: test['prescription'] == true
-                ? Icon(Icons.description, color: colors.customPrimary)
-                : null,
+            trailing:
+                test['prescription'] == true
+                    ? Icon(Icons.description, color: colors.customPrimary)
+                    : null,
             children: [
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    _buildHistoryDetailRow('Visual Acuity (R)', test['visualAcuity']['rightEye']['corrected']),
-                    _buildHistoryDetailRow('Visual Acuity (L)', test['visualAcuity']['leftEye']['corrected']),
-                    _buildHistoryDetailRow('Sphere (R)', test['refraction']['rightEye']['sphere']),
-                    _buildHistoryDetailRow('Sphere (L)', test['refraction']['leftEye']['sphere']),
-                    _buildHistoryDetailRow('Cylinder (R)', test['refraction']['rightEye']['cylinder']),
-                    _buildHistoryDetailRow('Cylinder (L)', test['refraction']['leftEye']['cylinder']),
-                    
+                    _buildHistoryDetailRow(
+                      'Visual Acuity (R)',
+                      test['visualAcuity']['rightEye']['corrected'],
+                    ),
+                    _buildHistoryDetailRow(
+                      'Visual Acuity (L)',
+                      test['visualAcuity']['leftEye']['corrected'],
+                    ),
+                    _buildHistoryDetailRow(
+                      'Sphere (R)',
+                      test['refraction']['rightEye']['sphere'],
+                    ),
+                    _buildHistoryDetailRow(
+                      'Sphere (L)',
+                      test['refraction']['leftEye']['sphere'],
+                    ),
+                    _buildHistoryDetailRow(
+                      'Cylinder (R)',
+                      test['refraction']['rightEye']['cylinder'],
+                    ),
+                    _buildHistoryDetailRow(
+                      'Cylinder (L)',
+                      test['refraction']['leftEye']['cylinder'],
+                    ),
+
                     const SizedBox(height: 12),
                     if (test['prescription'] == true)
                       OutlinedButton.icon(
@@ -897,10 +914,7 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
             width: 120,
             child: Text(
               label,
-              style: TextStyle(
-                fontSize: 13,
-                color: colors.textSecondary,
-              ),
+              style: TextStyle(fontSize: 13, color: colors.textSecondary),
             ),
           ),
           Text(
@@ -918,14 +932,16 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
 
   Widget _buildPrescription() {
     final refractionData = _latestTest['refraction'];
-    
+
     return ListView(
       padding: const EdgeInsets.all(16.0),
       children: [
         Card(
           color: colors.boxColor,
           margin: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -969,9 +985,9 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
                     ],
                   ),
                 ),
-                
+
                 const Divider(height: 30),
-                
+
                 // Ai filled info change if necessary
                 Row(
                   children: [
@@ -1025,9 +1041,9 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
                     ),
                   ],
                 ),
-                
+
                 const SizedBox(height: 16),
-                
+
                 Row(
                   children: [
                     Expanded(
@@ -1080,9 +1096,9 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
                     ),
                   ],
                 ),
-                
+
                 const Divider(height: 30),
-                
+
                 Table(
                   border: TableBorder.all(
                     color: colors.grey0,
@@ -1117,8 +1133,14 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
                     TableRow(
                       children: [
                         _buildTableCell('Right (OD)', isRowHeader: true),
-                        _buildTableCell(refractionData['rightEye']['sphere'], isHighlighted: true),
-                        _buildTableCell(refractionData['rightEye']['cylinder'], isHighlighted: true),
+                        _buildTableCell(
+                          refractionData['rightEye']['sphere'],
+                          isHighlighted: true,
+                        ),
+                        _buildTableCell(
+                          refractionData['rightEye']['cylinder'],
+                          isHighlighted: true,
+                        ),
                         _buildTableCell(refractionData['rightEye']['axis']),
                         _buildTableCell(refractionData['rightEye']['add']),
                       ],
@@ -1127,17 +1149,23 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
                     TableRow(
                       children: [
                         _buildTableCell('Left (OS)', isRowHeader: true),
-                        _buildTableCell(refractionData['leftEye']['sphere'], isHighlighted: true),
-                        _buildTableCell(refractionData['leftEye']['cylinder'], isHighlighted: true),
+                        _buildTableCell(
+                          refractionData['leftEye']['sphere'],
+                          isHighlighted: true,
+                        ),
+                        _buildTableCell(
+                          refractionData['leftEye']['cylinder'],
+                          isHighlighted: true,
+                        ),
                         _buildTableCell(refractionData['leftEye']['axis']),
                         _buildTableCell(refractionData['leftEye']['add']),
                       ],
                     ),
                   ],
                 ),
-                
+
                 const SizedBox(height: 20),
-                
+
                 // Ai info change if necessary
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1153,32 +1181,23 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
                     const SizedBox(height: 8),
                     Text(
                       '• Pupillary Distance (PD): ${_latestTest['pupilDistance']}',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: colors.textPrimary,
-                      ),
+                      style: TextStyle(fontSize: 14, color: colors.textPrimary),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       '• Prescription Type: Progressive',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: colors.textPrimary,
-                      ),
+                      style: TextStyle(fontSize: 14, color: colors.textPrimary),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       '• Special Instructions: Anti-reflective coating recommended',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: colors.textPrimary,
-                      ),
+                      style: TextStyle(fontSize: 14, color: colors.textPrimary),
                     ),
                   ],
                 ),
-                
+
                 const SizedBox(height: 24),
-                
+
                 Row(
                   children: [
                     Expanded(
@@ -1228,9 +1247,9 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
                     ),
                   ],
                 ),
-                
+
                 const SizedBox(height: 24),
-                
+
                 Row(
                   children: [
                     Expanded(
@@ -1268,7 +1287,12 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
     );
   }
 
-  Widget _buildTableCell(String text, {bool isHeader = false, bool isRowHeader = false, bool isHighlighted = false}) {
+  Widget _buildTableCell(
+    String text, {
+    bool isHeader = false,
+    bool isRowHeader = false,
+    bool isHighlighted = false,
+  }) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
       alignment: Alignment.center,
@@ -1277,10 +1301,14 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage> with Si
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: isHeader || isRowHeader ? 12 : 14,
-          fontWeight: isHeader || isRowHeader || isHighlighted ? FontWeight.bold : FontWeight.normal,
-          color: isHeader || isRowHeader
-              ? colors.textSecondary
-              : (isHighlighted ? colors.customPrimary : colors.textPrimary),
+          fontWeight:
+              isHeader || isRowHeader || isHighlighted
+                  ? FontWeight.bold
+                  : FontWeight.normal,
+          color:
+              isHeader || isRowHeader
+                  ? colors.textSecondary
+                  : (isHighlighted ? colors.customPrimary : colors.textPrimary),
         ),
       ),
     );
