@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 
+// App bar used in mobile view and non main pages.
+
 class EyesightMobileAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   const EyesightMobileAppBar({

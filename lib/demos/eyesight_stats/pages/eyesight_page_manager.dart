@@ -44,10 +44,8 @@ class _EyesightPageManagerState extends State<EyesightPageManager> {
                 isBackButtonVisible: false,
               )
               : EyesightWebAppBar(
-                title: 'Visionary Health',
                 buttonTitles: List.of(pageList.keys),
                 onButtonTap: onButtonTap,
-                isBackButtonVisible: false,
               ),
       backgroundColor: EyesightColors().surface,
       body: pageList.values.elementAt(currentPageIndex),

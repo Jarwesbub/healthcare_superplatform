@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 
+// Used for the main menu pages in the web view.
+// Adds navigation buttons to the lower row.
+
 class EyesightWebAppBar extends StatefulWidget implements PreferredSizeWidget {
   const EyesightWebAppBar({
     super.key,
-    required this.title,
     required this.buttonTitles,
     required this.onButtonTap,
-    required this.isBackButtonVisible,
   });
-  final String title;
   final List<String> buttonTitles;
   final void Function(int) onButtonTap;
-  final bool isBackButtonVisible;
 
   @override
   State<EyesightWebAppBar> createState() => _EyesightWebAppBarState();
@@ -33,14 +32,32 @@ class _EyesightWebAppBarState extends State<EyesightWebAppBar> {
     padding = emptySpace > 20 ? emptySpace : 20;
     debugPrint('$emptySpace');
     return AppBar(
-      automaticallyImplyLeading: true,
-      title: Text(
-        widget.title,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 28,
-          fontWeight: FontWeight.w600,
-        ),
+      automaticallyImplyLeading: false,
+      title: Row(
+        spacing: 0,
+        children: [
+          Text(
+            'Visi',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 28,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 0.5, right: 3),
+            child: Icon(FontAwesomeIcons.solidEye, size: 20),
+          ),
+          Text(
+            //widget.title,
+            'nary Health',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 28,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
       ),
       titleSpacing: padding,
       bottom: PreferredSize(
@@ -63,21 +80,6 @@ class _EyesightWebAppBarState extends State<EyesightWebAppBar> {
       centerTitle: false,
       backgroundColor: EyesightColors().customPrimary,
       foregroundColor: EyesightColors().surface,
-
-      leading:
-          widget.isBackButtonVisible
-              // Back button view.
-              ? iconButton(Icons.arrow_back, 30, () {
-                if (Navigator.canPop(context)) {
-                  Navigator.pop(context);
-                }
-              })
-              // Normal view.
-              : iconButton(FontAwesomeIcons.solidEye, 20, () {
-                if (Navigator.canPop(context)) {
-                  Navigator.pop(context);
-                }
-              }),
     );
   }
 
