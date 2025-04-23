@@ -3,8 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 
-class EyesightAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const EyesightAppBar({
+// App bar used in mobile view and non main pages.
+
+class EyesightMobileAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
+  const EyesightMobileAppBar({
     super.key,
     required this.title,
     required this.isBackButtonVisible,
@@ -14,10 +17,6 @@ class EyesightAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return mobileView(context);
-  }
-
-  Widget mobileView(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
       title: Text(title, style: EyesightTextStyle().title),

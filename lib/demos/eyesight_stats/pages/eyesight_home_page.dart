@@ -5,9 +5,8 @@ import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/exercise_task_model.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_exercise_page.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_movement_exercise_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_progress_page.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_stats_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_statistics_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_test_chart_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/quick_action_button_widget.dart';
@@ -31,7 +30,7 @@ class _HomePageState extends State<EyesightHomePage> {
     QuickActionButtonWidget(
       text: 'Training',
       icon: FontAwesomeIcons.clipboardCheck,
-      page: EyeExercisePage(),
+      page: EyeMovementExercisePage(exerciseType: 'rotation'),
     ),
     QuickActionButtonWidget(
       text: 'Tests',
@@ -139,8 +138,10 @@ class _HomePageState extends State<EyesightHomePage> {
               children: List.generate(exercises.length, (index) {
                 return ExerciseMiniButtonWidget(
                   model: exercises[index],
-                  page: EyeExercisePage(),
-                  setIsCompleted: _setExerciseCompleted,
+                  page: EyeMovementExercisePage(
+                    exerciseType: exercises[index].type,
+                  ),
+                  onPageClosed: _setExerciseCompleted,
                 );
               }),
             ),

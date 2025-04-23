@@ -23,24 +23,27 @@ class ExerciseData {
   final List<ExerciseTaskModel> _exercises = [
     ExerciseTaskModel(
       id: 0,
-      excercise: 'Exercise 1 (Day)',
+      name: 'Exercise 1 (Day)',
       duration: 5,
       icon: FontAwesomeIcons.solidSun,
       completionTime: '',
+      type: 'horizontal',
     ),
     ExerciseTaskModel(
       id: 1,
-      excercise: 'Exercise 2 (Day)',
+      name: 'Exercise 2 (Day)',
       duration: 5,
       icon: FontAwesomeIcons.solidSun,
       completionTime: '',
+      type: 'rotation',
     ),
     ExerciseTaskModel(
       id: 2,
-      excercise: 'Exercise 3 (Day)',
+      name: 'Exercise 3 (Day)',
       duration: 5,
       icon: FontAwesomeIcons.solidMoon,
       completionTime: '',
+      type: 'horizontal',
     ),
   ];
 

@@ -6,6 +6,7 @@ import 'package:healthcare_superplatform/demos/eyesight_stats/models/exercise_ta
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_exercise_page.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_movement_exercise_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_test_chart_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/exercise_button_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/normal_page_button_widget.dart';
@@ -98,7 +99,6 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
 
   Widget todaysTasksView() {
     return Container(
-      width: 500,
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: EyesightColors().boxColor,
@@ -116,7 +116,7 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: const EdgeInsets.all(8),
+            padding: EdgeInsets.all(10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -145,17 +145,17 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
             ),
           ),
           ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: double.maxFinite,
-              maxHeight: 500,
-            ),
+            constraints: const BoxConstraints(maxHeight: 500),
             child: ListView(
               shrinkWrap: true,
               children: List.generate(exercises.length, (index) {
                 return ExerciseButtonWidget(
                   model: exercises[index],
-                  page: EyeExercisePage(),
-                  setIsCompleted: _setExerciseCompleted,
+                  page: EyeMovementExercisePage(
+                    exerciseType: exercises[index].type,
+                  ),
+
+                  onPageClosed: _setExerciseCompleted,
                 );
               }),
             ),
@@ -196,11 +196,11 @@ class _EyesightPlayState extends State<EyesightPlayPage> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Reset all the data?'),
+          title: const Text('Clear data?'),
           content: const SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('All the exercise data will be cleared.'),
+                Text('All the exercise tasks will be cleared.'),
               ],
             ),
           ),
