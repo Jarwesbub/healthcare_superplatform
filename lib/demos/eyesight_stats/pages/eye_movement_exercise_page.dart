@@ -112,8 +112,8 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
                   flex: 2,
                   child: Lottie.asset(
                     widget.exerciseType == 'rotation'
-                        ? 'assets/animations/eyes_rotation_movement.json'
-                        : 'assets/animations/eyes_horizontal_movement.json',
+                        ? 'assets/animations/eyes_rotation_arrow.json'
+                        : 'assets/animations/eyes_horizontal_arrow.json',
                     repeat: false,
                     controller: animationController,
                     onLoaded: (composition) {
@@ -128,7 +128,6 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
                   blastDirectionality: BlastDirectionality.explosive,
                 ),
                 Expanded(flex: 3, child: _instructionsWidget()),
-                _buttonInfoWidget(),
                 BasicButtonWidget(
                   text: buttonText,
                   onTap: () {
@@ -192,29 +191,6 @@ class _EyeMovementExercisePageState extends State<EyeMovementExercisePage>
             ),
           );
         }),
-      ],
-    );
-  }
-
-  Widget _buttonInfoWidget() {
-    String text = switch (currentTaskIndex) {
-      0 => '(Press start to begin your exercise)',
-      2 => '(Close the current exercise)',
-      _ => '',
-    };
-    if (currentTaskIndex == 1) {
-      return const SizedBox(height: 80);
-    }
-    return Column(
-      children: [
-        SizedBox(
-          height: 40,
-          child: Text(
-            text,
-            style: EyesightTextStyle().miniHeader,
-            textAlign: TextAlign.center,
-          ),
-        ),
       ],
     );
   }
