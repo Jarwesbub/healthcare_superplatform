@@ -8,6 +8,7 @@ import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_te
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_movement_exercise_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_progress_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_statistics_page.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/pages/optical_test_results_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_test_chart_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/quick_action_button_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/exercise_mini_button_widget.dart';
@@ -28,19 +29,19 @@ class _HomePageState extends State<EyesightHomePage> {
   // Buttons for the quick actions view.
   final List<QuickActionButtonWidget> quickActionButtons = [
     QuickActionButtonWidget(
-      text: 'Training',
+      text: 'Exercise',
       icon: FontAwesomeIcons.clipboardCheck,
       page: EyeMovementExercisePage(exerciseType: 'rotation'),
     ),
     QuickActionButtonWidget(
-      text: 'Tests',
+      text: 'Vision Test',
       icon: FontAwesomeIcons.stopwatch,
       page: VisionTestChartPage(),
     ),
     QuickActionButtonWidget(
-      text: 'Contact',
-      icon: FontAwesomeIcons.solidAddressCard,
-      page: null,
+      text: 'Optical Results',
+      icon: FontAwesomeIcons.chartSimple,
+      page: OpticalTestResultsPage(),
     ),
   ];
 
