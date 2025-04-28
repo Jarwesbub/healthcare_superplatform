@@ -57,7 +57,6 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
     '1 Year',
     'All Time',
   ];
-  bool _showDetailedView = false;
   late final Map<String, List<EyesightData>> _eyesightData;
   late final EyesightColors colors = EyesightColors();
 
