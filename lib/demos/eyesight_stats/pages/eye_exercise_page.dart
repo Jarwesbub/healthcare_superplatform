@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mobile_appbar.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
 
 class EyeExercisePage extends StatelessWidget {
   const EyeExercisePage({super.key});
@@ -9,10 +9,7 @@ class EyeExercisePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: EyesightMobileAppBar(
-        title: 'Eye Exercise',
-        isBackButtonVisible: true,
-      ),
+      appBar: EyesightAppBar(title: 'Eye Exercise', isBackButtonVisible: true),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/demos/demo_home_page.dart';
-import 'package:healthcare_superplatform/unused/widgets/notifications.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/notifications.dart';
 import 'package:flutter/foundation.dart';
 
 void main() async {

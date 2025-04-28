@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/vision_image_model.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mobile_appbar.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/vision_image_widget.dart';
 
 class VisionTestChartPage extends StatefulWidget {
@@ -35,10 +35,7 @@ class _VisionTestChartState extends State<VisionTestChartPage> {
   Widget build(BuildContext context) {
     imageIndex = 0;
     return Scaffold(
-      appBar: EyesightMobileAppBar(
-        title: 'Quick test',
-        isBackButtonVisible: true,
-      ),
+      appBar: EyesightAppBar(title: 'Quick test', isBackButtonVisible: true),
       backgroundColor: EyesightColors().surface,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),

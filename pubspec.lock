@@ -65,14 +65,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.19.1"
-  confetti:
-    dependency: "direct main"
-    description:
-      name: confetti
-      sha256: "79376a99648efbc3f23582f5784ced0fe239922bd1a0fb41f582051eba750751"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.0"
   crypto:
     dependency: transitive
     description:
@@ -198,6 +190,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  flutter_rating_bar:
+    dependency: "direct main"
+    description:
+      name: flutter_rating_bar
+      sha256: d2af03469eac832c591a1eba47c91ecc871fe5708e69967073c043b2d775ed93
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.1"
   flutter_staggered_grid_view:
     dependency: "direct main"
     description:

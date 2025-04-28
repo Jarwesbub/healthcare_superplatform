@@ -45,6 +45,10 @@ class EyesightComparisonChart extends StatelessWidget {
                 enabled: true,
                 touchTooltipData: BarTouchTooltipData(
                   getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                    String metricName = _getMetricName(
+                      group.x.toInt(),
+                      isKeratometry,
+                    );
                     String eyeSide =
                         rodIndex == 0
                             ? 'Left Eye'

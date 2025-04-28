@@ -25,8 +25,8 @@ class _NavigationBarState extends State<EyesightNavigationBar> {
           label: 'Play',
         ),
         BottomNavigationBarItem(
-          icon: Icon(FontAwesomeIcons.facebookMessenger),
-          label: 'Chat',
+          icon: Icon(FontAwesomeIcons.userDoctor),
+          label: 'Optic',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.account_circle),

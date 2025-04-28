@@ -11,11 +11,11 @@ class ExerciseButtonWidget extends StatelessWidget {
     super.key,
     required this.model,
     this.page,
-    this.onPageClosed,
+    this.setIsCompleted,
   });
   final ExerciseTaskModel model;
   final Widget? page;
-  final Function(int)? onPageClosed; // Called when the page is closed.
+  final Function(int)? setIsCompleted;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class ExerciseButtonWidget extends StatelessWidget {
         child: InkWell(
           onTap: () {
             if (page == null) {
-              debugPrint('Tapped ${model.name} button');
+              debugPrint('Tapped ${model.excercise} button');
               return;
             }
             Navigator.push(
@@ -45,19 +45,20 @@ class ExerciseButtonWidget extends StatelessWidget {
             ).then((_) {
               // Called when the page.
               debugPrint('Exercise completed!');
-              onPageClosed?.call(model.id);
+              setIsCompleted?.call(model.id);
             });
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      model.name,
+                      model.excercise,
                       textAlign: TextAlign.start,
                       style: EyesightTextStyle().miniHeader,
                     ),

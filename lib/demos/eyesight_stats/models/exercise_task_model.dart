@@ -6,16 +6,14 @@ import 'package:flutter/material.dart';
 class ExerciseTaskModel {
   ExerciseTaskModel({
     required this.id,
-    required this.name,
+    required this.excercise,
     required this.duration,
     required this.icon,
     required this.completionTime,
-    this.type,
   });
   final int id;
-  final String name; // Exercise name.
+  final String excercise; // Exercise name.
   final int duration; // Minutes.
   final IconData icon;
-  final String? type; // Exercise type. (rotation/horizontal)
   String completionTime;
 }

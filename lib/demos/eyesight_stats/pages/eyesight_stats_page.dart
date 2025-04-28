@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_score_utils.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mobile_appbar.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_table_widget.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/charts/simplified_visual_acuity_chart.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/charts/simplified_pressure_chart.dart';
@@ -42,10 +42,7 @@ class _EyesightStatsState extends State<EyesightStatsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: EyesightMobileAppBar(
-        title: 'My Eye Health',
-        isBackButtonVisible: true,
-      ),
+      appBar: EyesightAppBar(title: 'My Eye Health', isBackButtonVisible: true),
       backgroundColor: Colors.grey[50],
       body:
           data == null

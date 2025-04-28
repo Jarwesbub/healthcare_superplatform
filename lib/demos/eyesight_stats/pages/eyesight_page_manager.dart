@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_chatbot_page.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_doctor.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_home_page.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_play_page.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_web_appbar.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mobile_appbar.dart';
+import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_appbar.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_bottom_navbar.dart';
 
 class EyesightPageManager extends StatefulWidget {
@@ -18,7 +17,7 @@ class EyesightPageManager extends StatefulWidget {
 class _EyesightPageManagerState extends State<EyesightPageManager> {
   late Map<String, Widget> pageList;
   late bool isMobileView;
-  int currentPageIndex = 0;
+  int currentPage = 0;
 
   @override
   void initState() {
@@ -26,7 +25,7 @@ class _EyesightPageManagerState extends State<EyesightPageManager> {
     pageList = {
       'Home': EyesightHomePage(),
       'Play': EyesightPlayPage(),
-      'Chat': EyesightChatbotPage(),
+      'Doctor': EyesightDoctor(),
       'Profile': Center(child: const Text('Profile')),
     };
   }
@@ -37,20 +36,13 @@ class _EyesightPageManagerState extends State<EyesightPageManager> {
         MediaQuery.of(context).size.width < PageConstants.mobileViewLimit;
 
     return Scaffold(
-      appBar:
-          isMobileView
-              ? EyesightMobileAppBar(
-                title: 'Visionary Health',
-                isBackButtonVisible: false,
-              )
-              : EyesightWebAppBar(
-                buttonTitles: List.of(pageList.keys),
-                onButtonTap: onButtonTap,
-              ),
+      appBar: EyesightAppBar(
+        title: 'Visionary Health',
+        isBackButtonVisible: false,
+      ),
       backgroundColor: EyesightColors().surface,
-      body: pageList.values.elementAt(currentPageIndex),
-      bottomNavigationBar:
-          isMobileView ? EyesightNavigationBar(onButtonTap: onButtonTap) : null,
+      body: pageList.values.elementAt(currentPage),
+      bottomNavigationBar: EyesightNavigationBar(onButtonTap: onButtonTap),
     );
   }
 
@@ -58,7 +50,7 @@ class _EyesightPageManagerState extends State<EyesightPageManager> {
   void onButtonTap(int index) {
     debugPrint('Pressed navigation button $index');
     setState(() {
-      currentPageIndex = index;
+      currentPage = index;
     });
   }
 }

@@ -11,11 +11,11 @@ class ExerciseMiniButtonWidget extends StatelessWidget {
     super.key,
     required this.model,
     this.page,
-    this.onPageClosed,
+    this.setIsCompleted,
   });
   final ExerciseTaskModel model;
   final Widget? page;
-  final Function(int)? onPageClosed;
+  final Function(int)? setIsCompleted;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class ExerciseMiniButtonWidget extends StatelessWidget {
             ).then((_) {
               // Called when the page.
               debugPrint('Exercise completed!');
-              onPageClosed?.call(model.id);
+              setIsCompleted?.call(model.id);
             });
           },
           child: Padding(
@@ -77,7 +77,7 @@ class ExerciseMiniButtonWidget extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  model.name,
+                  model.excercise,
                   textAlign: TextAlign.start,
                   style: EyesightTextStyle().miniLabelSecondary,
                 ),
