@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healthcare_superplatform/data/page_constants.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
 import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mobile_appbar.dart';
 
@@ -129,33 +130,40 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage>
         isBackButtonVisible: true,
       ),
       backgroundColor: colors.surface,
-      body: Column(
-        children: [
-          Container(
-            color: colors.boxColor,
-            child: TabBar(
-              controller: _tabController,
-              labelColor: colors.customPrimary,
-              unselectedLabelColor: colors.textSecondary,
-              indicatorColor: colors.customPrimary,
-              tabs: const [
-                Tab(text: 'Latest Results'),
-                Tab(text: 'History'),
-                Tab(text: 'Prescription'),
-              ],
-            ),
+      body: Center(
+        child: ConstrainedBox(
+                constraints: BoxConstraints(
+          maxWidth: PageConstants.mobileViewLimit.toDouble(),
+        ),
+          child: Column(
+            children: [
+              Container(
+                color: colors.boxColor,
+                child: TabBar(
+                  controller: _tabController,
+                  labelColor: colors.customPrimary,
+                  unselectedLabelColor: colors.textSecondary,
+                  indicatorColor: colors.customPrimary,
+                  tabs: const [
+                    Tab(text: 'Latest Results'),
+                    Tab(text: 'History'),
+                    Tab(text: 'Prescription'),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    _buildLatestResults(),
+                    _buildTestHistory(),
+                    _buildPrescription(),
+                  ],
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                _buildLatestResults(),
-                _buildTestHistory(),
-                _buildPrescription(),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
