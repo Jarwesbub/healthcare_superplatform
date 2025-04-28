@@ -57,7 +57,6 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
     '1 Year',
     'All Time',
   ];
-  bool _showDetailedView = false;
   late final Map<String, List<EyesightData>> _eyesightData;
   late final EyesightColors colors = EyesightColors();
 
@@ -365,7 +364,7 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       _buildActionButton(
-                        'Placeholder',
+                        'Optical Results',
                         Icons.calendar_today,
                         () {
                           Navigator.push(
@@ -378,7 +377,7 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
                         },
                       ),
                       _buildActionButton(
-                        'Test Results',
+                        'Test History',
                         Icons.assignment,
                         () => _showTestHistorySheet(context),
                       ),

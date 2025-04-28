@@ -132,9 +132,9 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage>
       backgroundColor: colors.surface,
       body: Center(
         child: ConstrainedBox(
-                constraints: BoxConstraints(
-          maxWidth: PageConstants.mobileViewLimit.toDouble(),
-        ),
+          constraints: BoxConstraints(
+            maxWidth: PageConstants.mobileViewLimit.toDouble(),
+          ),
           child: Column(
             children: [
               Container(
@@ -161,6 +161,7 @@ class _OpticalTestResultsPageState extends State<OpticalTestResultsPage>
                   ],
                 ),
               ),
+              const SizedBox(height: 50), // Bottom padding.
             ],
           ),
         ),
