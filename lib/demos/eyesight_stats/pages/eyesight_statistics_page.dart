@@ -364,19 +364,15 @@ class _EyesightStatisticsPageState extends State<EyesightStatisticsPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      _buildActionButton(
-                        'Placeholder',
-                        Icons.calendar_today,
-                        () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => const OpticalTestResultsPage(),
-                            ),
-                          );
-                        },
-                      ),
+                      _buildActionButton('Details', Icons.calendar_today, () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) => const OpticalTestResultsPage(),
+                          ),
+                        );
+                      }),
                       _buildActionButton(
                         'Test Results',
                         Icons.assignment,
