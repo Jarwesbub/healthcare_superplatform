@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mobile_appbar.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/models/eyesight_colors.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/widgets/eyesight_mobile_appbar.dart';
 
 class OpticalTestResultsPage extends StatefulWidget {
   const OpticalTestResultsPage({super.key});

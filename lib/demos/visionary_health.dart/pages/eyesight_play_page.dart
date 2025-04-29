@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthcare_superplatform/data/exercise_data.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/models/exercise_task_model.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_text_style.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_exercise_page.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eye_movement_exercise_page.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_test_chart_page.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/exercise_button_widget.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/buttons/normal_page_button_widget.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/custom_circular_indicator.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/models/exercise_task_model.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/models/eyesight_colors.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/models/eyesight_text_style.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/pages/eye_exercise_page.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/pages/eye_movement_exercise_page.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/pages/vision_test_chart_page.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/widgets/buttons/exercise_button_widget.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/widgets/buttons/normal_page_button_widget.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/widgets/custom_circular_indicator.dart';
 import 'package:intl/intl.dart';
 
 class EyesightPlayPage extends StatefulWidget {

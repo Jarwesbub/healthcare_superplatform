@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/models/eyesight_colors.dart';
 
 class EyesightTextStyle {
   final title = TextStyle(

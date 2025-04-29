@@ -4,7 +4,7 @@ import 'package:bubble/bubble.dart';
 import 'package:dialogflow_flutter_plus/dialogflowFlutter.dart';
 import 'package:dialogflow_flutter_plus/googleAuth.dart';
 import 'package:dialogflow_flutter_plus/language.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/models/eyesight_colors.dart';
 import 'package:intl/intl.dart';
 
 class EyesightChatbotPage extends StatefulWidget {

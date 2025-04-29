@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/vision_score_utils.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mobile_appbar.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_table_widget.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/charts/simplified_visual_acuity_chart.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/charts/simplified_pressure_chart.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/charts/simplified_keratometry_chart.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/models/eyesight_colors.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/pages/vision_score_utils.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/widgets/eyesight_mobile_appbar.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/widgets/eyesight_table_widget.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/widgets/charts/simplified_visual_acuity_chart.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/widgets/charts/simplified_pressure_chart.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/widgets/charts/simplified_keratometry_chart.dart';
 
 class EyesightStatsPage extends StatefulWidget {
   const EyesightStatsPage({super.key});

@@ -1,6 +1,6 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:healthcare_superplatform/data/exercise_data_singleton.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/models/exercise_task_model.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/models/exercise_task_model.dart';
 
 // List of active exercises for the demonstration.
 // Saves completion times to the Singleton variable.

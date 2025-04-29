@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_chatbot_page.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_home_page.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_play_page.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_web_appbar.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mobile_appbar.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_bottom_navbar.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/models/eyesight_colors.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/pages/eyesight_chatbot_page.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/pages/eyesight_home_page.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/pages/eyesight_play_page.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/widgets/eyesight_web_appbar.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/widgets/eyesight_mobile_appbar.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/widgets/eyesight_bottom_navbar.dart';
 
 class EyesightPageManager extends StatefulWidget {
   const EyesightPageManager({super.key});

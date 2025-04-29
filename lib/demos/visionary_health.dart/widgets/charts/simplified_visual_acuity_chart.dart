@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_data_utils.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/charts/base_eyesight_chart.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/pages/eyesight_data_utils.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/widgets/charts/base_eyesight_chart.dart';
 
 class SimplifiedVisualAcuityChart extends BaseEyesightChart {
   const SimplifiedVisualAcuityChart({

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:healthcare_superplatform/data/page_constants.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/models/eyesight_colors.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/widgets/eyesight_mobile_appbar.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/optical_test_results_page.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/models/eyesight_colors.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/widgets/eyesight_mobile_appbar.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/pages/optical_test_results_page.dart';
 
 class EyesightApp extends StatelessWidget {
   const EyesightApp({super.key});

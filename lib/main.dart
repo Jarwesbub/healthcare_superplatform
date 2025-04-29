@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:healthcare_superplatform/demos/eyesight_stats/pages/eyesight_page_manager.dart';
+import 'package:healthcare_superplatform/demos/visionary_health.dart/pages/eyesight_page_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
